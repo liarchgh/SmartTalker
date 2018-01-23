@@ -1,61 +1,18 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="${relativePackage}.${activityClass}" >
+    android:id="@+id/chat_root"
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/chat_bottombar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#ff000000" >
-
-        <TextView
-            android:id="@+id/chat_bottombar_morefun"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:text="+"
-            android:textColor="#ffffff"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/chat_bottombar_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:text="Send"
-            android:textColor="#ffffff"
-            android:textSize="15sp" />
-
-        <EditText
-            android:id="@+id/chat_bottombar_sendingtext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_toLeftOf="@id/chat_bottombar_send"
-            android:layout_toRightOf="@id/chat_bottombar_morefun"
-            android:background="#ffffff"
-            android:hint="Texting here..."
-            android:padding="5dp"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-    </RelativeLayout>
+    
 
     <FrameLayout
         android:id="@+id/chat_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/chat_bottombar" >
+        android:layout_height="0dp"
+        android:background="#aabbcc"
+        android:layout_weight="1" >
 
         <ImageView
             android:layout_width="match_parent"
@@ -77,5 +34,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom" />
     </FrameLayout>
+    
+    <RelativeLayout
+        android:id="@+id/chat_bottombarfrag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ff55bbaa" >
+    </RelativeLayout>
 
-</RelativeLayout>
+	<fragment 
+        android:id="@+id/message_plus_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="248dp"
+        layout="@layout/activity_chat_menu"/>
+
+</LinearLayout>

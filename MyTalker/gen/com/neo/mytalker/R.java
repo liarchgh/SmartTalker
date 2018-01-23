@@ -24,16 +24,17 @@ public final class R {
         public static final int msg_op_bg=0x7f020007;
     }
     public static final class id {
-        public static final int chat_bottombar=0x7f070000;
-        public static final int chat_bottombar_morefun=0x7f070001;
-        public static final int chat_bottombar_send=0x7f070002;
-        public static final int chat_bottombar_sendingtext=0x7f070003;
-        public static final int chat_frame=0x7f070004;
+        public static final int chat_bottombar=0x7f070005;
+        public static final int chat_bottombar_morefun=0x7f070006;
+        public static final int chat_bottombar_send=0x7f070007;
+        public static final int chat_bottombar_sendingtext=0x7f070008;
+        public static final int chat_bottombarfrag=0x7f070003;
+        public static final int chat_frame=0x7f070001;
         public static final int chat_msg_topgradientbar=0x7f070009;
         public static final int chat_msglist=0x7f07000a;
-        public static final int chat_recordfrag=0x7f070005;
-        public static final int et=0x7f070008;
-        public static final int featureShowPages=0x7f070006;
+        public static final int chat_recordfrag=0x7f070002;
+        public static final int chat_root=0x7f070000;
+        public static final int featureShowPages=0x7f070004;
         public static final int imageShow=0x7f07000c;
         public static final int jumpBtn=0x7f070011;
         public static final int jump_main_buttons=0x7f070010;
@@ -42,14 +43,13 @@ public final class R {
         public static final int page_end_text=0x7f07000e;
         public static final int page_end_text_view=0x7f07000f;
         public static final int quit_app=0x7f070012;
-        public static final int tv=0x7f070007;
     }
     public static final class layout {
         public static final int activity_chat=0x7f030000;
         public static final int activity_feature=0x7f030001;
         public static final int activity_home=0x7f030002;
         public static final int activity_main=0x7f030003;
-        public static final int activity_test=0x7f030004;
+        public static final int fragment_chat_bar=0x7f030004;
         public static final int fragment_chat_record=0x7f030005;
         public static final int listpart_chat_record=0x7f030006;
         public static final int single_image=0x7f030007;
@@ -60,7 +60,6 @@ public final class R {
         public static final int hello_world=0x7f040001;
         public static final int title_activity_home=0x7f040002;
         public static final int title_activity_main=0x7f040004;
-        public static final int title_activity_test=0x7f040005;
     }
     public static final class style {
         /** 
