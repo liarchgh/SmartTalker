@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.util.Log;
+
 public class GetMusicUrl {
 	private final static String searchUrlPre = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.search.common&format=json&query={search}&page_no=1&page_size=30",
 			songNameHolder = "{search}",
@@ -30,6 +32,7 @@ public class GetMusicUrl {
 		String songId = null;
 		try {
 			songId = getSongId(songName);
+			Log.i("music", "id:"+songId);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -43,7 +43,6 @@ public class FeatureShowActivity extends Activity {
 		editor.putInt("count", 0);
 		editor.commit();
 		count = mSharedPreferences.getInt("count", 0);
-		Log.i("DHJ", String.valueOf(count));
 		/*************************************/
 
 		if(count == 0) {
