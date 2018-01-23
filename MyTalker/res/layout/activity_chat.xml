@@ -1,18 +1,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chat_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/chat_root"
-    android:orientation="vertical">
-
-    
+    android:orientation="vertical" >
 
     <FrameLayout
         android:id="@+id/chat_frame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#aabbcc"
-        android:layout_weight="1" >
+        android:layout_weight="1"
+        android:background="#aabbcc" >
 
         <ImageView
             android:layout_width="match_parent"
@@ -32,10 +30,9 @@
             android:id="@+id/chat_recordfrag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="bottom"/>
+            android:layout_gravity="bottom" />
     </FrameLayout>
-    
+
     <RelativeLayout
         android:id="@+id/chat_bottombarfrag"
         android:layout_width="match_parent"
@@ -43,10 +40,11 @@
         android:background="#ff55bbaa" >
     </RelativeLayout>
 
-<!-- 	<fragment 
+    <FrameLayout
         android:id="@+id/message_plus_fragment"
         android:layout_width="match_parent"
-        android:layout_height="248dp"
-        layout="@layout/activity_chat_menu"/> -->
+        android:layout_height="200dp"
+        android:visibility="gone" >
+    </FrameLayout>
 
 </LinearLayout>

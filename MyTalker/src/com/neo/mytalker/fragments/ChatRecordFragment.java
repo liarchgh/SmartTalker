@@ -28,7 +28,6 @@ public class ChatRecordFragment extends Fragment {
 	private Context mContext;
 	private ChatActivity mChatActivity;
 	private ChatRecordAdapter mChatRecordAdapter;
-	private ListView mChatRecordListView;
 	private static int LIST_MIN_PART_CNT = 2, LIST_MAX_PART_CNT = 4;
 	private boolean isMaximized = false, isScrolling = false;
 	public ChatRecordFragment(ChatActivity activity)
@@ -48,12 +47,12 @@ public class ChatRecordFragment extends Fragment {
 		if (mChatRecordData == null) {
 			mChatRecordData = new ArrayList<ChatRecordData>();
 		}
-//		InitChatCardData();
-		mChatRecordListView = (ListView) mRoot.findViewById(R.id.chat_msglist);
+		InitChatCardData();
+		ListView ls = (ListView) mRoot.findViewById(R.id.chat_msglist);
 		mChatRecordAdapter = new ChatRecordAdapter((Activity) mContext, mChatRecordData,
 				R.layout.listpart_chat_record);
-		mChatRecordListView.setAdapter(mChatRecordAdapter);
-		mChatRecordListView.setOnTouchListener(new OnTouchListener() {
+		ls.setAdapter(mChatRecordAdapter);
+		ls.setOnTouchListener(new OnTouchListener() {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -79,23 +78,11 @@ public class ChatRecordFragment extends Fragment {
 					return false;
 				} else {
 					switch (event.getAction()) {
-					case MotionEvent.ACTION_MOVE:
-						isScrolling = true;
-						//Log.i("ZX", "Move");
-						return true;
-					case MotionEvent.ACTION_CANCEL:
-						isScrolling=false;
-						return true;
-					case MotionEvent.ACTION_UP:
-						if(!isScrolling)
-						{
-							setListViewHeightBasedOnChildren((ListView) v, LIST_MAX_PART_CNT);
-							isMaximized = true;
-						}
-						isScrolling=false;
-						return true;
 					case MotionEvent.ACTION_SCROLL:
 						return true;
+					case MotionEvent.ACTION_UP:
+						setListViewHeightBasedOnChildren((ListView) v, LIST_MAX_PART_CNT);
+						isMaximized = true;
 					default:
 						break;
 					}
@@ -105,9 +92,8 @@ public class ChatRecordFragment extends Fragment {
 			}
 
 		});
-		isMaximized=false;
-		setListViewHeightBasedOnChildren(mChatRecordListView, LIST_MIN_PART_CNT);
-		mChatRecordListView.setOnItemClickListener(new OnItemClickListener() {
+		setListViewHeightBasedOnChildren(ls, LIST_MIN_PART_CNT);
+		ls.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -121,6 +107,7 @@ public class ChatRecordFragment extends Fragment {
 			}
 
 		});
+		Log.i("ZX", "setAdapter");
 	}
 
 	public void setListViewHeightBasedOnChildren(ListView listView, int cnt) {
@@ -130,20 +117,20 @@ public class ChatRecordFragment extends Fragment {
 		if (listAdapter == null) {
 			return;
 		}
+
 		int totalHeight = 0;
-		int listCnt=0;
-		for (int i = listAdapter.getCount() - 1; i >= (listAdapter.getCount() - cnt>0?listAdapter.getCount() - cnt:0); i--) {
+
+		for (int i = listAdapter.getCount() - 1; i > listAdapter.getCount() - 1 - cnt; i--) {
 			View listItem = listAdapter.getView(i, null, listView);
 			listItem.measure(0, 0);
 			totalHeight += listItem.getMeasuredHeight();
-			listCnt++;
 		}
 
 		ViewGroup.LayoutParams params = listView.getLayoutParams();
 
-		params.height = totalHeight + (listView.getDividerHeight() * (listCnt));
+		params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
 
-		// ((MarginLayoutParams) params).setMargins(10, 10, 10, 10); // О©╫О©╫и╬О©╫О©╫
+		// ((MarginLayoutParams) params).setMargins(10, 10, 10, 10); // ©ии╬ЁЩ
 
 		listView.setLayoutParams(params);
 	}
@@ -157,6 +144,7 @@ public class ChatRecordFragment extends Fragment {
 			tmp.isMe = (i / (int) (Math.random() * 100 + 1) % 2) == 0 ? true : false;
 			mChatRecordData.add(tmp);
 		}
+		Log.i("ZX", "Init");
 	}
 	
 	
@@ -174,6 +162,5 @@ public class ChatRecordFragment extends Fragment {
 		tmp.isMe = isMine;
 		mChatRecordData.add(tmp);
 		mChatRecordAdapter.notifyDataSetChanged();
-		setListViewHeightBasedOnChildren(mChatRecordListView, isMaximized?LIST_MAX_PART_CNT:LIST_MIN_PART_CNT);
 	}
 }
