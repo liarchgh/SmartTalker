@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 import com.google.gson.Gson;
 
-class ChatWithTR{
+public class ChatWithTROL{
     private final static String key = "e57f925d62cd4880b8cf1d688cfaa6f7";
 //     info = "今天天气怎么样"
     private static String loc = "哈尔滨市";
@@ -93,7 +93,7 @@ class ChatWithTR{
 	}
 
 	public static void setLoc(String loc) {
-		ChatWithTR.loc = loc;
+		ChatWithTROL.loc = loc;
 	}
 
 	class TRMessage{

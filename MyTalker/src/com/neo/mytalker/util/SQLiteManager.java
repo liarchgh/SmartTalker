@@ -68,6 +68,19 @@ public class SQLiteManager {
 		}
 	}
 	
+	//just text column
+	public void deleteItem(Map<String, String>limit) {
+		if(limit != null && limit.size() > 0) {
+			StringBuffer lim = new StringBuffer();
+			for(String colName : limit.keySet()) {
+				lim.append(" "+colName+"='"+limit.get(colName)+"'");
+			}
+			SQLiteManager.this.executeNotQuery("delete from "
+				+SQLiteManager.this.getTable()+" where "+lim.toString()
+			);
+		}
+	}
+	
 	public void updateItem(int id, Map<String, String>change) {
 		if(hasTable()) {
 			StringBuffer values = new StringBuffer();

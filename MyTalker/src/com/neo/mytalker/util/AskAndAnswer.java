@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.util.Log;
 
 public class AskAndAnswer {
 	private SQLiteManager sm = null;
@@ -32,12 +33,16 @@ public class AskAndAnswer {
 	public List<String> getAnswerByAsk(String ask) {
 		Map<String, String>limit = new HashMap<String, String>();
 		limit.put(askName, ask);
+Log.i("chat", "ask:"+ask);
 		List<Map<String,String>>items = AskAndAnswer.this.sm.executeQuery(limit);
 		List<String>answers = new ArrayList<String>();
 		for(Iterator<Map<String, String>>it = items.iterator();
 				it.hasNext(); ) {
 			answers.add(it.next().get(answerName));
 		}
+for(int i = 0; i < answers.size(); ++i) {
+Log.i("chat", "ans:"+answers.get(i));
+}
 		return answers;
 	}
 	
@@ -61,6 +66,12 @@ public class AskAndAnswer {
 	
 	public final void deleteAnswerById(int id) {
 		AskAndAnswer.this.sm.deleteItemById(id);
+	}
+
+	public final void deleteAnswerByAnswer(String answer) {
+		Map<String, String>limit = new HashMap<String, String>();
+		limit.put(answerName, answer);
+		AskAndAnswer.this.sm.deleteItem(limit);
 	}
 
 	public void showAll() {
