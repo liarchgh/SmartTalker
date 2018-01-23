@@ -10,15 +10,15 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 public class ChatWithTalker extends AsyncTask<String, Integer, String>{
-	private static final String ANSWER_NET_ERROR = "你的网线被人拔了！",
+	private static final String ANSWER_NET_ERROR = "网线被人拔了！\n∑(っ °Д °;)っ",
 		ANSWER_MUSIC_PLAY = "音乐酱来了\nO(∩_∩)O~~",
 		ANSWER_MUSIC_PLAY_NOT_FOUND = "找不到音乐酱了\n(╯﹏╰)",
-		ANSWER_MUSIC_STOP = "音乐酱跑掉了",
-		ANSWER_MUSIC_STOP_NO_MUSIC = "音乐酱早就走了",
-		ANSWER_MUSIC_CONTINUE = "音乐酱又回来了",
-		ANSWER_MUSIC_CONTINUE_IS_PLAYING = "音乐酱早就在了",
-		ANSWER_MUSIC_ERROR = "音乐酱出错了",
-		ANSWER_FEATURE_ERROR = "命令出错了";
+		ANSWER_MUSIC_STOP = "音乐酱跑掉了\n(｡˘•ε•˘｡)",
+		ANSWER_MUSIC_STOP_NO_MUSIC = "音乐酱早就走了\n(≡ω≡．)",
+		ANSWER_MUSIC_CONTINUE = "音乐酱又回来了\no(*≧▽≦)ツ",
+		ANSWER_MUSIC_CONTINUE_IS_PLAYING = "音乐酱早就在了\n(￣、￣)",
+		ANSWER_MUSIC_ERROR = "音乐酱出错了\n(┙>∧<)┙へ┻┻",
+		ANSWER_FEATURE_ERROR = "命令出错了\n(╬▔皿▔)";
 	public static final String FEATURE_MUSIC = "music#",
 		FEATURE_MUSIC_PLAY = "play#",
 		FEATURE_MUSIC_STOP = "stop",
