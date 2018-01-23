@@ -1,8 +1,6 @@
-/SmartCat/bin
-
-/test/bin
-
-/.metadata
-/.recommenders
-
-/RemoteSystemsTempFile
+/SmartCat/bin/
+/test/bin/
+/MyTalker/bin/
+/.metadata/
+/.recommenders/
+/RemoteSystemsTempFiles/

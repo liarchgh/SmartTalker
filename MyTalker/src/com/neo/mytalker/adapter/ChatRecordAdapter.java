@@ -3,7 +3,7 @@ package com.neo.mytalker.adapter;
 import java.util.ArrayList;
 
 import com.neo.mytalker.R;
-import com.neo.mytalker.impl.ChatRecordData;
+import com.neo.mytalker.entity.ChatRecordData;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -73,32 +73,34 @@ public class ChatRecordAdapter extends BaseAdapter {
 	{
 		float dp2px= context.getResources().getDisplayMetrics().density;
 		ViewHolder vh=(ViewHolder) convertView.getTag();
-		if(al.get(position).isMe)
-		{
-			
-			RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-//			lp.addRule(RelativeLayout.LEFT_OF,R.id.msg_part_headicon);
-			lp.setMargins((int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px));
-			lp.addRule(RelativeLayout.ALIGN_PARENT_END);
-			vh.tv_msg.setLayoutParams(lp);
-			vh.tv_msg.setBackgroundResource(R.drawable.msg_bg);
-//			RelativeLayout.LayoutParams lp2=new RelativeLayout.LayoutParams((int)(40*dp2px),(int)(40*dp2px));
-//			lp2.addRule(RelativeLayout.ALIGN_PARENT_END);
-//			lp2.setMargins((int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px));
-//			vh.tv_head.setLayoutParams(lp2);
-		}else {
-			RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-//			lp.addRule(RelativeLayout.RIGHT_OF,R.id.msg_part_headicon);
-			lp.setMargins((int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px));
-			lp.addRule(RelativeLayout.ALIGN_PARENT_START);
-			vh.tv_msg.setLayoutParams(lp);
-			vh.tv_msg.setBackgroundResource(R.drawable.msg_op_bg);
-//			RelativeLayout.LayoutParams lp2=new RelativeLayout.LayoutParams((int)(40*dp2px),(int)(40*dp2px));
-//			lp2.addRule(RelativeLayout.ALIGN_PARENT_START);
-//			lp2.setMargins((int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px));
-//			vh.tv_head.setLayoutParams(lp2);
+		if(al.size() > 0) {
+			if(al.get(position).isMe)
+			{
+				
+				RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+	//			lp.addRule(RelativeLayout.LEFT_OF,R.id.msg_part_headicon);
+				lp.setMargins((int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px));
+				lp.addRule(RelativeLayout.ALIGN_PARENT_END);
+				vh.tv_msg.setLayoutParams(lp);
+				vh.tv_msg.setBackgroundResource(R.drawable.msg_bg);
+	//			RelativeLayout.LayoutParams lp2=new RelativeLayout.LayoutParams((int)(40*dp2px),(int)(40*dp2px));
+	//			lp2.addRule(RelativeLayout.ALIGN_PARENT_END);
+	//			lp2.setMargins((int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px));
+	//			vh.tv_head.setLayoutParams(lp2);
+			}else {
+				RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+	//			lp.addRule(RelativeLayout.RIGHT_OF,R.id.msg_part_headicon);
+				lp.setMargins((int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px));
+				lp.addRule(RelativeLayout.ALIGN_PARENT_START);
+				vh.tv_msg.setLayoutParams(lp);
+				vh.tv_msg.setBackgroundResource(R.drawable.msg_op_bg);
+	//			RelativeLayout.LayoutParams lp2=new RelativeLayout.LayoutParams((int)(40*dp2px),(int)(40*dp2px));
+	//			lp2.addRule(RelativeLayout.ALIGN_PARENT_START);
+	//			lp2.setMargins((int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px));
+	//			vh.tv_head.setLayoutParams(lp2);
+			}
+			vh.tv_msg.setText(al.get(position).msg);
 		}
-		vh.tv_msg.setText(al.get(position).msg);
 	}
 	class ViewHolder
 	{
