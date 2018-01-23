@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.neo.mytalker.R;
+import com.neo.mytalker.activity.ChatActivity;
 import com.neo.mytalker.adapter.ChatRecordAdapter;
-import com.neo.mytalker.impl.ChatRecordData;
+import com.neo.mytalker.entity.ChatRecordData;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,9 +26,14 @@ public class ChatRecordFragment extends Fragment {
 	private ArrayList<ChatRecordData> mChatRecordData;
 	private View mRoot;
 	private Context mContext;
+	private ChatActivity mChatActivity;
+	private ChatRecordAdapter mChatRecordAdapter;
 	private static int LIST_MIN_PART_CNT = 2, LIST_MAX_PART_CNT = 4;
 	private boolean isMaximized = false, isScrolling = false;
-
+	public ChatRecordFragment(ChatActivity activity)
+	{
+		mChatActivity=activity;
+	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -43,9 +49,9 @@ public class ChatRecordFragment extends Fragment {
 		}
 		InitChatCardData();
 		ListView ls = (ListView) mRoot.findViewById(R.id.chat_msglist);
-		ChatRecordAdapter ba = new ChatRecordAdapter((Activity) mContext, mChatRecordData,
+		mChatRecordAdapter = new ChatRecordAdapter((Activity) mContext, mChatRecordData,
 				R.layout.listpart_chat_record);
-		ls.setAdapter(ba);
+		ls.setAdapter(mChatRecordAdapter);
 		ls.setOnTouchListener(new OnTouchListener() {
 
 			@Override
@@ -139,5 +145,22 @@ public class ChatRecordFragment extends Fragment {
 			mChatRecordData.add(tmp);
 		}
 		Log.i("ZX", "Init");
+	}
+	
+	
+	@Override
+	public View getView() {
+		// TODO Auto-generated method stub
+		return mRoot;
+	}
+	
+	public void AddRecord(boolean isMine,String content)
+	{
+		ChatRecordData tmp = new ChatRecordData();
+		tmp.msg = content;
+		tmp.time = new Date().getTime();
+		tmp.isMe = isMine;
+		mChatRecordData.add(tmp);
+		mChatRecordAdapter.notifyDataSetChanged();
 	}
 }

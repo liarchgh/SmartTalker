@@ -3,7 +3,7 @@ package com.neo.mytalker.adapter;
 import java.util.ArrayList;
 
 import com.neo.mytalker.R;
-import com.neo.mytalker.impl.ChatRecordData;
+import com.neo.mytalker.entity.ChatRecordData;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
