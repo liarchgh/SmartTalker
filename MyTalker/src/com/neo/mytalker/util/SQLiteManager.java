@@ -112,7 +112,6 @@ public class SQLiteManager {
 
 	//item为表中的一项，Map中键为列名
 	public void insertItem(Map<String,String>item) {
-		Log.i("data base", "insert");
 		if(hasTable()) {
 			StringBuffer keys = new StringBuffer(),
 				values = new StringBuffer();
@@ -176,14 +175,12 @@ public class SQLiteManager {
 	public void showAll() {
 		if(hasTable()) {
 			List<Map<String, String>>res = SQLiteManager.this.executeQuery(null);
-			Log.i("data base", "ans size:"+res.size());
 			for(Iterator<Map<String, String>> it = res.iterator(); it.hasNext();) {
 				String ans = ">>>>>>>>";
 				Map<String, String> tb = it.next();
 				for(String key : tb.keySet()) {
 					ans += "\n"+key+":"+tb.get(key);
 				}
-				Log.i("data base", ans);
 			}
 		}
 	}

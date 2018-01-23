@@ -63,11 +63,12 @@ public final class R {
         public static final int activity_feature=0x7f030002;
         public static final int activity_home=0x7f030003;
         public static final int activity_main=0x7f030004;
-        public static final int fragment_chat_bar=0x7f030005;
-        public static final int fragment_chat_record=0x7f030006;
-        public static final int listpart_chat_record=0x7f030007;
-        public static final int message_function_layout=0x7f030008;
-        public static final int single_image=0x7f030009;
+        public static final int activity_test=0x7f030005;
+        public static final int fragment_chat_bar=0x7f030006;
+        public static final int fragment_chat_record=0x7f030007;
+        public static final int listpart_chat_record=0x7f030008;
+        public static final int message_function_layout=0x7f030009;
+        public static final int single_image=0x7f03000a;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
@@ -76,6 +77,7 @@ public final class R {
         public static final int title_activity_chat_menu_fragment=0x7f040005;
         public static final int title_activity_home=0x7f040002;
         public static final int title_activity_main=0x7f040004;
+        public static final int title_activity_test=0x7f040006;
     }
     public static final class style {
         /** 

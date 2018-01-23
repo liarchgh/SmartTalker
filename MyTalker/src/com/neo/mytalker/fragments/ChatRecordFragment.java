@@ -79,11 +79,23 @@ public class ChatRecordFragment extends Fragment {
 					return false;
 				} else {
 					switch (event.getAction()) {
-					case MotionEvent.ACTION_SCROLL:
+					case MotionEvent.ACTION_MOVE:
+						isScrolling = true;
+						//Log.i("ZX", "Move");
+						return true;
+					case MotionEvent.ACTION_CANCEL:
+						isScrolling=false;
 						return true;
 					case MotionEvent.ACTION_UP:
-						setListViewHeightBasedOnChildren((ListView) v, LIST_MAX_PART_CNT);
-						isMaximized = true;
+						if(!isScrolling)
+						{
+							setListViewHeightBasedOnChildren((ListView) v, LIST_MAX_PART_CNT);
+							isMaximized = true;
+						}
+						isScrolling=false;
+						return true;
+					case MotionEvent.ACTION_SCROLL:
+						return true;
 					default:
 						break;
 					}
@@ -93,6 +105,7 @@ public class ChatRecordFragment extends Fragment {
 			}
 
 		});
+		isMaximized=false;
 		setListViewHeightBasedOnChildren(mChatRecordListView, LIST_MIN_PART_CNT);
 		mChatRecordListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -108,7 +121,6 @@ public class ChatRecordFragment extends Fragment {
 			}
 
 		});
-		Log.i("ZX", "setAdapter");
 	}
 
 	public void setListViewHeightBasedOnChildren(ListView listView, int cnt) {
@@ -118,7 +130,6 @@ public class ChatRecordFragment extends Fragment {
 		if (listAdapter == null) {
 			return;
 		}
-		Log.i("ABC",""+listAdapter.getCount());
 		int totalHeight = 0;
 		int listCnt=0;
 		for (int i = listAdapter.getCount() - 1; i >= (listAdapter.getCount() - cnt>0?listAdapter.getCount() - cnt:0); i--) {
@@ -146,7 +157,6 @@ public class ChatRecordFragment extends Fragment {
 			tmp.isMe = (i / (int) (Math.random() * 100 + 1) % 2) == 0 ? true : false;
 			mChatRecordData.add(tmp);
 		}
-		Log.i("ZX", "Init");
 	}
 	
 	
