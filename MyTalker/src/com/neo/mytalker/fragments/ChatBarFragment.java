@@ -1,7 +1,10 @@
 package com.neo.mytalker.fragments;
 
+import java.util.concurrent.ExecutionException;
+
 import com.neo.mytalker.R;
 import com.neo.mytalker.activity.ChatActivity;
+import com.neo.mytalker.util.ChatWithTalker;
 
 import android.support.v4.app.Fragment;
 import android.content.Context;
@@ -57,11 +60,26 @@ public class ChatBarFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				//get string to send to TR
 				String tmp=mText.getText().toString();
 				if(!tmp.equals(""))
 				{
 					mChatRecFrag.AddRecord(true, tmp);
 					mText.setText("");
+					//to receive from TR
+					
+					//TODO:Modify the result to update
+					String result = "";
+					try {
+						result = new ChatWithTalker(mContext, 0, tmp).execute().get();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					mChatRecFrag.AddRecord(false,result);
 				}else {
 					Toast.makeText(mChatActivity, "Type to continue...", Toast.LENGTH_SHORT).show();
 				}
