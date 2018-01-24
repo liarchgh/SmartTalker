@@ -46,7 +46,7 @@ public class ChatRulesAdapter extends BaseAdapter {
 	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
-		return position;
+		return mChatDialogEntityList.get(position).getId();
 	}
 
 	@Override

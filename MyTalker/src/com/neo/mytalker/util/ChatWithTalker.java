@@ -30,7 +30,6 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		//最后应该返回的回答
 		String ans = null;
 
-
 		//随机数 用于查询到多个时随机选取
 		Random rd = new Random();
 
@@ -43,8 +42,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 			ChatRulesManager crm = new ChatRulesManager(context, userId);
 
 			//查询规则 获取结果
-			List<String>anss = new ChatRulesManager(context, userId)
-					.getRuleByAsk(ask);
+			List<String>anss = crm.getRuleByAsk(ask);
 			
 			//判断是否可以使用规则
 			if(anss != null && anss.size() > 0) {

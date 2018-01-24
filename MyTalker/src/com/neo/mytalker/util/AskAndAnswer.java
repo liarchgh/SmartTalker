@@ -38,12 +38,11 @@ public class AskAndAnswer {
 	public void init(Context context, int userId, String dataBaseName) {
 		// TODO Auto-generated constructor stub
 		this.dataBaseName = dataBaseName;
-		AskAndAnswer.this.userId = "user"+userId;
-		AskAndAnswer.this.sm =
-			new SQLiteManager(context.getFilesDir().getPath(),
-			dataBaseName, AskAndAnswer.this.userId
+		this.userId = "user"+userId;
+		this.sm = new SQLiteManager(context.getFilesDir().getPath(),
+			dataBaseName, this.userId
 		);
-		if(!AskAndAnswer.this.sm.hasTable()) {
+		if(!sm.hasTable()) {
 			Map<String, String>cols = new HashMap<String, String>();
 			cols.put(askName, SQLiteManager.COL_TYPE_TEXT);
 			cols.put(answerName, SQLiteManager.COL_TYPE_INTEGER);
@@ -60,7 +59,7 @@ public class AskAndAnswer {
 	public List<String> getAnswerByAsk(String ask) {
 		Map<String, String>limit = new HashMap<String, String>();
 		limit.put(askName, ask);
-		List<Map<String,String>>items = AskAndAnswer.this.sm.queryByLimit(limit);
+		List<Map<String,String>>items = this.sm.queryByLimit(limit);
 		List<String>answers = new ArrayList<String>();
 		for(Iterator<Map<String, String>>it = items.iterator();
 				it.hasNext(); ) {

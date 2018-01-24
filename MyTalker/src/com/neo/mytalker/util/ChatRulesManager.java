@@ -34,7 +34,11 @@ public class ChatRulesManager extends AskAndAnswer{
 
 	//传入用户说的话，查询之前规则
 	public List<String> getRuleByAsk(String ask) {
-		return super.getAnswerByAsk(ask);
+		return getAnswerByAsk(ask);
+	}
+	
+	public List<Map<String, String>>getAllRules(){
+		return getHistory(-1, (int)1e9);
 	}
 	
 //	public void showAll() {
