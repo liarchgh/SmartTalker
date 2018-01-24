@@ -54,6 +54,7 @@ public class ChatRecordFragment extends Fragment {
 		if (mChatRecordData == null) {
 			mChatRecordData = new ArrayList<ChatRecordData>();
 		}
+		queryHistory();
 		mChatRecordListView = (ListView) mRoot.findViewById(R.id.chat_msglist);
 		mChatRecordAdapter = new ChatRecordAdapter((Activity) mContext, mChatRecordData,
 				R.layout.listpart_chat_record);

@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
+import com.neo.mytalker.fragments.ChatRecordFragment;
+
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class ChatWithTalker extends AsyncTask<String, Integer, String>{
+public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 	private static final String ANSWER_NET_ERROR = "网线被人拔了！\n∑(っ °Д °;)っ",
 		ANSWER_MUSIC_PLAY = "音乐酱来了\nO(∩_∩)O~~",
 		ANSWER_MUSIC_PLAY_NOT_FOUND = "找不到音乐酱了\n(╯﹏╰)",
@@ -181,11 +183,13 @@ Log.i("music", "stop when play");
 	private Context context = null;
 	private int userId = 0;
 	private String ask = null;
-	public ChatWithTalker(Context context, int userId, String ask) {
+	private ChatRecordFragment mChatRecFrag;
+	public ChatWithTalker(ChatRecordFragment mChatRecFrag, Context context, int userId, String ask) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.userId = userId;
 		this.ask = ask;
+		this.mChatRecFrag = mChatRecFrag;
 		init();
 	}
 	
@@ -196,7 +200,7 @@ Log.i("music", "stop when play");
 	}
 	
 	@Override
-	protected String doInBackground(String... params) {
+	protected String doInBackground(Void... params) {
 		// TODO Auto-generated method stub
 		return chat(context, userId, ask);
 	}
@@ -208,6 +212,7 @@ Log.i("music", "stop when play");
 	@Override
 	protected void onPostExecute(String result) {
 		// TODO Auto-generated method stub
+		mChatRecFrag.AddRecord(false, result);
 		super.onPostExecute(result);
 	}
 }
