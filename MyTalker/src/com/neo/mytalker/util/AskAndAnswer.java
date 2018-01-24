@@ -17,7 +17,7 @@ public class AskAndAnswer {
 	//用户ID，区分不同用户，同时作为表名组成部分
 	private String userId;
 	//表中列名
-	private static final String askName = "ask",
+	public static final String askName = "ask",
 		answerName = "answer";
 	
 	public AskAndAnswer(Context context, int userId) {
@@ -29,17 +29,22 @@ public class AskAndAnswer {
 		);
 		if(!AskAndAnswer.this.sm.hasTable()) {
 			Map<String, String>cols = new HashMap<String, String>();
-			cols.put(askName, SQLiteManager.ColTypeText);
-			cols.put(answerName, SQLiteManager.ColTypeText);
+			cols.put(askName, SQLiteManager.COL_TYPE_TEXT);
+			cols.put(answerName, SQLiteManager.COL_TYPE_INTEGER);
 			this.sm.createTable(cols);
 		}
+	}
+
+	//根据Id查询之前若干个历史记录
+	public List<Map<String, String>> getHistory(int id, int number) {
+		return AskAndAnswer.this.sm.queryConsequent(id, number);
 	}
 	
 	//传入用户说的话，获取反馈
 	public List<String> getAnswerByAsk(String ask) {
 		Map<String, String>limit = new HashMap<String, String>();
 		limit.put(askName, ask);
-		List<Map<String,String>>items = AskAndAnswer.this.sm.executeQuery(limit);
+		List<Map<String,String>>items = AskAndAnswer.this.sm.queryById(limit);
 		List<String>answers = new ArrayList<String>();
 		for(Iterator<Map<String, String>>it = items.iterator();
 				it.hasNext(); ) {

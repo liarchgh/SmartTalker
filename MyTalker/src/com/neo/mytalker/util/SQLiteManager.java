@@ -17,8 +17,9 @@ public class SQLiteManager {
 	private SQLiteDatabase db = null;
 	private String table = null;
 	
-	public static String ColTypeText = "text";
-	public static String ColTypeInteger = "Integer";
+	public static final String COL_TYPE_TEXT = "text";
+	public static final String COL_TYPE_INTEGER = "Integer";
+	public static final String COL_NAME_ID = "id";
 
 	public String getTable() {
 		return table;
@@ -137,7 +138,7 @@ public class SQLiteManager {
 	}
 
 	//查询表 limit为限制条件，键为列名,若为空则查询所有
-	public List<Map<String, String>> executeQuery(Map<String, String>limit) {
+	public List<Map<String, String>> queryById(Map<String, String>limit) {
 		List<Map<String, String>>bs = new ArrayList<Map<String,String>>();
 		if(hasTable()) {
 			Cursor cs = db.query(table, null, null, null, null, null, null);
@@ -174,7 +175,7 @@ public class SQLiteManager {
 
 	public void showAll() {
 		if(hasTable()) {
-			List<Map<String, String>>res = SQLiteManager.this.executeQuery(null);
+			List<Map<String, String>>res = SQLiteManager.this.queryById(null);
 			for(Iterator<Map<String, String>> it = res.iterator(); it.hasNext();) {
 				String ans = ">>>>>>>>";
 				Map<String, String> tb = it.next();
@@ -183,6 +184,40 @@ public class SQLiteManager {
 				}
 			}
 		}
+	}
+
+	//从某id开始向上查询若干条(id的那条不返回)
+	public List<Map<String, String>> queryConsequent(int id, int number) {
+		List<Map<String, String>>bs = new ArrayList<Map<String,String>>();
+		if(SQLiteManager.this.hasTable()) {
+			Cursor cs = db.query(table, null, null, null, null, null, null);
+			if(cs.moveToLast()) {
+				Map<String, String> bd = null;
+				
+				if(id >= 0) {
+					while(cs.getInt(cs.getColumnIndex(
+						SQLiteManager.COL_NAME_ID)) != id
+						&& cs.moveToPrevious()) {
+						
+					}
+					
+					if(!cs.moveToPrevious()) {
+						return bs;
+					}
+				}
+				
+				for(int j = 0; j < number && cs.moveToPrevious(); ++j){
+					bd = new HashMap<String, String>();
+					for(int i = 0; i < cs.getColumnCount(); ++i) {
+						String key = cs.getColumnName(i),
+							value = cs.getString(i);
+						bd.put(key, value);
+					}
+					bs.add(bd);
+				}
+			}
+		}
+		return bs;
 	}
 
 	public void createTable(Map<String, String>cols) {

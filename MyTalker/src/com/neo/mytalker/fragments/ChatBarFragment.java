@@ -6,9 +6,9 @@ import com.neo.mytalker.R;
 import com.neo.mytalker.activity.ChatActivity;
 import com.neo.mytalker.util.ChatWithTalker;
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -69,17 +69,7 @@ public class ChatBarFragment extends Fragment {
 					//to receive from TR
 					
 					//TODO:Modify the result to update
-					String result = "";
-					try {
-						result = new ChatWithTalker(mContext, 0, tmp).execute().get();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ExecutionException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					mChatRecFrag.AddRecord(false,result);
+					new ChatWithTalker(mChatRecFrag, mContext, 0, tmp).execute();
 				}else {
 					Toast.makeText(mChatActivity, "Type to continue...", Toast.LENGTH_SHORT).show();
 				}
