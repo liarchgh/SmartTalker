@@ -1,6 +1,4 @@
-package com.neo.mytalker.fragments;
-
-import java.util.concurrent.ExecutionException;
+﻿package com.neo.mytalker.fragments;
 
 import com.neo.mytalker.R;
 import com.neo.mytalker.activity.ChatActivity;
@@ -18,11 +16,15 @@ import android.widget.Toast;
 
 public class ChatBarFragment extends Fragment {
 
-	private View mRoot;
+	private View mRoot, mChatActivityView;
 	private Context mContext;
 	private TextView mMore,mSend,mText;
 	private ChatActivity mChatActivity;
 	private ChatRecordFragment mChatRecFrag;
+	private ChatMenuFragment mChatMenuFragment;
+	private LayoutInflater mLayoutInflater;
+	private ViewGroup mChatActivityViewGroup;
+
 	public ChatBarFragment(ChatActivity activity)
 	{
 		mChatActivity=activity;
@@ -31,6 +33,8 @@ public class ChatBarFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 
+			mLayoutInflater = inflater;
+			mChatActivityView = inflater.inflate(R.layout.activity_chat, null, false);
 			mRoot = inflater.inflate(R.layout.fragment_chat_bar, container, false);
 			mContext = container.getContext();
 			InitBarBtns();
@@ -44,12 +48,19 @@ public class ChatBarFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(mChatActivity.findViewById(R.id.message_plus_fragment).getVisibility() == View.GONE) {
+					mChatActivity.findViewById(R.id.message_plus_fragment).setVisibility(View.VISIBLE);
+					Toast.makeText(mContext, "GONE", Toast.LENGTH_LONG).show();
+				}else {
+					mChatActivity.findViewById(R.id.message_plus_fragment).setVisibility(View.GONE);
+					Toast.makeText(mContext, "VISIBLE", Toast.LENGTH_LONG).show();
+				}
 				
 			}
 		
 		});
 		
-		
+		mChatMenuFragment=mChatActivity.mChatMenuFragment;
 		
 		mText=(TextView) mRoot.findViewById(R.id.chat_bottombar_sendingtext);
 		
@@ -76,7 +87,6 @@ public class ChatBarFragment extends Fragment {
 			}
 		
 		});
-		
 	}
 	@Override
 	public View getView() {

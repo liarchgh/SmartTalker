@@ -1,4 +1,4 @@
-package com.neo.mytalker.fragments;
+﻿package com.neo.mytalker.fragments;
 
 import java.util.ArrayList;
 import java.util.Date;

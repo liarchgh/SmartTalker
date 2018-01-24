@@ -1,4 +1,4 @@
-package com.neo.mytalker.opengl;
+ï»¿package com.neo.mytalker.opengl;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
@@ -24,7 +24,7 @@ public class ChatAvatarSurfaceView extends GLSurfaceView {
             // data
             //setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
 
-            // ×¢ÒâÉÏÃæÓï¾äµÄË³Ğò£¬·´ÁË¿ÉÄÜ»á³ö´í
+            // æ³¨æ„ä¸Šé¢è¯­å¥çš„é¡ºåºï¼Œåäº†å¯èƒ½ä¼šå‡ºé”™
 
         }
         catch (Exception e)
