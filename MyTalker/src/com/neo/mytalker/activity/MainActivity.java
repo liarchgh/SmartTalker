@@ -1,4 +1,4 @@
-package com.neo.mytalker.activity;
+﻿package com.neo.mytalker.activity;
 
 import java.util.Timer;
 import java.util.TimerTask;

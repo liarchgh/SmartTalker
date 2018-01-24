@@ -1,4 +1,4 @@
-package com.neo.mytalker.activity;
+ï»¿package com.neo.mytalker.activity;
 
 import com.neo.mytalker.R;
 import com.neo.mytalker.fragments.ChatBarFragment;
@@ -57,9 +57,9 @@ public class ChatActivity extends FragmentActivity implements OnLayoutChangeList
 			int oldBottom) {
 		// TODO Auto-generated method stub
 		if(bottom != 0 && oldBottom != 0 && oldBottom-bottom > mkeyHeight) {
-			Toast.makeText(this, "¼üÅÌµ¯Æğ", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "é”®ç›˜å¼¹èµ·", Toast.LENGTH_SHORT).show();
 		}else if(bottom != 0 && oldBottom != 0 && bottom-oldBottom > mkeyHeight){
-			Toast.makeText(this, "¼üÅÌÊÕÆğ", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "é”®ç›˜æ”¶èµ·", Toast.LENGTH_SHORT).show();
 		}
 	}
 

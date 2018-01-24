@@ -1,18 +1,22 @@
-package com.neo.mytalker.fragments;
+锘縫ackage com.neo.mytalker.fragments;
 
 import java.util.ArrayList;
 
 import com.neo.mytalker.R;
 import com.neo.mytalker.R.drawable;
 import com.neo.mytalker.activity.ChatActivity;
+import com.neo.mytalker.activity.ChatRulesActivity;
 import com.neo.mytalker.activity.MainActivity;
 import com.neo.mytalker.adapter.ChatMenuAdapter;
 import com.neo.mytalker.adapter.ChatMenuPageAdapter;
 import com.neo.mytalker.entity.MenuFunctionItem;
+import com.neo.mytalker.myinterface.CustomDialog;
+import com.neo.mytalker.myinterface.CustomDialog.Builder;
 import com.neo.mytalker.myinterface.FunctionOnClickListener;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -46,13 +50,14 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener{
 	ArrayList<ImageView> mPointViews;
 	LinearLayout mLayoutPoint;
 	ViewPager mViewPager;
-	int current;//当前的point
+	int current;//褰撳墠鐨刾oint
 	OnPageChangeListener mOnPageChangeListener;
 	FunctionOnClickListener mFunctionOnClickListener;
 	ViewGroup mViewGroup;
 	Context mContext;
 	ChatActivity mChatActivity;
-
+	Intent intent;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -75,7 +80,7 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener{
 		int[] funImgId = new int[] {R.drawable.ic_launcher,
 				R.drawable.ic_launcher, R.drawable.ic_launcher,
 				R.drawable.ic_launcher};
-		String[] funName = new String[] {"规则管理","音乐搜索","使用帮助","系统设置"};
+		String[] funName = new String[] {"瑙勫垯绠＄悊","闊充箰鎼滅储","浣跨敤甯姪","绯荤粺璁剧疆"};
 		for(int i = 0; i<4; i++) {
 			MenuFunctionItem entity = new MenuFunctionItem();
 			entity.setIcon(funImgId[i]);
@@ -103,7 +108,7 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener{
 		mChatMenuAdapterList = new ArrayList<ChatMenuAdapter>();
 		for(int i = 0; i<mFunctionListItemList.size(); i++) {
 			mGridView = new GridView(mContext);
-	//		mGridView.setOnItemClickListener(this);
+			mGridView.setOnItemClickListener(this);
 			mGridView.setNumColumns(4);
 			mGridView.setBackgroundColor(Color.TRANSPARENT);
 			mGridView.setHorizontalSpacing(1);
@@ -198,11 +203,11 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 		MenuFunctionItem item = mFunctionListItemList.get(current).get(position);
-		if(mFunctionOnClickListener != null) {
-			mFunctionOnClickListener.onClick(item);
-		}
 		switch(position) {
 			case 0:
+				intent = new Intent();
+				intent.setClass(mContext, ChatRulesActivity.class);
+				startActivity(intent);
 				break;
 			case 1:
 				break;

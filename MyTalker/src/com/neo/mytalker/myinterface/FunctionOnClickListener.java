@@ -1,4 +1,4 @@
-package com.neo.mytalker.myinterface;
+﻿package com.neo.mytalker.myinterface;
 
 import com.neo.mytalker.entity.MenuFunctionItem;
 

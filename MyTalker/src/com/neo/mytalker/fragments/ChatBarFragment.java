@@ -1,11 +1,12 @@
-package com.neo.mytalker.fragments;
+﻿package com.neo.mytalker.fragments;
 
 import com.neo.mytalker.R;
 import com.neo.mytalker.activity.ChatActivity;
+import com.neo.mytalker.util.ChatWithTalker;
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,8 +24,7 @@ public class ChatBarFragment extends Fragment {
 	private ChatMenuFragment mChatMenuFragment;
 	private LayoutInflater mLayoutInflater;
 	private ViewGroup mChatActivityViewGroup;
-	
-	
+
 	public ChatBarFragment(ChatActivity activity)
 	{
 		mChatActivity=activity;
@@ -32,8 +32,7 @@ public class ChatBarFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-			
-			
+
 			mLayoutInflater = inflater;
 			mChatActivityView = inflater.inflate(R.layout.activity_chat, null, false);
 			mRoot = inflater.inflate(R.layout.fragment_chat_bar, container, false);
@@ -72,19 +71,22 @@ public class ChatBarFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				//get string to send to TR
 				String tmp=mText.getText().toString();
-				mChatActivity.findViewById(R.id.message_plus_fragment).setVisibility(View.GONE);
 				if(!tmp.equals(""))
 				{
 					mChatRecFrag.AddRecord(true, tmp);
 					mText.setText("");
+					//to receive from TR
+					
+					//TODO:Modify the result to update
+					new ChatWithTalker(mChatRecFrag, mContext, 0, tmp).execute();
 				}else {
 					Toast.makeText(mChatActivity, "Type to continue...", Toast.LENGTH_SHORT).show();
 				}
 			}
 		
 		});
-		
 	}
 	@Override
 	public View getView() {

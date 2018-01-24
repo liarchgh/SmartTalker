@@ -1,4 +1,4 @@
-package com.neo.mytalker.opengl;
+﻿package com.neo.mytalker.opengl;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

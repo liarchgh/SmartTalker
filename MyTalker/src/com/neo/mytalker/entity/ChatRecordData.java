@@ -1,4 +1,4 @@
-package com.neo.mytalker.entity;
+﻿package com.neo.mytalker.entity;
 
 import java.io.Serializable;
 

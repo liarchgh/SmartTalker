@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">MyTalker</string>
@@ -6,6 +6,6 @@
     <string name="title_activity_home">Home</string>
     <string name="create_title">softwarename by team</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_chat_rules">ChatRulesActivity</string>
     <string name="title_activity_chat_menu_fragment">ChatMenuFragment</string>
-
 </resources>

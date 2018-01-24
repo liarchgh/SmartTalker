@@ -1,4 +1,4 @@
-package com.neo.mytalker.opengl;
+﻿package com.neo.mytalker.opengl;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;

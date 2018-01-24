@@ -1,9 +1,9 @@
-package com.neo.mytalker.entity;
+ï»¿package com.neo.mytalker.entity;
 
 public class MenuFunctionItem {
-	private int icon;//Í¼±ê
-	private String name;//Í¼±êÃû³Æ
-	private int position;//Î»ÖÃ 
+	private int icon;//å›¾æ ‡
+	private String name;//å›¾æ ‡åç§°
+	private int position;//ä½ç½® 
 	
 	public int getIcon() {
 		return icon;
