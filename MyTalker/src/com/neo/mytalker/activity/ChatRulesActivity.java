@@ -1,11 +1,16 @@
 package com.neo.mytalker.activity;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import com.neo.mytalker.R;
 import com.neo.mytalker.adapter.ChatRulesAdapter;
 import com.neo.mytalker.entity.ChatDialogEntity;
 import com.neo.mytalker.myinterface.CustomDialog;
 import com.neo.mytalker.myinterface.CustomDialog.Builder;
+import com.neo.mytalker.util.ChatRulesManager;
+import com.neo.mytalker.util.SQLiteManager;
 
 import android.app.Activity;
 import android.content.Context;
@@ -47,8 +52,15 @@ public class ChatRulesActivity extends Activity{
 	}
 	
 	public void initTestMessage() {
-		mChatDialogEntity = new ChatDialogEntity("Are you stupid asshole？", "obviously， you are", 1);
-		mChatDialogEntityList.add(mChatDialogEntity);
+		List<Map<String, String>> rules = new ChatRulesManager(ChatRulesActivity.this, 0).getAllRules();
+		for(Iterator<Map<String, String>>it = rules.iterator();
+				it.hasNext(); ) {
+			Map<String, String>rule = it.next();
+			mChatDialogEntity = new ChatDialogEntity(rule.get(ChatRulesManager.askName),
+					rule.get(ChatRulesManager.answerName),
+					Integer.parseInt(rule.get(SQLiteManager.COL_NAME_ID)));
+			mChatDialogEntityList.add(mChatDialogEntity);
+		}
 	}
 	
 	public void init() {
@@ -69,7 +81,7 @@ public class ChatRulesActivity extends Activity{
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
 				// TODO Auto-generated method stub
 				ChatDialogEntity item = mChatDialogEntityList.get(position);
 				String question = item.getQuestion();
@@ -82,6 +94,9 @@ public class ChatRulesActivity extends Activity{
 						// TODO Auto-generated method stub
 						question_temp = ((EditText)mCustomDialog.findViewById(R.id.edit_one)).getText().toString();
 						answer_temp = ((EditText)mCustomDialog.findViewById(R.id.edit_two)).getText().toString();
+						
+						new ChatRulesManager(ChatRulesActivity.this, 0)
+							.updateRule((int)id, question_temp, answer_temp);
 						
 						mChatDialogEntityList.get(positionTemp).setQuestion(question_temp);
 						mChatDialogEntityList.get(positionTemp).setAnswer(answer_temp);
@@ -112,6 +127,9 @@ public class ChatRulesActivity extends Activity{
 						// TODO Auto-generated method stub
 						question_temp = ((EditText)mCustomDialog.findViewById(R.id.edit_one)).getText().toString();
 						answer_temp = ((EditText)mCustomDialog.findViewById(R.id.edit_two)).getText().toString();
+						
+						new ChatRulesManager(ChatRulesActivity.this, 0).addRule(question_temp, answer_temp);
+
 						mChatDialogEntity = new ChatDialogEntity(question_temp, answer_temp, size);
 				//		mChatRulesAdapter.addItem(mChatDialogEntity);
 						mChatDialogEntityList.add(mChatDialogEntity);

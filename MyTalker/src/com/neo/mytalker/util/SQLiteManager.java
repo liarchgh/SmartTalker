@@ -146,7 +146,7 @@ public class SQLiteManager {
 			Cursor cs = db.query(table, null, null, null, null, null, null);
 			if(cs.moveToFirst()) {
 				Map<String, String> bd = null;
-				while(cs.moveToNext()){
+				do{
 					bd = new HashMap<String, String>();
 					for(int i = 0; i < cs.getColumnCount(); ++i) {
 						String key = cs.getColumnName(i),
@@ -169,7 +169,7 @@ public class SQLiteManager {
 					if(need) {
 						bs.add(bd);
 					}
-				}
+				}while(cs.moveToNext());
 			}
 		}
 		return bs;

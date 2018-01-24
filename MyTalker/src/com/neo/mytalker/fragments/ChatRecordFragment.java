@@ -181,7 +181,6 @@ public class ChatRecordFragment extends Fragment {
 		}
 	}
 	
-	
 	@Override
 	public View getView() {
 		// TODO Auto-generated method stub
