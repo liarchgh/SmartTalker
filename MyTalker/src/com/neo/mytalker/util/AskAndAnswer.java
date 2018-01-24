@@ -13,7 +13,16 @@ public class AskAndAnswer {
 	//数据库操作类
 	private SQLiteManager sm = null;
 	//要打开的数据库名称
-	private static final String dataBaseName = "DBRules";
+	protected String dataBaseName
+		= SQLiteManager.DB_NAME_HISTORY;
+	protected String getDataBaseName() {
+		return dataBaseName;
+	}
+
+	protected void setDataBaseName(String dataBaseName) {
+		AskAndAnswer.this.dataBaseName = dataBaseName;
+	}
+
 	//用户ID，区分不同用户，同时作为表名组成部分
 	private String userId;
 	//表中列名
@@ -40,11 +49,11 @@ public class AskAndAnswer {
 		return AskAndAnswer.this.sm.queryConsequent(id, number);
 	}
 	
-	//传入用户说的话，获取反馈
+	//传入用户说的话，查询之前的历史记录
 	public List<String> getAnswerByAsk(String ask) {
 		Map<String, String>limit = new HashMap<String, String>();
 		limit.put(askName, ask);
-		List<Map<String,String>>items = AskAndAnswer.this.sm.queryById(limit);
+		List<Map<String,String>>items = AskAndAnswer.this.sm.queryByLimit(limit);
 		List<String>answers = new ArrayList<String>();
 		for(Iterator<Map<String, String>>it = items.iterator();
 				it.hasNext(); ) {
@@ -76,13 +85,9 @@ public class AskAndAnswer {
 		AskAndAnswer.this.sm.deleteItemById(id);
 	}
 
-	public final void deleteAnswerByAnswer(String answer) {
-		Map<String, String>limit = new HashMap<String, String>();
-		limit.put(answerName, answer);
-		AskAndAnswer.this.sm.deleteItem(limit);
-	}
-
-	public void showAll() {
-		AskAndAnswer.this.sm.showAll();
-	}
+//	public final void deleteAnswerByAnswer(String answer) {
+//		Map<String, String>limit = new HashMap<String, String>();
+//		limit.put(answerName, answer);
+//		AskAndAnswer.this.sm.deleteItem(limit);
+//	}
 }

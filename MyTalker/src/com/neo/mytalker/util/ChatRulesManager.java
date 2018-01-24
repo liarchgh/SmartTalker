@@ -9,8 +9,14 @@ import java.util.Map;
 import android.content.Context;
 
 public class ChatRulesManager extends AskAndAnswer{
+	protected String dataBaseName = "";
+	private void init() {
+		setDataBaseName(SQLiteManager.DB_NAME_RULE);
+	}
+	
 	public ChatRulesManager(Context context, int userId) {
 		super(context, userId);
+		init();
 	}
 	
 	public void updateRule(int id, String ask, String answer) {
@@ -24,8 +30,17 @@ public class ChatRulesManager extends AskAndAnswer{
 	public void deleteRuleById(int id) {
 		super.deleteAnswerById(id);
 	}
-
-	public void showAll() {
-		super.showAll();
+	
+	public List<String> getAnswerByAskInRules(String ask){
+		return getAnswerByAsk(ask);
 	}
+
+	//传入用户说的话，查询之前规则
+	public List<String> getRuleByAsk(String ask) {
+		return super.getAnswerByAsk(ask);
+	}
+	
+//	public void showAll() {
+//		super.showAll();
+//	}
 }

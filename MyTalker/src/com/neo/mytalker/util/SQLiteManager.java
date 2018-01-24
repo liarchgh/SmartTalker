@@ -17,9 +17,11 @@ public class SQLiteManager {
 	private SQLiteDatabase db = null;
 	private String table = null;
 	
-	public static final String COL_TYPE_TEXT = "text";
-	public static final String COL_TYPE_INTEGER = "Integer";
-	public static final String COL_NAME_ID = "id";
+	public static final String COL_TYPE_TEXT = "text",
+		COL_TYPE_INTEGER = "Integer", 
+		COL_NAME_ID = "id",
+		DB_NAME_HISTORY = "DBHistory",
+		DB_NAME_RULE = "DBRule";
 
 	public String getTable() {
 		return table;
@@ -138,7 +140,7 @@ public class SQLiteManager {
 	}
 
 	//查询表 limit为限制条件，键为列名,若为空则查询所有
-	public List<Map<String, String>> queryById(Map<String, String>limit) {
+	public List<Map<String, String>> queryByLimit(Map<String, String>limit) {
 		List<Map<String, String>>bs = new ArrayList<Map<String,String>>();
 		if(hasTable()) {
 			Cursor cs = db.query(table, null, null, null, null, null, null);
@@ -175,7 +177,7 @@ public class SQLiteManager {
 
 	public void showAll() {
 		if(hasTable()) {
-			List<Map<String, String>>res = SQLiteManager.this.queryById(null);
+			List<Map<String, String>>res = SQLiteManager.this.queryByLimit(null);
 			for(Iterator<Map<String, String>> it = res.iterator(); it.hasNext();) {
 				String ans = ">>>>>>>>";
 				Map<String, String> tb = it.next();
@@ -193,27 +195,31 @@ public class SQLiteManager {
 			Cursor cs = db.query(table, null, null, null, null, null, null);
 			if(cs.moveToLast()) {
 				Map<String, String> bd = null;
-				
 				if(id >= 0) {
 					while(cs.getInt(cs.getColumnIndex(
 						SQLiteManager.COL_NAME_ID)) != id
-						&& cs.moveToPrevious()) {
-						
-					}
+						&& cs.moveToPrevious()
+						) {}
 					
 					if(!cs.moveToPrevious()) {
 						return bs;
 					}
 				}
-				
-				for(int j = 0; j < number && cs.moveToPrevious(); ++j){
+	
+				for(int j = 0; j < number; ++j){
 					bd = new HashMap<String, String>();
+					//将本行信息传出
 					for(int i = 0; i < cs.getColumnCount(); ++i) {
 						String key = cs.getColumnName(i),
 							value = cs.getString(i);
 						bd.put(key, value);
 					}
-					bs.add(bd);
+					bs.add(0, bd);
+					
+					//跳向下一个 失败则退出
+					if(!cs.moveToPrevious()){
+						break;
+					}
 				}
 			}
 		}

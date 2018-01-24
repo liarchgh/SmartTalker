@@ -27,36 +27,64 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		FEATURE_MUSIC_CONTINUE = "continue";
 	private static MediaPlayer music = null;
 	private static String chat(Context context, int userId, String ask) {
+		//最后应该返回的回答
 		String ans = null;
-		ChatRulesManager crm = new ChatRulesManager(context, userId);
-		AskAndAnswer aaa = new AskAndAnswer(context, userId);
-		aaa.deleteAnswerByAnswer(ANSWER_NET_ERROR);
-		List<String>anss = crm.getAnswerByAsk(ask);
+
+
+		//随机数 用于查询到多个时随机选取
 		Random rd = new Random();
-		
+
+		//判断是否进入特殊功能 
 		String ansFeature = checkFeature(ask);
+		
+		//进入普通聊天
 		if(ansFeature == null || ansFeature.equals("")) {
+			//或许当前对应的规则
+			ChatRulesManager crm = new ChatRulesManager(context, userId);
+
+			//查询规则 获取结果
+			List<String>anss = new ChatRulesManager(context, userId)
+					.getRuleByAsk(ask);
+			
+			//判断是否可以使用规则
 			if(anss != null && anss.size() > 0) {
 				ans = anss.get(Math.abs(rd.nextInt())%anss.size());
 			}
+
+			//历史记录
+			AskAndAnswer aaa = new AskAndAnswer(context, userId);
+//			//删除历史记录中的网络异常
+//			aaa.deleteAnswerByAnswer(ANSWER_NET_ERROR);
+		
+
+Log.i("chat", "ans0:"+ans);
+			//若仍无回答 则在线连接机器人
 			if(ans == null || ans.equals("")) {
 				ChatWithTROL ct = new ChatWithTROL();
 				try {
+Log.i("chat", "ans0:"+ans);
 					ans = ct.sendToRobot(ask);
+Log.i("chat", "ans1:"+ans);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+				//若在线连接失败 则通过历史记录回答
 				if(ans == null || ans.equals("")) {
 					anss = aaa.getAnswerByAsk(ask);
 					if(anss != null && anss.size() > 0) {
 						ans = anss.get(Math.abs(rd.nextInt())%anss.size());
 					}
+					
+					//历史记录获取失败 返回网络异常提示
 					if(ans == null || ans.equals("")) {
 						ans = ChatWithTalker.ANSWER_NET_ERROR;
 					}
 				}
 			}
+			
+			//若网络无错 将本条对话加入历史记录
 			if(ans != null && !ans.equals(ChatWithTalker.ANSWER_NET_ERROR)) {
 				aaa.addAskAndAnswer(ask, ans);
 			}
