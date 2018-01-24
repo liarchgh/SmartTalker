@@ -55,21 +55,17 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 			AskAndAnswer aaa = new AskAndAnswer(context, userId);
 //			//删除历史记录中的网络异常
 //			aaa.deleteAnswerByAnswer(ANSWER_NET_ERROR);
-		
 
-Log.i("chat", "ans0:"+ans);
 			//若仍无回答 则在线连接机器人
 			if(ans == null || ans.equals("")) {
 				ChatWithTROL ct = new ChatWithTROL();
 				try {
-Log.i("chat", "ans0:"+ans);
 					ans = ct.sendToRobot(ask);
-Log.i("chat", "ans1:"+ans);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+	
 				//若在线连接失败 则通过历史记录回答
 				if(ans == null || ans.equals("")) {
 					anss = aaa.getAnswerByAsk(ask);

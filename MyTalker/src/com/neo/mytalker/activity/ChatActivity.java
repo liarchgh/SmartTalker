@@ -57,6 +57,7 @@ public class ChatActivity extends FragmentActivity implements OnLayoutChangeList
 			int oldBottom) {
 		// TODO Auto-generated method stub
 		if(bottom != 0 && oldBottom != 0 && oldBottom-bottom > mkeyHeight) {
+			this.findViewById(R.id.message_plus_fragment).setVisibility(View.GONE);
 			Toast.makeText(this, "键盘弹起", Toast.LENGTH_SHORT).show();
 		}else if(bottom != 0 && oldBottom != 0 && bottom-oldBottom > mkeyHeight){
 			Toast.makeText(this, "键盘收起", Toast.LENGTH_SHORT).show();

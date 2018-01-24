@@ -21,6 +21,16 @@ public class ChatRulesAdapter extends BaseAdapter {
 		mChatDialogEntityList = mChatDialogEntityListTemp;
 		mContext = context;
 	}
+	
+	public void updateData(ArrayList<ChatDialogEntity> mChatDialogEntityListTemp) {
+//		mChatDialogEntityList = mChatDialogEntityListTemp;
+		this.notifyDataSetChanged();
+	}
+	
+	public void addItem(ChatDialogEntity c) {
+		mChatDialogEntityList.add(c);
+	}
+	
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub

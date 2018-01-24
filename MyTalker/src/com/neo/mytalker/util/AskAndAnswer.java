@@ -14,7 +14,7 @@ public class AskAndAnswer {
 	private SQLiteManager sm = null;
 	//要打开的数据库名称
 	protected String dataBaseName
-		= SQLiteManager.DB_NAME_HISTORY;
+		= "";
 	protected String getDataBaseName() {
 		return dataBaseName;
 	}
@@ -29,8 +29,15 @@ public class AskAndAnswer {
 	public static final String askName = "ask",
 		answerName = "answer";
 	
+	public AskAndAnswer() {}
+
 	public AskAndAnswer(Context context, int userId) {
+		init(context, userId, SQLiteManager.DB_NAME_HISTORY);
+	}
+
+	public void init(Context context, int userId, String dataBaseName) {
 		// TODO Auto-generated constructor stub
+		this.dataBaseName = dataBaseName;
 		AskAndAnswer.this.userId = "user"+userId;
 		AskAndAnswer.this.sm =
 			new SQLiteManager(context.getFilesDir().getPath(),

@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,6 +45,8 @@ public class CustomDialog extends Dialog {
 		private View.OnClickListener singleButtonClickListener;
 		private View layout;
 		private CustomDialog dialog;
+		private String editOne;
+		private String editTwo;
 		
 		public Builder(Context context) {
 			dialog = new CustomDialog(context, R.style.Dialog);
@@ -52,6 +55,16 @@ public class CustomDialog extends Dialog {
             dialog.addContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
 
+		public Builder seteditOne(String edit) {
+			this.editOne = edit;
+			return this;
+		}
+		
+		public Builder seteditTwo(String edit) {
+			this.editTwo = edit;
+			return this;
+		}
+		
         public Builder setMessage(String message) {
             this.message = message;
             return this;
@@ -98,12 +111,48 @@ public class CustomDialog extends Dialog {
             return dialog;
         }
 
+        
         /**
          * 创建双按钮对话框
          * @return
          */
         public CustomDialog createTwoButtonDialog() {
             showTwoButton();
+            layout.findViewById(R.id.positive_button).setOnClickListener(positiveButtonClickListener);
+            layout.findViewById(R.id.negative_button).setOnClickListener(negativeButtonClickListener);
+            //如果传入的按钮文字为空，则使用默认的“是”和“否”
+            if (positiveButtonText != null) {
+                ((Button) layout.findViewById(R.id.positive_button)).setText(positiveButtonText);
+            } else {
+                ((Button) layout.findViewById(R.id.positive_button)).setText("是");
+            }
+            if (negativeButtonText != null) {
+                ((Button) layout.findViewById(R.id.negative_button)).setText(negativeButtonText);
+            } else {
+                ((Button) layout.findViewById(R.id.negative_button)).setText("否");
+            }
+            create();
+            return dialog;
+        }
+        
+        /**
+         * 创建双按钮对话框和编辑框
+         * @return
+         */
+        public CustomDialog createTwoButtonDialogWithEdit() {
+            showTwoButton();
+            showEditView();
+            if(!editOne.equals(null)) {
+            	((EditText) layout.findViewById(R.id.edit_one)).setText(editOne);
+            }else {
+            	((EditText) layout.findViewById(R.id.edit_one)).setText("你教教我嘛~");
+            }
+            
+            if(!editOne.equals(null)) {
+            	((EditText) layout.findViewById(R.id.edit_two)).setText(editTwo);
+            }else {
+            	((EditText) layout.findViewById(R.id.edit_two)).setText("答案嘞？");
+            }
             layout.findViewById(R.id.positive_button).setOnClickListener(positiveButtonClickListener);
             layout.findViewById(R.id.negative_button).setOnClickListener(negativeButtonClickListener);
             //如果传入的按钮文字为空，则使用默认的“是”和“否”
@@ -159,6 +208,10 @@ public class CustomDialog extends Dialog {
         private void showOneuttonButListView() {
         	layout.findViewById(R.id.single_button_layout).setVisibility(View.VISIBLE);
             layout.findViewById(R.id.two_button_layout).setVisibility(View.GONE);
+        }
+        
+        private void showEditView() {
+        	layout.findViewById(R.id.two_edit_text).setVisibility(View.VISIBLE);
         }
     }
 		

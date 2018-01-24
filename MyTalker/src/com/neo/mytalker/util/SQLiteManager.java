@@ -194,6 +194,7 @@ public class SQLiteManager {
 		if(SQLiteManager.this.hasTable()) {
 			Cursor cs = db.query(table, null, null, null, null, null, null);
 			if(cs.moveToLast()) {
+Log.i("chat", cs.getString(0));
 				Map<String, String> bd = null;
 				if(id >= 0) {
 					while(cs.getInt(cs.getColumnIndex(
@@ -205,8 +206,10 @@ public class SQLiteManager {
 						return bs;
 					}
 				}
+Log.i("chat", cs.getString(0));
 	
 				for(int j = 0; j < number; ++j){
+Log.i("chat", cs.getString(0));
 					bd = new HashMap<String, String>();
 					//将本行信息传出
 					for(int i = 0; i < cs.getColumnCount(); ++i) {
@@ -215,7 +218,7 @@ public class SQLiteManager {
 						bd.put(key, value);
 					}
 					bs.add(0, bd);
-					
+Log.i("chat", cs.getString(0));
 					//跳向下一个 失败则退出
 					if(!cs.moveToPrevious()){
 						break;

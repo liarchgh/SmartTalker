@@ -170,14 +170,14 @@ public class ChatRecordFragment extends Fragment {
 		for(int i = 0; sqlAnswer != null && i < sqlAnswer.size(); ++i) {
 			tempAns = sqlAnswer.get(i);
 			tCrd = new ChatRecordData();
-			tCrd.isMe = true;
-			tCrd.msg = tempAns.get(AskAndAnswer.askName);
-			mChatRecordData.add(tCrd);
-
-			tCrd = new ChatRecordData();
 			tCrd.isMe = false;
 			tCrd.msg = tempAns.get(AskAndAnswer.answerName);
-			mChatRecordData.add(tCrd);
+			mChatRecordData.add(0, tCrd);
+
+			tCrd = new ChatRecordData();
+			tCrd.isMe = true;
+			tCrd.msg = tempAns.get(AskAndAnswer.askName);
+			mChatRecordData.add(0, tCrd);
 		}
 	}
 	

@@ -10,13 +10,10 @@ import android.content.Context;
 
 public class ChatRulesManager extends AskAndAnswer{
 	protected String dataBaseName = "";
-	private void init() {
-		setDataBaseName(SQLiteManager.DB_NAME_RULE);
-	}
-	
+
 	public ChatRulesManager(Context context, int userId) {
-		super(context, userId);
-		init();
+		super();
+		init(context, userId, SQLiteManager.DB_NAME_RULE);
 	}
 	
 	public void updateRule(int id, String ask, String answer) {
