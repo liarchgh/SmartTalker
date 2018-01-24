@@ -4,3 +4,5 @@
 /.metadata/*
 /.recommenders/*
 /RemoteSystemsTempFiles/*
+/.metadata/
+/.recommenders/
