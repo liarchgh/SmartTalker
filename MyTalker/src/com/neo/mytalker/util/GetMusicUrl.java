@@ -1,36 +1,52 @@
 package com.neo.mytalker.util;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.util.Log;
-
 public class GetMusicUrl {
 	private final static String
 //		searchUrlPre = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.search.common&format=json&query={search}&page_no=1&page_size=30",
+//		fileUrlPre = "http://tingapi.ting.baidu.com/v1/restserver/ting?format=json&calback=&from=webapp_music&method=baidu.ting.song.play&songid={songid}",
+//		songIdInJson = "\"song_id\"",
+//		fileLinkInJson = "\"file_link\"";
 		songNameHolder = "{search}",
 		searchUrlPre = "https://api.imjad.cn/cloudmusic/?type=search&search_type=1&s="+songNameHolder,
-//		fileUrlPre = "http://tingapi.ting.baidu.com/v1/restserver/ting?format=json&calback=&from=webapp_music&method=baidu.ting.song.play&songid={songid}",
 		songIdHolder = "{songid}",
 		fileUrlPre = "http://music.163.com/song/media/outer/url?id="+songIdHolder+".mp3",
-//		songIdInJson = "\"song_id\"",
 		songIdInJson = "\"id\":[^\"]*";
-//		fileLinkInJson = "\"file_link\"";
 
 
-	public static String getSongUrl(String songName) {
+	public static String getSongUrl(String songName, final String musicFolderPath) {
+//		return "http://music.163.com/song/media/outer/url?id=640565.mp3";
 		String songId = null;
 		try {
 			songId = getSongId(songName);
+
 //			Log.i("music", "id:"+songId);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(songId != null) {
-			String url = fileUrlPre.replace(songIdHolder, songId);
+			final String url = fileUrlPre.replace(songIdHolder, songId),
+				id = songId;
+
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					try {
+						NetUtil.doGetMusic(url, musicFolderPath+File.separator+id+".mp3");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}).start();
 			return url;
 		}
 		return null;
