@@ -1,27 +1,30 @@
-package com.neo.mytalker.activity;
+﻿package com.neo.mytalker.activity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.neo.mytalker.R;
-import com.neo.mytalker.adapter.FeatureShowPageAdapter;
+import com.neo.mytalker.adapter.FeaturesPagerAdapter;
+import com.neo.mytalker.fragments.FeaturePageFragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 
-public class FeatureShowActivity extends Activity {
+public class FeatureShowActivity extends FragmentActivity {
 //	Button mQuitAppButton;
 	SharedPreferences mSharedPreferences;
 	int count;
@@ -38,40 +41,20 @@ public class FeatureShowActivity extends Activity {
 		
 		
 		
-		/************************************/
+		/************************************
 		editor = mSharedPreferences.edit();
 		editor.putInt("count", 0);
 		editor.commit();
 		count = mSharedPreferences.getInt("count", 0);
-		/*************************************/
+		Log.i("DHJ", String.valueOf(count));
+		*************************************/
 
 		if(count == 0) {
+			setAnimation();
 			editor = mSharedPreferences.edit();
 			editor.putInt("count", 1);
 			editor.commit();
-			Log.i("DHJ", String.valueOf(count));
-			List<View>vs = new ArrayList<View>();
-			LayoutInflater lif = FeatureShowActivity.this.getLayoutInflater();
-			View v = lif.inflate(R.layout.single_image, null, false);
-			Resources resources = FeatureShowActivity.this.getResources();
-			Drawable drawable = resources.getDrawable(R.drawable.f0);
-			((ImageView)v.findViewById(R.id.imageShow)).setImageDrawable(drawable);
-			vs.add(v);
-
-			v = lif.inflate(R.layout.single_image, null, false);
-			drawable = resources.getDrawable(R.drawable.f1);
-			((ImageView)v.findViewById(R.id.imageShow)).setImageDrawable(drawable);
-			vs.add(v);
-
-			v = lif.inflate(R.layout.single_image, null, false);
-			drawable = resources.getDrawable(R.drawable.f2);
-			((ImageView)v.findViewById(R.id.imageShow)).setImageDrawable(drawable);
-			v.findViewById(R.id.jump_main_buttons).setVisibility(View.VISIBLE);
-			v.findViewById(R.id.page_end).setVisibility(View.VISIBLE);
-			vs.add(v);
-			
-			ViewPager vp = (ViewPager)FeatureShowActivity.this.findViewById(R.id.featureShowPages);
-			vp.setAdapter(new FeatureShowPageAdapter(vs));
+				
 		}else {
 			Log.i("DHJ", String.valueOf(count));
 			myIntent = new Intent();
@@ -90,5 +73,35 @@ public class FeatureShowActivity extends Activity {
 	
 	public void quitApp(View v) {
 		this.finish();
+	}
+	
+	public void setAnimation()
+	{
+		View logo=findViewById(R.id.feature_splash);
+		ObjectAnimator animator1 = ObjectAnimator.ofFloat(logo, "alpha", 1f, 0f);
+		animator1.setDuration(1000);
+		animator1.addListener(new AnimatorListenerAdapter() {
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				initViewPager();
+
+			}
+
+			@Override
+			public void onAnimationStart(Animator animation) {
+
+			}
+		});
+		animator1.start();
+		
+	}
+	public void initViewPager()
+	{
+		Log.i("DHJ", String.valueOf(count));
+		List<FeaturePageFragment> vs = new ArrayList<FeaturePageFragment>();
+		vs.add(new FeaturePageFragment("在这里你可以发送和我的对话内容",R.drawable.feat_1));
+		vs.add(new FeaturePageFragment("点击+号打开功能面板\r\n享受更优质的功能服务",R.drawable.feat_2));
+		ViewPager vp = (ViewPager)FeatureShowActivity.this.findViewById(R.id.featureShowPages);
+		vp.setAdapter(new FeaturesPagerAdapter(getSupportFragmentManager(),vs));
 	}
 }

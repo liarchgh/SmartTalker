@@ -1,4 +1,4 @@
-package com.neo.mytalker.adapter;
+﻿package com.neo.mytalker.adapter;
 
 import java.util.ArrayList;
 

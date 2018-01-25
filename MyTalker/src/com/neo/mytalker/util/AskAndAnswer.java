@@ -13,33 +13,53 @@ public class AskAndAnswer {
 	//数据库操作类
 	private SQLiteManager sm = null;
 	//要打开的数据库名称
-	private static final String dataBaseName = "DBRules";
+	protected String dataBaseName
+		= "";
+	protected String getDataBaseName() {
+		return dataBaseName;
+	}
+
+	protected void setDataBaseName(String dataBaseName) {
+		AskAndAnswer.this.dataBaseName = dataBaseName;
+	}
+
 	//用户ID，区分不同用户，同时作为表名组成部分
 	private String userId;
 	//表中列名
-	private static final String askName = "ask",
+	public static final String askName = "ask",
 		answerName = "answer";
 	
+	public AskAndAnswer() {}
+
 	public AskAndAnswer(Context context, int userId) {
+		init(context, userId, SQLiteManager.DB_NAME_HISTORY);
+	}
+
+	public void init(Context context, int userId, String dataBaseName) {
 		// TODO Auto-generated constructor stub
-		AskAndAnswer.this.userId = "user"+userId;
-		AskAndAnswer.this.sm =
-			new SQLiteManager(context.getFilesDir().getPath(),
-			dataBaseName, AskAndAnswer.this.userId
+		this.dataBaseName = dataBaseName;
+		this.userId = "user"+userId;
+		this.sm = new SQLiteManager(context.getFilesDir().getPath(),
+			dataBaseName, this.userId
 		);
-		if(!AskAndAnswer.this.sm.hasTable()) {
+		if(!sm.hasTable()) {
 			Map<String, String>cols = new HashMap<String, String>();
-			cols.put(askName, SQLiteManager.ColTypeText);
-			cols.put(answerName, SQLiteManager.ColTypeText);
+			cols.put(askName, SQLiteManager.COL_TYPE_TEXT);
+			cols.put(answerName, SQLiteManager.COL_TYPE_INTEGER);
 			this.sm.createTable(cols);
 		}
 	}
+
+	//根据Id查询之前若干个历史记录
+	public List<Map<String, String>> getHistory(int id, int number) {
+		return AskAndAnswer.this.sm.queryConsequent(id, number);
+	}
 	
-	//传入用户说的话，获取反馈
+	//传入用户说的话，查询之前的历史记录
 	public List<String> getAnswerByAsk(String ask) {
 		Map<String, String>limit = new HashMap<String, String>();
 		limit.put(askName, ask);
-		List<Map<String,String>>items = AskAndAnswer.this.sm.executeQuery(limit);
+		List<Map<String,String>>items = this.sm.queryByLimit(limit);
 		List<String>answers = new ArrayList<String>();
 		for(Iterator<Map<String, String>>it = items.iterator();
 				it.hasNext(); ) {
@@ -71,13 +91,9 @@ public class AskAndAnswer {
 		AskAndAnswer.this.sm.deleteItemById(id);
 	}
 
-	public final void deleteAnswerByAnswer(String answer) {
-		Map<String, String>limit = new HashMap<String, String>();
-		limit.put(answerName, answer);
-		AskAndAnswer.this.sm.deleteItem(limit);
-	}
-
-	public void showAll() {
-		AskAndAnswer.this.sm.showAll();
-	}
+//	public final void deleteAnswerByAnswer(String answer) {
+//		Map<String, String>limit = new HashMap<String, String>();
+//		limit.put(answerName, answer);
+//		AskAndAnswer.this.sm.deleteItem(limit);
+//	}
 }

@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
+import com.neo.mytalker.fragments.ChatRecordFragment;
+
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class ChatWithTalker extends AsyncTask<String, Integer, String>{
+public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 	private static final String ANSWER_NET_ERROR = "网线被人拔了！\n∑(っ °Д °;)っ",
 		ANSWER_MUSIC_PLAY = "音乐酱来了\nO(∩_∩)O~~",
 		ANSWER_MUSIC_PLAY_NOT_FOUND = "找不到音乐酱了\n(╯﹏╰)",
@@ -25,18 +27,34 @@ public class ChatWithTalker extends AsyncTask<String, Integer, String>{
 		FEATURE_MUSIC_CONTINUE = "continue";
 	private static MediaPlayer music = null;
 	private static String chat(Context context, int userId, String ask) {
+		//最后应该返回的回答
 		String ans = null;
-		ChatRulesManager crm = new ChatRulesManager(context, userId);
-		AskAndAnswer aaa = new AskAndAnswer(context, userId);
-		aaa.deleteAnswerByAnswer(ANSWER_NET_ERROR);
-		List<String>anss = crm.getAnswerByAsk(ask);
+
+		//随机数 用于查询到多个时随机选取
 		Random rd = new Random();
-		
+
+		//判断是否进入特殊功能 
 		String ansFeature = checkFeature(ask);
+		
+		//进入普通聊天
 		if(ansFeature == null || ansFeature.equals("")) {
+			//或许当前对应的规则
+			ChatRulesManager crm = new ChatRulesManager(context, userId);
+
+			//查询规则 获取结果
+			List<String>anss = crm.getRuleByAsk(ask);
+			
+			//判断是否可以使用规则
 			if(anss != null && anss.size() > 0) {
 				ans = anss.get(Math.abs(rd.nextInt())%anss.size());
 			}
+
+			//历史记录
+			AskAndAnswer aaa = new AskAndAnswer(context, userId);
+//			//删除历史记录中的网络异常
+//			aaa.deleteAnswerByAnswer(ANSWER_NET_ERROR);
+
+			//若仍无回答 则在线连接机器人
 			if(ans == null || ans.equals("")) {
 				ChatWithTROL ct = new ChatWithTROL();
 				try {
@@ -45,16 +63,22 @@ public class ChatWithTalker extends AsyncTask<String, Integer, String>{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+	
+				//若在线连接失败 则通过历史记录回答
 				if(ans == null || ans.equals("")) {
 					anss = aaa.getAnswerByAsk(ask);
 					if(anss != null && anss.size() > 0) {
 						ans = anss.get(Math.abs(rd.nextInt())%anss.size());
 					}
+					
+					//历史记录获取失败 返回网络异常提示
 					if(ans == null || ans.equals("")) {
 						ans = ChatWithTalker.ANSWER_NET_ERROR;
 					}
 				}
 			}
+			
+			//若网络无错 将本条对话加入历史记录
 			if(ans != null && !ans.equals(ChatWithTalker.ANSWER_NET_ERROR)) {
 				aaa.addAskAndAnswer(ask, ans);
 			}
@@ -181,11 +205,13 @@ Log.i("music", "stop when play");
 	private Context context = null;
 	private int userId = 0;
 	private String ask = null;
-	public ChatWithTalker(Context context, int userId, String ask) {
+	private ChatRecordFragment mChatRecFrag;
+	public ChatWithTalker(ChatRecordFragment mChatRecFrag, Context context, int userId, String ask) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.userId = userId;
 		this.ask = ask;
+		this.mChatRecFrag = mChatRecFrag;
 		init();
 	}
 	
@@ -196,7 +222,7 @@ Log.i("music", "stop when play");
 	}
 	
 	@Override
-	protected String doInBackground(String... params) {
+	protected String doInBackground(Void... params) {
 		// TODO Auto-generated method stub
 		return chat(context, userId, ask);
 	}
@@ -208,6 +234,7 @@ Log.i("music", "stop when play");
 	@Override
 	protected void onPostExecute(String result) {
 		// TODO Auto-generated method stub
+		mChatRecFrag.AddRecord(false, result);
 		super.onPostExecute(result);
 	}
 }

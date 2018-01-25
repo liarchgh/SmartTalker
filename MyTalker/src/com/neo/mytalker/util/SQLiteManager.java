@@ -17,8 +17,11 @@ public class SQLiteManager {
 	private SQLiteDatabase db = null;
 	private String table = null;
 	
-	public static String ColTypeText = "text";
-	public static String ColTypeInteger = "Integer";
+	public static final String COL_TYPE_TEXT = "text",
+		COL_TYPE_INTEGER = "Integer", 
+		COL_NAME_ID = "id",
+		DB_NAME_HISTORY = "DBHistory",
+		DB_NAME_RULE = "DBRule";
 
 	public String getTable() {
 		return table;
@@ -137,13 +140,13 @@ public class SQLiteManager {
 	}
 
 	//查询表 limit为限制条件，键为列名,若为空则查询所有
-	public List<Map<String, String>> executeQuery(Map<String, String>limit) {
+	public List<Map<String, String>> queryByLimit(Map<String, String>limit) {
 		List<Map<String, String>>bs = new ArrayList<Map<String,String>>();
 		if(hasTable()) {
 			Cursor cs = db.query(table, null, null, null, null, null, null);
 			if(cs.moveToFirst()) {
 				Map<String, String> bd = null;
-				while(cs.moveToNext()){
+				do{
 					bd = new HashMap<String, String>();
 					for(int i = 0; i < cs.getColumnCount(); ++i) {
 						String key = cs.getColumnName(i),
@@ -166,7 +169,7 @@ public class SQLiteManager {
 					if(need) {
 						bs.add(bd);
 					}
-				}
+				}while(cs.moveToNext());
 			}
 		}
 		return bs;
@@ -174,7 +177,7 @@ public class SQLiteManager {
 
 	public void showAll() {
 		if(hasTable()) {
-			List<Map<String, String>>res = SQLiteManager.this.executeQuery(null);
+			List<Map<String, String>>res = SQLiteManager.this.queryByLimit(null);
 			for(Iterator<Map<String, String>> it = res.iterator(); it.hasNext();) {
 				String ans = ">>>>>>>>";
 				Map<String, String> tb = it.next();
@@ -183,6 +186,47 @@ public class SQLiteManager {
 				}
 			}
 		}
+	}
+
+	//从某id开始向上查询若干条(id的那条不返回)
+	public List<Map<String, String>> queryConsequent(int id, int number) {
+		List<Map<String, String>>bs = new ArrayList<Map<String,String>>();
+		if(SQLiteManager.this.hasTable()) {
+			Cursor cs = db.query(table, null, null, null, null, null, null);
+			if(cs.moveToLast()) {
+Log.i("chat", cs.getString(0));
+				Map<String, String> bd = null;
+				if(id >= 0) {
+					while(cs.getInt(cs.getColumnIndex(
+						SQLiteManager.COL_NAME_ID)) != id
+						&& cs.moveToPrevious()
+						) {}
+					
+					if(!cs.moveToPrevious()) {
+						return bs;
+					}
+				}
+Log.i("chat", cs.getString(0));
+	
+				for(int j = 0; j < number; ++j){
+Log.i("chat", cs.getString(0));
+					bd = new HashMap<String, String>();
+					//将本行信息传出
+					for(int i = 0; i < cs.getColumnCount(); ++i) {
+						String key = cs.getColumnName(i),
+							value = cs.getString(i);
+						bd.put(key, value);
+					}
+					bs.add(0, bd);
+Log.i("chat", cs.getString(0));
+					//跳向下一个 失败则退出
+					if(!cs.moveToPrevious()){
+						break;
+					}
+				}
+			}
+		}
+		return bs;
 	}
 
 	public void createTable(Map<String, String>cols) {
