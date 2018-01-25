@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.neo.mytalker.R;
 import com.neo.mytalker.activity.ChatActivity;
@@ -12,9 +14,9 @@ import com.neo.mytalker.entity.ChatRecordData;
 import com.neo.mytalker.util.AskAndAnswer;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ChatRecordFragment extends Fragment {
 	private ArrayList<ChatRecordData> mChatRecordData;
@@ -31,6 +34,8 @@ public class ChatRecordFragment extends Fragment {
 	private ChatActivity mChatActivity;
 	private ChatRecordAdapter mChatRecordAdapter;
 	private ListView mChatRecordListView;
+//	private TextView loadingView = null;
+	private int loadingPosition;
 	private static int LIST_MIN_PART_CNT = 2, LIST_MAX_PART_CNT = 4;
 	private boolean isMaximized = false, isScrolling = false;
 	//当前列表中最早记录的数据库中的id -1表示列表没有数据
@@ -196,5 +201,47 @@ public class ChatRecordFragment extends Fragment {
 		mChatRecordData.add(tmp);
 		mChatRecordAdapter.notifyDataSetChanged();
 		setListViewHeightBasedOnChildren(mChatRecordListView, isMaximized?LIST_MAX_PART_CNT:LIST_MIN_PART_CNT);
+	}
+	
+	public void addItem(boolean isMine,String content) {
+		ChatRecordData tmp = new ChatRecordData();
+		tmp.msg = content;
+		tmp.time = new Date().getTime();
+		tmp.isMe = isMine;
+		mChatRecordData.add(loadingPosition=mChatRecordData.size(), tmp);
+		mChatRecordAdapter.notifyDataSetChanged();
+		setListViewHeightBasedOnChildren(mChatRecordListView, isMaximized?LIST_MAX_PART_CNT:LIST_MIN_PART_CNT);
+	}
+	
+	public void loading() {
+		addItem(false, ".");
+		Timer loadTimer = new Timer();
+		mChatRecordListView.setTag(loadTimer);
+		loadTimer.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				mChatRecordListView.post(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						String loadText = mChatRecordData.get(loadingPosition).msg+".";
+						if(loadText.length() > 6) {
+							loadText = ".";
+						}
+						mChatRecordData.get(loadingPosition).msg = loadText;
+						mChatRecordAdapter.notifyDataSetChanged();
+					}
+				});
+			}
+		}, 0, 600);
+	}
+	
+	public void stopLoading() {
+		((Timer)mChatRecordListView.getTag()).cancel(); 
+		mChatRecordData.remove(loadingPosition);
+//		loadingView = null;
 	}
 }
