@@ -240,7 +240,10 @@ public class ChatRecordFragment extends Fragment {
 	}
 	
 	public void stopLoading() {
-		((Timer)mChatRecordListView.getTag()).cancel(); 
+		Timer ttm = (Timer)mChatRecordListView.getTag();
+		if(ttm != null) {
+			ttm.cancel(); 
+		}
 		mChatRecordData.remove(loadingPosition);
 //		loadingView = null;
 	}

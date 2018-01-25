@@ -26,6 +26,7 @@ public class ChatActivity extends Activity implements OnLayoutChangeListener{
 	private int mkeyHeight;
 	
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

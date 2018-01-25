@@ -3,7 +3,11 @@ package com.neo.mytalker.entity;
 public class ChatDialogEntity {
 	private String question;
 	private String answer;
+	private String sortLetters;
 	private int id;
+	
+	
+	
 	public String getQuestion() {
 		return question;
 	}
@@ -22,10 +26,18 @@ public class ChatDialogEntity {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public ChatDialogEntity(String question, String answer, int id) {
+	
+	public String getSortLetters() {
+		return sortLetters;
+	}
+	public void setSortLetters(String sortLetters) {
+		this.sortLetters = sortLetters;
+	}
+	public ChatDialogEntity(String question, String answer, String sortLetters, int id) {
 		super();
 		this.question = question;
 		this.answer = answer;
+		this.sortLetters = sortLetters;
 		this.id = id;
 	}
 	public ChatDialogEntity() {
