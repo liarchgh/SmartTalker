@@ -25,7 +25,7 @@ public class ChatRulesManager extends AskAndAnswer{
 	}
 	
 	public void deleteRuleById(int id) {
-		super.deleteAnswerById(id);
+		deleteAnswerById(id);
 	}
 	
 	public List<String> getAnswerByAskInRules(String ask){
