@@ -234,6 +234,7 @@ Log.i("music", "stop when play");
 	@Override
 	protected void onPostExecute(String result) {
 		// TODO Auto-generated method stub
+		mChatRecFrag.stopLoading();
 		mChatRecFrag.AddRecord(false, result);
 		super.onPostExecute(result);
 	}
