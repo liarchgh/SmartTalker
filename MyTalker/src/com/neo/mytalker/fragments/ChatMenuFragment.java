@@ -12,7 +12,6 @@ import com.neo.mytalker.adapter.ChatMenuPageAdapter;
 import com.neo.mytalker.entity.MenuFunctionItem;
 import com.neo.mytalker.myinterface.CustomDialog;
 import com.neo.mytalker.myinterface.CustomDialog.Builder;
-import com.neo.mytalker.myinterface.FunctionOnClickListener;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -52,7 +51,6 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener{
 	ViewPager mViewPager;
 	int current;//当前的point
 	OnPageChangeListener mOnPageChangeListener;
-	FunctionOnClickListener mFunctionOnClickListener;
 	ViewGroup mViewGroup;
 	Context mContext;
 	ChatActivity mChatActivity;
