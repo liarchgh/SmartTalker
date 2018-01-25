@@ -79,11 +79,8 @@ public class ChatBarFragment extends Fragment {
 					mText.setText("");
 					//to receive from TR
 					
-					mChatRecFrag.loading();
-					
 					//TODO:Modify the result to update
-					new ChatWithTalker(mChatRecFrag, mContext, 0, tmp)
-						.execute();
+					new ChatWithTalker(mChatRecFrag, mContext, 0, tmp).execute();
 				}else {
 					Toast.makeText(mChatActivity, "Type to continue...", Toast.LENGTH_SHORT).show();
 				}

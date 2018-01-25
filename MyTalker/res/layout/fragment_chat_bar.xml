@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:gravity="center"
         android:text="+"
         android:textColor="#ffffff"
-        android:textSize="15sp" />
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/chat_bottombar_send"
