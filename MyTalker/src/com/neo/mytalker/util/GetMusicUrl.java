@@ -21,6 +21,12 @@ public class GetMusicUrl {
 
 	public static String getSongUrl(String songName, final String musicFolderPath) {
 //		return "http://music.163.com/song/media/outer/url?id=640565.mp3";
+		final String musicFilePath = musicFolderPath+
+			File.separator+songName+".mp3";
+		if(new File(musicFilePath).exists()) {
+			return musicFilePath;
+		}
+			
 		String songId = null;
 		try {
 			songId = getSongId(songName);
@@ -31,16 +37,15 @@ public class GetMusicUrl {
 			e.printStackTrace();
 		}
 		if(songId != null) {
-			final String url = fileUrlPre.replace(songIdHolder, songId),
-				id = songId;
-
+			final String url = fileUrlPre.replace(songIdHolder, songId);
+			
 			new Thread(new Runnable() {
 				
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
 					try {
-						NetUtil.doGetMusic(url, musicFolderPath+File.separator+id+".mp3");
+						NetUtil.doGetMusic(url, musicFilePath);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
