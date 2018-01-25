@@ -20,7 +20,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
@@ -77,9 +77,9 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener{
 	public void initData() {
 		mFunctionListItemList = new ArrayList<ArrayList<MenuFunctionItem>>();
 		ArrayList<MenuFunctionItem> list = new ArrayList<MenuFunctionItem>();
-		int[] funImgId = new int[] {R.drawable.ic_launcher,
-				R.drawable.ic_launcher, R.drawable.ic_launcher,
-				R.drawable.ic_launcher};
+		int[] funImgId = new int[] {R.drawable.iclauncher,
+				R.drawable.iclauncher, R.drawable.iclauncher,
+				R.drawable.iclauncher};
 		String[] funName = new String[] {"规则管理","音乐搜索","使用帮助","系统设置"};
 		for(int i = 0; i<4; i++) {
 			MenuFunctionItem entity = new MenuFunctionItem();

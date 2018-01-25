@@ -4,19 +4,20 @@ import com.neo.mytalker.R;
 import com.neo.mytalker.fragments.ChatBarFragment;
 import com.neo.mytalker.fragments.ChatMenuFragment;
 import com.neo.mytalker.fragments.ChatRecordFragment;
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnLayoutChangeListener;
 import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 
-@SuppressLint("ShowToast")
-public class ChatActivity extends FragmentActivity implements OnLayoutChangeListener{
+
+public class ChatActivity extends Activity implements OnLayoutChangeListener{
 	public ChatRecordFragment mChatRecFrag;
 	public ChatBarFragment mChatBarFrag;
 	public ChatMenuFragment mChatMenuFragment;
@@ -24,7 +25,7 @@ public class ChatActivity extends FragmentActivity implements OnLayoutChangeList
 	private int mScreenHeight;
 	private int mkeyHeight;
 	
-	@SuppressWarnings("deprecation")
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,11 +43,11 @@ public class ChatActivity extends FragmentActivity implements OnLayoutChangeList
 		SetFragment(R.id.chat_bottombarfrag,mChatBarFrag);
 		SetFragment(R.id.message_plus_fragment, mChatMenuFragment);
 		
-		
+		setAnimation();
 	}
 	
 	private void SetFragment(int content, Fragment frag) {
-		FragmentManager fm = getSupportFragmentManager();
+		FragmentManager fm = getFragmentManager();
 		FragmentTransaction transaction = fm.beginTransaction();
 		transaction.replace(content, frag);
 		transaction.commit();
@@ -69,8 +70,19 @@ public class ChatActivity extends FragmentActivity implements OnLayoutChangeList
 		// TODO Auto-generated method stub
 		super.onResume();
 		mRootView.addOnLayoutChangeListener(this);
+		hideKeyboardOnStartup();
 	}
 	
-	
+	public void setAnimation() {
+		View logo = findViewById(R.id.chat_splash);
+		ObjectAnimator animator1 = ObjectAnimator.ofFloat(logo, "alpha", 1f, 0f);
+		animator1.setDuration(1000);
+		animator1.start();
+	}
+
+	public void hideKeyboardOnStartup() {
+		TextView config_hidden = (TextView) this.findViewById(R.id.config_hidden);
+		config_hidden.requestFocus();
+	}
 	
 }
