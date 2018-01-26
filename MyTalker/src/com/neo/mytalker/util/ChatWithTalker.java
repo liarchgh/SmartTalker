@@ -1,5 +1,6 @@
 package com.neo.mytalker.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
@@ -20,12 +21,14 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		ANSWER_MUSIC_CONTINUE = "音乐酱又回来了\no(*≧▽≦)ツ",
 		ANSWER_MUSIC_CONTINUE_IS_PLAYING = "音乐酱早就在了\n(￣、￣)",
 		ANSWER_MUSIC_ERROR = "音乐酱出错了\n(┙>∧<)┙へ┻┻",
-		ANSWER_FEATURE_ERROR = "命令出错了\n(╬▔皿▔)";
+		ANSWER_FEATURE_ERROR = "命令出错了\n(╬▔皿▔)",
+		MUSIC_FOLDER = "music";
 	public static final String FEATURE_MUSIC = "music#",
 		FEATURE_MUSIC_PLAY = "play#",
 		FEATURE_MUSIC_STOP = "stop",
 		FEATURE_MUSIC_CONTINUE = "continue";
 	private static MediaPlayer music = null;
+	private static String musicFolderPath = null;
 	private static String chat(Context context, int userId, String ask) {
 		//最后应该返回的回答
 		String ans = null;
@@ -35,6 +38,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 
 		//判断是否进入特殊功能 
 		String ansFeature = checkFeature(ask);
+		
 		
 		//进入普通聊天
 		if(ansFeature == null || ansFeature.equals("")) {
@@ -97,7 +101,6 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 				ask.substring(ChatWithTalker.FEATURE_MUSIC.length())
 			);
 			if(answer == null || answer.equals("")) {
-Log.i("music", ChatWithTalker.ANSWER_FEATURE_ERROR);
 				answer = ChatWithTalker.ANSWER_FEATURE_ERROR;
 			}
 			return answer;
@@ -106,7 +109,7 @@ Log.i("music", ChatWithTalker.ANSWER_FEATURE_ERROR);
 	}
 
 	private static String featureMusicPlay(String musicName) {
-		String musicUrl = GetMusicUrl.getSongUrl(musicName);
+		final String musicUrl = GetMusicUrl.getSongUrl(musicName, musicFolderPath);
 		if(musicUrl == null || musicUrl.equals("")) {
 			return ChatWithTalker.ANSWER_MUSIC_PLAY_NOT_FOUND;
 		}
@@ -116,7 +119,7 @@ Log.i("music", ChatWithTalker.ANSWER_FEATURE_ERROR);
 			music.setDataSource(musicUrl);
 			music.prepare();
 			music.start();
-Log.i("music", "start");
+
 			return ChatWithTalker.ANSWER_MUSIC_PLAY;
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
@@ -137,7 +140,6 @@ Log.i("music", "start");
 	private static String featureMusicStop() {
 		try {
 			if(music.isPlaying()) {
-Log.i("music", "stop when play");
 				music.pause();
 				return ChatWithTalker.ANSWER_MUSIC_STOP;
 			}
@@ -218,6 +220,14 @@ Log.i("music", "stop when play");
 	private void init() {
 		if(music == null) {
 			music = new MediaPlayer();
+		}
+		if(musicFolderPath == null) {
+			musicFolderPath = context.getFilesDir().getPath()+File.separator
+				+MUSIC_FOLDER;
+			File tPath = new File(musicFolderPath);
+			if(!tPath.exists()) {
+				tPath.mkdir();
+			}
 		}
 	}
 	

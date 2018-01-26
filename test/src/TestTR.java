@@ -14,7 +14,7 @@ class TestTR{
 //    private static String url = "http://www.tuling123.com/openapi/api"+"?key="+key+"&info=";
     private static String url = "http://www.tuling123.com/openapi/api";
     private static int userid = 0;
-    public static void main(String[] args){
+    public static void main1(String[] args){
         String sentence = null;
         Scanner is = new Scanner(System.in);
         while(true){
