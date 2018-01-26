@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.util.Log;
+
 public class GetMusicUrl {
 	private final static String
 //		searchUrlPre = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.search.common&format=json&query={search}&page_no=1&page_size=30",
@@ -21,13 +23,21 @@ public class GetMusicUrl {
 
 	public static String getSongUrl(String songName, final String musicFolderPath) {
 //		return "http://music.163.com/song/media/outer/url?id=640565.mp3";
+
 		final String musicFilePath = musicFolderPath+
 			File.separator+songName+".mp3";
 		if(new File(musicFilePath).exists()) {
 			return musicFilePath;
 		}
+		
+		File file = new File(musicFolderPath);
+		if(!file.exists()) {
+			if(!file.mkdir()) {
+				return null;
+			}
+		}
 			
-		String songId = null;
+		String songId = "";
 		try {
 			songId = getSongId(songName);
 
@@ -36,14 +46,20 @@ public class GetMusicUrl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		final String url = fileUrlPre.replace(songIdHolder, songId);
 		if(songId != null) {
-			final String url = fileUrlPre.replace(songIdHolder, songId);
 			
 			new Thread(new Runnable() {
 				
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					try {
 						NetUtil.doGetMusic(url, musicFilePath);
 					} catch (IOException e) {
@@ -52,9 +68,8 @@ public class GetMusicUrl {
 					}
 				}
 			}).start();
-			return url;
 		}
-		return null;
+		return url;
 	}
 
 	private static String getSongId(String songName) throws IOException {

@@ -44,7 +44,7 @@ public class NetUtil {
 
 					while(true) {
 						int len = is.read(byar);
-System.out.println(len);
+//System.out.println(len);
 						if(len <= 0) {
 							break;
 						}
