@@ -1,13 +1,24 @@
 ﻿<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000" >
+    android:background="#000000"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+       >
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/feature_show_pages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </android.support.v4.view.ViewPager>
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/feature_splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000" >
+        >
 
         <ImageView
             android:id="@+id/feature_logo"
@@ -19,15 +30,6 @@
             android:src="@drawable/logo" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/featureShowPages"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-        </android.support.v4.view.ViewPager>
-    </RelativeLayout>
 
 </FrameLayout>

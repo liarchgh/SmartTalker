@@ -4,23 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <ImageView
+        android:id="@+id/feature_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:src="@drawable/logo" />
+
     <TextView
         android:id="@+id/feature_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:gravity="center"
         android:text="Contact with me here."
         android:textColor="#ffffff"
         android:textSize="30sp" />
-
-    <ImageView
-        android:id="@+id/feature_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:scaleType="fitCenter"
-        android:src="@drawable/feat_1" />
 
 </FrameLayout>

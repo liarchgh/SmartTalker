@@ -1,4 +1,3 @@
-package com.neo.mytalker.util;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -11,7 +10,7 @@ import java.net.URL;
 import java.util.Map;
 
 public class NetUtil {
-	public static void doGetMusic(final String url, final String filePath) throws IOException {
+	public static void doGetMusic(String url, String filePath) throws IOException {
 		//use url and parameter to get realurl
 		new Thread(new Runnable() {
 			
@@ -20,8 +19,10 @@ public class NetUtil {
 				// TODO Auto-generated method stub
 				
 				try {
+					StringBuffer realUrl = new StringBuffer(url);
+
 					//open connection
-					URL apiUrl = new URL(url);
+					URL apiUrl = new URL(realUrl.toString());
 					HttpURLConnection huc = (HttpURLConnection)apiUrl.openConnection();
 					huc.setRequestMethod("GET");
 					huc.setConnectTimeout(5000);
@@ -44,7 +45,7 @@ public class NetUtil {
 
 					while(true) {
 						int len = is.read(byar);
-//System.out.println(len);
+System.out.println(len);
 						if(len <= 0) {
 							break;
 						}

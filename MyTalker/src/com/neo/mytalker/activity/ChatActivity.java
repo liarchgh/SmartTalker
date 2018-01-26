@@ -1,15 +1,20 @@
 ﻿package com.neo.mytalker.activity;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.neo.mytalker.R;
 import com.neo.mytalker.fragments.ChatBarFragment;
 import com.neo.mytalker.fragments.ChatMenuFragment;
 import com.neo.mytalker.fragments.ChatRecordFragment;
-import android.os.Bundle;
+
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnLayoutChangeListener;
 import android.view.Window;
@@ -24,8 +29,10 @@ public class ChatActivity extends Activity implements OnLayoutChangeListener{
 	private View mRootView;
 	private int mScreenHeight;
 	private int mkeyHeight;
+	private boolean isQuitting;
 	
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -85,4 +92,31 @@ public class ChatActivity extends Activity implements OnLayoutChangeListener{
 		config_hidden.requestFocus();
 	}
 	
+	
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		// TODO Auto-generated method stub
+		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+			if (!isQuitting) {
+				Toast.makeText(getApplicationContext(), "Back again to quit.", Toast.LENGTH_SHORT).show();
+				isQuitting = true;
+				Timer timer = new Timer();
+				timer.schedule(new TimerTask() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						isQuitting = false;
+					}
+				}, 3000);
+				return true;
+			} else {
+				finish();
+				return true;
+			}
+		} else {
+			return super.dispatchKeyEvent(event);
+		}
+	}
+
 }
