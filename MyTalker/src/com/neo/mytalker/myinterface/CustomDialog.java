@@ -100,6 +100,7 @@ public class CustomDialog extends Dialog {
          */
         public CustomDialog createSingleButtonDialog() {
             showSingleButton();
+            hideEditView();
             layout.findViewById(R.id.single_button).setOnClickListener(singleButtonClickListener);
             //如果传入的按钮文字为空，则使用默认的“返回”
             if (singleButtonText != null) {
@@ -118,6 +119,7 @@ public class CustomDialog extends Dialog {
          */
         public CustomDialog createTwoButtonDialog() {
             showTwoButton();
+            hideEditView();
             layout.findViewById(R.id.positive_button).setOnClickListener(positiveButtonClickListener);
             layout.findViewById(R.id.negative_button).setOnClickListener(negativeButtonClickListener);
             //如果传入的按钮文字为空，则使用默认的“是”和“否”
@@ -210,8 +212,34 @@ public class CustomDialog extends Dialog {
             layout.findViewById(R.id.two_button_layout).setVisibility(View.GONE);
         }
         
+        /**
+         * 显示编辑框
+         */
         private void showEditView() {
         	layout.findViewById(R.id.two_edit_text).setVisibility(View.VISIBLE);
+        }
+        
+        /**
+         * 隐藏编辑框
+         */
+        private void hideEditView() {
+        	layout.findViewById(R.id.two_edit_text).setVisibility(View.GONE);
+        }
+        
+        /**
+         * 设置编辑框为不可以编辑
+         */
+        private void setEditViewUnEditable() {
+        	layout.findViewById(R.id.two_edit_text).setFocusable(false);
+        	layout.findViewById(R.id.two_edit_text).setFocusableInTouchMode(false);
+        }
+        
+        /**
+         * 设置编辑框为可以编辑
+         */
+        private void setEditViewEditable() {
+        	layout.findViewById(R.id.two_edit_text).setFocusable(true);
+        	layout.findViewById(R.id.two_edit_text).setFocusableInTouchMode(true);
         }
     }
 		

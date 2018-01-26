@@ -245,6 +245,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 	protected void onPostExecute(String result) {
 		// TODO Auto-generated method stub
 		mChatRecFrag.stopLoading();
+		mChatRecFrag.SetSpeak();
 		mChatRecFrag.AddRecord(false, result);
 		super.onPostExecute(result);
 	}

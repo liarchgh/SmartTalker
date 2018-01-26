@@ -244,4 +244,8 @@ public class ChatRecordFragment extends Fragment {
 		mChatRecordData.remove(loadingPosition);
 //		loadingView = null;
 	}
+	public void SetSpeak()
+	{
+		mChatActivity.Speak();
+	}
 }

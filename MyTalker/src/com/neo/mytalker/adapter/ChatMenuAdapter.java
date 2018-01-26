@@ -7,6 +7,7 @@ import com.neo.mytalker.R;
 import com.neo.mytalker.entity.MenuFunctionItem;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,9 @@ public class ChatMenuAdapter extends BaseAdapter{
 	private void bindViewWithData(int position, View convertView) {
 		ViewHolder vh = (ViewHolder) convertView.getTag();
 		vh.mImageView.setImageResource(mMenuFunctionItemList.get(position).getIcon());
+		vh.mImageView.setBackgroundColor(Color.parseColor("#66ccff"));
+		vh.mImageView.setScaleX((float) 0.75);
+		vh.mImageView.setScaleY((float) 0.75);
 		vh.mTextView.setText(mMenuFunctionItemList.get(position).getName());
 	}
 

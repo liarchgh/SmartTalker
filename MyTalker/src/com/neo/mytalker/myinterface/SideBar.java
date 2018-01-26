@@ -27,6 +27,7 @@ public class SideBar extends View{
 	private int choose = -1;//选中按钮
 	private Paint paint = new Paint();//画笔
 	private TextView mTextDialog;
+//	private int yStart, yStop;
 /*	private Context mContext;
 	private View mView = LayoutInflater.from(mContext).inflate(R.layout.activity_chat_rules, null, false);*/
 	
@@ -51,7 +52,12 @@ public class SideBar extends View{
 /*		this.mContext = mContext;*/
 	}
 	
-	
+/*	public void getLoction() {
+		int[] location = new int[2];
+		getLocationOnScreen(location);
+		yStart = location[1];
+		yStop = yStart + getHeight();
+	}*/
 	protected void OnDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		int height = getHeight();
@@ -101,20 +107,32 @@ public class SideBar extends View{
 				}
 				break;
 			default:
-				setBackgroundResource(R.drawable.sidebar_background);
-/*				mView.findViewWithTag(R.id.question_title).setVisibility(View.GONE);
-				mView.findViewWithTag(R.id.add_rules_btn).setVisibility(View.GONE);*/
-				if(choose != count) {
-					if(onTouchingLetterChangedListener != null) {
-						onTouchingLetterChangedListener.onTouchingLetterChanged(con[count]);
-					}if(mTextDialog != null) {
-						mTextDialog.setText(con[count]);
-						mTextDialog.setVisibility(View.VISIBLE);
-					}
-					
-					choose = count;
+				if(event.getY() > getTop() && event.getY() < getBottom() ) {
+					setBackgroundResource(R.drawable.sidebar_background);
+					/*	mView.findViewWithTag(R.id.question_title).setVisibility(View.GONE);
+						mView.findViewWithTag(R.id.add_rules_btn).setVisibility(View.GONE);*/
+						if(choose != count) {
+							if(onTouchingLetterChangedListener != null) {
+								onTouchingLetterChangedListener.onTouchingLetterChanged(con[count]);
+							}if(mTextDialog != null) {
+								mTextDialog.setText(con[count]);
+								mTextDialog.setVisibility(View.VISIBLE);
+							}
+							
+							choose = count;
+							invalidate();
+						}
+				}else {
+					setBackgroundDrawable(new ColorDrawable((0x00000000)));
+					/*	mView.findViewWithTag(R.id.question_title).setVisibility(View.VISIBLE);
+					mView.findViewWithTag(R.id.add_rules_btn).setVisibility(View.VISIBLE);*/
+					choose = -1;
 					invalidate();
+					if(mTextDialog != null) {
+					mTextDialog.setVisibility(View.INVISIBLE);
+					}
 				}
+				
 				break;
 		}
 		
