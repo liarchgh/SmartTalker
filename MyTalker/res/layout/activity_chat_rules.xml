@@ -1,20 +1,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="${relativePackage}.${activityClass}"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
-    <ListView 
-        android:id="@+id/rules_list"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"/>
     
-    <ImageView 
-        android:id="@+id/add_rules_btn"
+    <TextView
+            android:id="@+id/question_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="#E0E0E0"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="Here are questions you have defined"
+            android:textSize="18sp" />
+
+    <FrameLayout
+        android:id="@+id/fra_id"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/iclauncher"/>
+        android:layout_height="0dp"
+        android:layout_weight="10" >
+        <ListView
+            android:id="@+id/rules_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/letter_dialog"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/show_head_toast_bg"
+            android:gravity="center"
+            android:text="E"
+            android:textColor="#ffffff"
+            android:textSize="30dp"
+            android:visibility="invisible" />
+
+        <com.neo.mytalker.myinterface.SideBar
+            android:id="@+id/sidebar"
+            android:layout_width="20dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right|center" />       
+    </FrameLayout>
+
+    
+    <ImageView
+            android:id="@+id/add_rules_btn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/alb" />
 
 </LinearLayout>
