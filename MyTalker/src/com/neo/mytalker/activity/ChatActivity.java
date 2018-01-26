@@ -38,7 +38,6 @@ public class ChatActivity extends UnityPlayerActivity implements OnLayoutChangeL
 
 	private boolean SIMPLE_MODE = false;// TODO:turn off to enable Unity.
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

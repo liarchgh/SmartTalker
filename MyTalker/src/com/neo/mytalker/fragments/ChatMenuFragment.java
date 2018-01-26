@@ -58,13 +58,11 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener {
 	Context mContext;
 	ChatActivity mChatActivity;
 	Intent intent;
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		return init(inflater, container);
 	}
-
 	public View init(LayoutInflater inflater, ViewGroup container) {
 		mView = inflater.inflate(R.layout.fragment_chat_menu, container, false);
 		initData();
@@ -89,7 +87,6 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener {
 		}
 		mFunctionListItemList.add(list);
 	}
-
 	public void initView() {
 		mContext = mView.getContext();
 		mLayoutPoint = (LinearLayout) mView.findViewById(R.id.mp_image);
@@ -122,12 +119,10 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener {
 			mChatMenuAdapterList.add(mChatMenuAdapter);
 			mPagerView.add(mGridView);
 		}
-
 		View nullViewRight = new View(mContext);
 		nullViewRight.setBackgroundColor(Color.TRANSPARENT);
 		mPagerView.add(nullViewRight);
 	}
-
 	private void initPointView() {
 		// TODO Auto-generated method stub
 		mPointViews = new ArrayList<ImageView>();
@@ -165,7 +160,6 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener {
 		mViewPager.setCurrentItem(1);
 		current = 0;
 		mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
-
 			@Override
 			public void onPageSelected(int index) {
 				// TODO Auto-generated method stub
