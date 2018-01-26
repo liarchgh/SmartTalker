@@ -1,7 +1,11 @@
 package com.neo.mytalker.fragments;
 
 import com.neo.mytalker.R;
+import com.neo.mytalker.activity.ChatActivity;
+import com.neo.mytalker.activity.FeatureShowActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,27 +20,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class FeaturePageFragment extends Fragment {
+public class FeatureFinalPageFragment extends Fragment {
 
 	private View mRoot;
-	ObjectAnimator animator1,animator2;
+	ObjectAnimator animator1,animator2,animator3;
 	private String mText;
 	private TextView desc;
-	private ImageView bg;
-	private int mResId;
-	private Animator animator4;
-	private ObjectAnimator animator3;
-	public FeaturePageFragment(String text,int resId)
+	private FeatureShowActivity mFeatureShowActivity;
+	public FeatureFinalPageFragment(String text,FeatureShowActivity featureShowAcitivity)
 	{
 		mText=text;
-		mResId=resId;
+		mFeatureShowActivity=featureShowAcitivity;
 		Log.i("ZX","InitFrag");
 	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 
-			mRoot = inflater.inflate(R.layout.fragment_feature_page1, container, false);
+			mRoot = inflater.inflate(R.layout.fragment_feature_finalpage, container, false);
 			FindContent();
 			InitContent();
 			//InitAnimation();
@@ -53,27 +54,22 @@ public class FeaturePageFragment extends Fragment {
 	}
 	public void FindContent()
 	{
-		bg=(ImageView) mRoot.findViewById(R.id.feature_bg);
 		desc=(TextView) mRoot.findViewById(R.id.feature_description);
 	}
 	public void InitContent()
 	{
-		bg.setImageResource(mResId);
 		desc.setText(mText);
 		
 	}
 	public void InitAnimation()
 	{
 		desc.setAlpha(0);
-		bg.setAlpha(0f);
-		animator1 = ObjectAnimator.ofFloat(bg, "alpha", 0f, 1f);
+		animator1 = ObjectAnimator.ofFloat(desc, "alpha", 0f, 1f);
 		animator1.setDuration(1000);
-		animator2 = ObjectAnimator.ofFloat(desc, "alpha", 0f, 1f);
-		animator2.setDuration(1000);
-		animator3 = ObjectAnimator.ofFloat(mRoot, "alpha", 1f, 1f);
-		animator3.setDuration(2000);
-		animator4 = ObjectAnimator.ofFloat(mRoot, "alpha", 1f, 0f);
-		animator4.setDuration(1000);
+		animator2 = ObjectAnimator.ofFloat(desc, "alpha", 1f, 1f);
+		animator2.setDuration(2000);
+		animator3 = ObjectAnimator.ofFloat(desc, "alpha", 1f, 0f);
+		animator3.setDuration(1000);
 		animator1.addListener(new AnimatorListenerAdapter() {
 			@Override
 			public void onAnimationEnd(Animator animation) {
@@ -91,15 +87,10 @@ public class FeaturePageFragment extends Fragment {
 		animator3.addListener(new AnimatorListenerAdapter() {
 			@Override
 			public void onAnimationEnd(Animator animation) {
-				animator4.start();
-
-			}
-		});
-		animator4.addListener(new AnimatorListenerAdapter() {
-			@Override
-			public void onAnimationEnd(Animator animation) {
-				mRoot.setAlpha(1);
-
+				Intent myIntent = new Intent();
+				myIntent.setClass(mFeatureShowActivity, ChatActivity.class);
+				mFeatureShowActivity.startActivity(myIntent);
+				mFeatureShowActivity.finish();
 			}
 		});
 		animator1.start();

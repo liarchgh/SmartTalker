@@ -50,12 +50,12 @@ public final class R {
         public static final int content=0x7f07000e;
         public static final int edit_one=0x7f070011;
         public static final int edit_two=0x7f070012;
-        public static final int featureShowPages=0x7f07000c;
         public static final int feature_bg=0x7f070022;
         public static final int feature_description=0x7f070021;
-        public static final int feature_logo=0x7f07000b;
+        public static final int feature_logo=0x7f07000c;
         public static final int feature_page=0x7f070020;
-        public static final int feature_splash=0x7f07000a;
+        public static final int feature_show_pages=0x7f07000a;
+        public static final int feature_splash=0x7f07000b;
         public static final int imageShow=0x7f070026;
         public static final int jumpBtn=0x7f07002b;
         public static final int jump_main_buttons=0x7f07002a;
@@ -91,11 +91,12 @@ public final class R {
         public static final int fragment_chat_bar=0x7f030005;
         public static final int fragment_chat_menu=0x7f030006;
         public static final int fragment_chat_record=0x7f030007;
-        public static final int fragment_feature_page1=0x7f030008;
-        public static final int listpart_chat_record=0x7f030009;
-        public static final int message_function_layout=0x7f03000a;
-        public static final int single_image=0x7f03000b;
-        public static final int son_of_dialog_list_view_layout=0x7f03000c;
+        public static final int fragment_feature_finalpage=0x7f030008;
+        public static final int fragment_feature_page1=0x7f030009;
+        public static final int listpart_chat_record=0x7f03000a;
+        public static final int message_function_layout=0x7f03000b;
+        public static final int single_image=0x7f03000c;
+        public static final int son_of_dialog_list_view_layout=0x7f03000d;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
