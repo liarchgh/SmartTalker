@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp">
+
+    <EditText
+        android:id="@+id/jpush_im_userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入用户名"/>
+    <EditText
+        android:id="@+id/jpush_im_passWord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入密码"
+        android:digits="1234567890"
+    />
+
+    <Button
+        android:id="@+id/jpush_im_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="提交注册"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/jpush_im_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已有账号？直接登录。"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="20dp"
+        android:gravity="center_horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:enabled="true"
+        android:textIsSelectable="true"
+        android:focusable="true"
+        android:longClickable="true"
+        android:text="独立的即时通讯项目已经发布：\n
+        https://github.com/wapchief/JPushIM
+        \n完全基于极光sdk开发的IM"
+        />
+</LinearLayout>

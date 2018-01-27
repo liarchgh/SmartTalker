@@ -11,7 +11,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -50,15 +52,12 @@ public class ChatBarFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (!mChatActivity.isKeyboardOn) {
-					if (mChatActivity.findViewById(R.id.message_plus_fragment).getVisibility() == View.GONE) {
-						mChatActivity.findViewById(R.id.message_plus_fragment).setVisibility(View.VISIBLE);
-						Toast.makeText(mContext, "GONE", Toast.LENGTH_LONG).show();
-					} else {
-						mChatActivity.findViewById(R.id.message_plus_fragment).setVisibility(View.GONE);
-						Toast.makeText(mContext, "VISIBLE", Toast.LENGTH_LONG).show();
-					}
+				if ((mChatActivity.getWindow().getAttributes().softInputMode==WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)) {
+					
+					mChatActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 				}
+				mChatMenuFragment.ToggleMenu(mMore);
+
 			}
 
 		});
@@ -73,6 +72,19 @@ public class ChatBarFragment extends Fragment {
 				// TODO Auto-generated method stub
 				SendText();
 				return false;
+			}
+
+		});
+		mText.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				// TODO Auto-generated method stub
+				if (hasFocus) {
+					mChatMenuFragment.ToggleMenu(false);
+					//Log.i(this, "键盘弹起", Toast.LENGTH_SHORT).show();
+				}
+
 			}
 
 		});
@@ -95,6 +107,7 @@ public class ChatBarFragment extends Fragment {
 		// TODO Auto-generated method stub
 		return mRoot;
 	}
+
 	public void SendText() {
 		String tmp = mText.getText().toString();
 		if (!tmp.equals("")) {

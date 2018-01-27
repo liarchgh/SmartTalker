@@ -6,38 +6,36 @@ import com.neo.mytalker.R;
 import com.neo.mytalker.R.drawable;
 import com.neo.mytalker.activity.ChatActivity;
 import com.neo.mytalker.activity.ChatRulesActivity;
-import com.neo.mytalker.activity.MainActivity;
+import com.neo.mytalker.activity.HelpActivity;
 import com.neo.mytalker.adapter.ChatMenuAdapter;
 import com.neo.mytalker.adapter.ChatMenuPageAdapter;
 import com.neo.mytalker.entity.MenuFunctionItem;
-import com.neo.mytalker.myinterface.CustomDialog;
-import com.neo.mytalker.myinterface.CustomDialog.Builder;
+import com.neo.mytalker.entity.MusicItemData;
+import com.neo.mytalker.entity.MusicPlayerDialog;
 
-import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 public class ChatMenuFragment extends Fragment implements OnItemClickListener {
 	TextView mSendTextView, mChooseMoreFunBtn;
@@ -58,13 +56,20 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener {
 	Context mContext;
 	ChatActivity mChatActivity;
 	Intent intent;
+	private TextView mMoreBtn;
+	private boolean isMenuOn;
+	MusicPlayerDialog.Builder mBuilder;
+	MusicPlayerDialog mMusicPlayerDialog;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		return init(inflater, container);
 	}
+
 	public View init(LayoutInflater inflater, ViewGroup container) {
 		mView = inflater.inflate(R.layout.fragment_chat_menu, container, false);
+		mViewGroup=container;
 		initData();
 		initView();
 		initFunctionViewPager();
@@ -87,6 +92,7 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener {
 		}
 		mFunctionListItemList.add(list);
 	}
+
 	public void initView() {
 		mContext = mView.getContext();
 		mLayoutPoint = (LinearLayout) mView.findViewById(R.id.mp_image);
@@ -119,10 +125,12 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener {
 			mChatMenuAdapterList.add(mChatMenuAdapter);
 			mPagerView.add(mGridView);
 		}
+
 		View nullViewRight = new View(mContext);
 		nullViewRight.setBackgroundColor(Color.TRANSPARENT);
 		mPagerView.add(nullViewRight);
 	}
+
 	private void initPointView() {
 		// TODO Auto-generated method stub
 		mPointViews = new ArrayList<ImageView>();
@@ -160,6 +168,7 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener {
 		mViewPager.setCurrentItem(1);
 		current = 0;
 		mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
+
 			@Override
 			public void onPageSelected(int index) {
 				// TODO Auto-generated method stub
@@ -201,8 +210,15 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener {
 			startActivity(intent);
 			break;
 		case 1:
+			ToggleMenu(false);
+			mMusicPlayerDialog = new MusicPlayerDialog.Builder(mContext,null).createListDialog();
+			mMusicPlayerDialog.show();
+			
 			break;
 		case 2:
+			intent = new Intent();
+			intent.setClass(mContext, HelpActivity.class);
+			startActivity(intent);
 			break;
 		case 3:
 			break;
@@ -223,9 +239,33 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener {
 	public void ToggleMenu(boolean status) {
 		// Toast.makeText(mContext, "toggle"+status, Toast.LENGTH_LONG).show();
 		if (status) {
+			mViewGroup.setVisibility(View.VISIBLE);
 			mViewPager.setVisibility(View.VISIBLE);
+			isMenuOn=true;
+
 		} else {
 			mViewPager.setVisibility(View.GONE);
+			mViewGroup.setVisibility(View.GONE);
+			isMenuOn=false;
 		}
+		if(mMoreBtn!=null)
+		{
+			mMoreBtn.setText(isMenuOn?"—":"+");
+		}
+	}
+	public void ToggleMenu()
+	{
+		isMenuOn=!isMenuOn;
+		ToggleMenu(isMenuOn);
+	}
+	public void ToggleMenu(boolean status,TextView text) {
+		// Toast.makeText(mContext, "toggle"+status, Toast.LENGTH_LONG).show();
+		mMoreBtn=text;
+		ToggleMenu(status);
+	}
+	public void ToggleMenu(TextView text) {
+		// Toast.makeText(mContext, "toggle"+status, Toast.LENGTH_LONG).show();
+		mMoreBtn=text;
+		ToggleMenu();
 	}
 }

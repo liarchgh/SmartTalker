@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/question_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:background="#66ccff"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:text="在这里点击可以改变我的知识储备哟~"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <FrameLayout
+        android:id="@+id/fra_id"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="100" >
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" 
+            android:id="@+id/help_webview">
+        </WebView>
+    </FrameLayout>
+
+</LinearLayout>

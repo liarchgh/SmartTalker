@@ -6,6 +6,7 @@ import com.neo.mytalker.R;
 import com.neo.mytalker.entity.ChatRecordData;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class ChatRecordAdapter extends BaseAdapter {
 	Activity context;
 	int resId;
 	View srcView;
+	ViewGroup parent;
 	public ChatRecordAdapter(Activity ccontext,ArrayList<ChatRecordData> data,int rresId)
 	{
 		al=data;
@@ -48,6 +50,7 @@ public class ChatRecordAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
+		this.parent = parent;
 		if(convertView==null)
 		{
 			convertView=newView(parent);
@@ -83,6 +86,7 @@ public class ChatRecordAdapter extends BaseAdapter {
 				lp.addRule(RelativeLayout.ALIGN_PARENT_END);
 				vh.tv_msg.setLayoutParams(lp);
 				vh.tv_msg.setBackgroundResource(R.drawable.msg_bg);
+				vh.tv_msg.setTextColor(Color.parseColor("#ffffff"));
 	//			RelativeLayout.LayoutParams lp2=new RelativeLayout.LayoutParams((int)(40*dp2px),(int)(40*dp2px));
 	//			lp2.addRule(RelativeLayout.ALIGN_PARENT_END);
 	//			lp2.setMargins((int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px));
@@ -94,6 +98,7 @@ public class ChatRecordAdapter extends BaseAdapter {
 				lp.addRule(RelativeLayout.ALIGN_PARENT_START);
 				vh.tv_msg.setLayoutParams(lp);
 				vh.tv_msg.setBackgroundResource(R.drawable.msg_op_bg);
+				vh.tv_msg.setTextColor(Color.parseColor("#000000"));
 	//			RelativeLayout.LayoutParams lp2=new RelativeLayout.LayoutParams((int)(40*dp2px),(int)(40*dp2px));
 	//			lp2.addRule(RelativeLayout.ALIGN_PARENT_START);
 	//			lp2.setMargins((int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px), (int)(10*dp2px));

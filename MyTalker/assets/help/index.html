@@ -1,0 +1,554 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+<title>About</title>
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery-1.11.0.min.js"></script>
+<link href="css/style.css" rel="stylesheet" type="text/css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Google Fonts --->
+<link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+<!-- Google Fonts --->
+<script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
+	<script type="text/javascript">
+	$(function () {
+		
+		var filterList = {
+		
+			init: function () {
+			
+				// MixItUp plugin
+				// http://mixitup.io
+				$('#portfoliolist').mixitup({
+					targetSelector: '.portfolio',
+					filterSelector: '.filter',
+					effects: ['fade'],
+					easing: 'snap',
+					// call the hover effect
+					onMixEnd: filterList.hoverEffect()
+				});				
+			
+			},
+			
+			hoverEffect: function () {
+			
+				// Simple parallax effect
+				$('#portfoliolist .portfolio').hover(
+					function () {
+						$(this).find('.label').stop().animate({bottom: 0}, 200, 'easeOutQuad');
+						$(this).find('img').stop().animate({top: -30}, 500, 'easeOutQuad');				
+					},
+					function () {
+						$(this).find('.label').stop().animate({bottom: -40}, 200, 'easeInQuad');
+						$(this).find('img').stop().animate({top: 0}, 300, 'easeOutQuad');								
+					}		
+				);				
+			
+			}
+
+		};
+		
+		// Run the show!
+		filterList.init();
+		
+		
+	});	
+	</script>
+	<script type="text/javascript" src="js/easing.js"></script>
+					<script type="text/javascript">
+					jQuery(document).ready(function($) {
+						$(".scroll").click(function(event){		
+							event.preventDefault();
+							$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+						});
+					});
+</script>
+</head>
+<body>
+	<!--- Header Starts Here ---->
+	<div class="header" id="home">
+		<div class="container">
+			<!--<div class="logos">
+				&lt;!&ndash;<a href="index.html"><img src="images/logo.png" alt=""></a>&ndash;&gt;
+			</div>-->
+			<!--- banner Slider starts Here --->
+	  			<script src="js/responsiveslides.min.js"></script>
+					 <script>
+					    // You can also use "$(window).load(function() {"
+					    $(function () {
+					      // Slideshow 4
+					      $("#slider4").responsiveSlides({
+					        auto: true,
+					        pager: true,
+					        nav: true,
+					        speed: 500,
+					        namespace: "callbacks",
+					        before: function () {
+					          $('.events').append("<li>before event fired.</li>");
+					        },
+					        after: function () {
+					          $('.events').append("<li>after event fired.</li>");
+					        }
+					      });
+					
+					    });
+					  </script>
+			<!----//End-slider-script---->
+			<!-- Slideshow 4 -->
+			    <div  id="top" class="callbacks_container">
+			      <ul class="rslides" id="slider4">
+			        <li>
+			        	<div class="slide-content">
+							<h2>欢迎来到指导教室!</h2>
+							<p>主人~在这里你就可以了解我的一系列的相关的功能啦<br> 主人下滑就可以翻阅我的相关的功能结构~</p>
+<!--							<a href="">Contact us</a>-->
+						</div>
+					 </li>
+					 <li>
+			        	<div class="slide-content">
+							<h2>来陪我一起玩吧!</h2>
+							<p>点击下方菜单按钮主人就可以看到相关的功能操作啦<br> 快来陪我一起玩吧~</p>
+							<!--<a href="">Contact us</a>-->
+						</div>
+					 </li>
+					 <li>
+			        	<div class="slide-content">
+							<h2>主人今天要有一个好心情哟!</h2>
+							<p>隐约雷鸣 阴霾天空 但盼风雨来 能留你在此<br> 隐约雷鸣 阴霾天空 即使天无雨 我亦留此地</p>
+							<!--<a href="">Contact us</a>-->
+						</div>
+					 </li>
+			      </ul>
+			    </div>
+		</div>
+	</div>
+	<!--- Header Ends Here ---->
+	<!-- Navigation Starts Here ---->
+	<!-- top-nav -->
+		
+		<div class="top-nav">
+			<nav>
+				<span class="menu"></span>
+				<ul>
+					<li><a href="#about" class="scroll">软件介绍</a></li>
+					<!--<li><a href="#work" class="scroll">功能介绍</a></li>-->
+					<li><a href="#service" class="scroll">功能介绍</a></li>
+					<li class="active"><a href="#home" class="scroll">返回顶部</a></li>
+					<<li><a href="#contact" class="scroll">联系Boss</a></li>
+					<div class="clearfix"> </div>
+				</ul>
+			</nav>
+		</div>
+		<script>
+					$( "span.menu" ).click(function() {
+					  $( ".top-nav ul" ).slideToggle( "slow", function() {
+					    // Animation complete.
+					  });
+					});
+				</script>
+
+		<script src="js/myscript.js"> </script>
+		<!-- top-nav -->
+	<!--- Navigarion Ends Here ---><div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >企业网站模板</a></div>
+	<!--- About Us Starts Here ---->
+	<div class="about" id="about">
+		<div class="container">
+			<h3 class="top-title">关于Amadeus</h3>
+			<h4>为什么选择Amadeus?</h4>
+			<p>Amadeus是我的名字~当主人把我带到身边的时候我就注定会和主人陪伴在一起，在这里主人可以教导我说话，一点一点地提升我的智慧，也可以和我从出生就已经学会的
+				语言进行交谈，我还可以为主人报告不同地区的天气情况，为主人排忧解难，当主人心中烦闷的时候也可以告诉我，主人只需要告诉我想听什么歌曲我就可以将主人想
+				听的歌曲呈现给主人哟~如果主人喜欢还可以将歌曲下载下来，方便以后聆听，当主人听歌的时候我还可以给主人伴舞哟~如果主人喜欢我就继续教导我吧</p>
+			<!--<p class="show-not"></p>-->
+			<div class="row about-row">
+				<div class="col-md-3 about-row-column">
+					<img src="images/rules.png" alt=""/>
+				</div>
+				<div class="col-md-9 about-column">
+					<h3>规则修改</h3>
+					<!--<h4>Subtitle</h4>-->
+					<p>在这里主人可以教我说话哟~除了我天生学会的语言，主人可以教导我怎么去说话，怎么说话才能更加地讨主人欢心，如果某一天主人不喜欢之前交给我的话了
+					，那么主人也可以让我忘记之前学过的话哟，或者让我换一种回答也可以喔</p>
+					<!--<h5>Skills</h5>
+					<div id="progressbar"><div id="progress" ><div id="pbaranim">11%</div></div></div>-->
+					<!--<ul class="social">
+						<li><i class="fa"></i></li>
+						<li><i class="tw"></i></li>
+						<li><i class="in"></i></li>
+						<li><i class="pw"></i></li>
+					</ul>-->
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="row about-row">
+				<div class="col-md-3 about-row-column">
+					<img src="images/music.png" alt=""/>
+				</div>
+				<div class="col-md-9 about-column">
+					<h3>本地音乐</h3>
+					<!--<h4>Subtitle</h4>-->
+					<p>在这里主人可以教我说话哟~除了我天生学会的语言，主人可以教导我怎么去说话，怎么说话才能更加地讨主人欢心，如果某一天主人不喜欢之前交给我的话了
+						，那么主人也可以让我忘记之前学过的话哟，或者让我换一种回答也可以喔</p>
+					<!--<h5>Skills</h5>
+					<div id="progressbar"><div id="progress" ><div id="pbaranim">11%</div></div></div>-->
+					<!--<ul class="social">
+						<li><i class="fa"></i></li>
+						<li><i class="tw"></i></li>
+						<li><i class="in"></i></li>
+						<li><i class="pw"></i></li>
+					</ul>-->
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="row about-row">
+				<div class="col-md-3 about-row-column">
+					<img src="images/help.png" alt=""/>
+				</div>
+				<div class="col-md-9 about-column">
+					<h3>使用帮助</h3>
+					<!--<h4>Subtitle</h4>-->
+					<p>嘿嘿嘿~这里就是主人来到现在空间的入口哟，这里主人可以知道关于我的很多很多详细的知识哟，就像现在一样哟，所以请主人继续吧~</p>
+					<!--<h5>Skills</h5>
+					<div id="progressbar"><div id="progress" ><div id="pbaranim">11%</div></div></div>-->
+					<!--<ul class="social">
+						<li><i class="fa"></i></li>
+						<li><i class="tw"></i></li>
+						<li><i class="in"></i></li>
+						<li><i class="pw"></i></li>
+					</ul>-->
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="row about-row">
+				<div class="col-md-3 about-row-column">
+					<img src="images/settings.png" alt=""/>
+				</div>
+				<div class="col-md-9 about-column">
+					<h3>系统设置</h3>
+					<!--<h4>Subtitle</h4>-->
+					<p>啊咧咧，这里是我最喜欢的地方，在这里主人可以给我更改主题的颜色，换一种风格，换一种心情，说不定会让主人有一种焕然一新的感觉哟</p>
+					<!--<h5>Skills</h5>
+					<div id="progressbar"><div id="progress" ><div id="pbaranim">11%</div></div></div>-->
+					<!--<ul class="social">
+						<li><i class="fa"></i></li>
+						<li><i class="tw"></i></li>
+						<li><i class="in"></i></li>
+						<li><i class="pw"></i></li>
+					</ul>-->
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<!--- Testimonial Starts here --->
+			<div class="testimonial">
+					<h3 class="top-title">跟主人说的悄悄话</h3>
+					<h4>主人千万不要告诉别人哟</h4>
+					<script>
+					    // You can also use "$(window).load(function() {"
+					    $(function () {
+					      // Slideshow 4
+					      $("#slider2").responsiveSlides({
+					        auto: true,
+					        pager: true,
+					        nav: true,
+					        speed: 500,
+					        namespace: "callbacks",
+					        before: function () {
+					          $('.events').append("<li>before event fired.</li>");
+					        },
+					        after: function () {
+					          $('.events').append("<li>after event fired.</li>");
+					        }
+					      });
+					
+					    });
+					  </script>
+					<div  id="top" class="callbacks_container">
+			      		<ul class="rslides" id="slider2">
+			        		<li>
+								<div class="testimonial-slide">
+									<blockquote class="style1">
+										<span>其实我在这里等待主人已经等了好久了呢，可是主人这么长时间一直没有搭理我，所以我只能一个人在这里孤独地等待着，因为Amadeus知道，主人总有一天一定会将我带回家的~等主人看到这句话的时候就说明我已经开始跟随主人啦，让主人和我一起成长吧~</span>
+									</blockquote>
+									<h5>Amadeus</h5>
+								</div>
+							</li>
+							<li>
+								<div class="testimonial-slide">
+									<blockquote class="style1">
+										<span>这是我给主人的第二封信，不知道主人能不能看到呢，主人如果有什么好的建议之类的可以发送邮件给我的Boss，然后他们就可以让我进一步进化，这样我就可以更好的陪伴主人啦，下方有他们的联系方式哟</span>
+									</blockquote>
+									<h5>Amadeus</h5>
+								</div>
+							</li>
+							<!--<li>
+								<div class="testimonial-slide">
+									<blockquote class="style1">
+										<span>dolor sit amet,Lorem ipsum consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in </span>
+									</blockquote>
+									<h5>Doe Aaron, CEO</h5>
+								</div>
+							</li>-->
+						</ul>
+					</div>
+			</div>
+			<!--- Testimonial Ends here --->
+		</div>
+	</div>
+	<!--- About Us Ends Here ---->
+	<!--- Featured Work Starts Here ---->
+	<div class="feature" id="work">
+		<div class="container">			
+				<!--<h3 class="top-title">功能介绍</h3>-->
+				<div class="portfolio">
+					<!--<ul id="filters" class="clearfix">
+						<li><span class="filter" data-filter="app card icon logo web">All items</span></li>
+						<li><span class="filter" data-filter="app"> webdesign</span></li>
+						<li><span class="filter active" data-filter="card">graphic design</span></li>
+						<li><span class="filter" data-filter="icon">Illustration</span></li>
+						<li><span class="filter" data-filter="logo"> photography</span></li>
+					</ul>
+					<div id="portfoliolist">
+					<div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="#small-dialog" class="b-link-stripe b-animate-go  thickbox popup-with-zoom-anim">
+						     <img src="images/pic1.jpg" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "><img src="images/icon-eye.png" alt=""/></h2>
+						  	<p class="b-animate b-from-right    b-delay03 ">Lorem ipsum dolor sit amet.<br><span class="m_4">Photography</span></p></div></a>
+		                </div>
+					</div>				
+					<div class="portfolio icon mix_all" data-cat="icon" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="#small-dialog1" class="b-link-stripe b-animate-go  thickbox popup-with-zoom-anim">
+						     <img src="images/pic2.jpg" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "><img src="images/icon-eye.png" alt=""/></h2>
+						  	<p class="b-animate b-from-right    b-delay03 ">Lorem ipsum dolor sit amet.<br><span class="m_4">Photography</span></p></div></a>
+		                </div>
+					</div>		
+					<div class="portfolio card mix_all" data-cat="card" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="#small-dialog2" class="b-link-stripe b-animate-go  thickbox popup-with-zoom-anim">
+						     <img src="images/pic5.jpg" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "><img src="images/icon-eye.png" alt=""/></h2>
+						  	<p class="b-animate b-from-right    b-delay03 ">Lorem ipsum dolor sit amet.<br><span class="m_4">Photography</span></p></div></a>
+		                </div>
+					</div>				
+					<div class="portfolio logo mix_all" data-cat="logo" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="#small-dialog3" class="b-link-stripe b-animate-go  thickbox popup-with-zoom-anim">
+						     <img src="images/pic3.jpg" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "><img src="images/icon-eye.png" alt=""/></h2>
+						  	<p class="b-animate b-from-right    b-delay03 ">Lorem ipsum dolor sit amet.<br><span class="m_4">Photography</span></p></div></a>
+		                </div>
+					</div>	
+					<div class="portfolio card mix_all" data-cat="card" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="#small-dialog4" class="b-link-stripe b-animate-go  thickbox popup-with-zoom-anim">
+						     <img src="images/pic4.jpg" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "><img src="images/icon-eye.png" alt=""/></h2>
+						  	<p class="b-animate b-from-right    b-delay03 ">Lorem ipsum dolor sit amet.<br><span class="m_4">Photography</span></p></div></a>
+		                </div>
+					</div>			
+					<div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="#small-dialog5" class="b-link-stripe b-animate-go  thickbox popup-with-zoom-anim">
+						     <img src="images/pic6.jpg" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "><img src="images/icon-eye.png" alt=""/></h2>
+						  	<p class="b-animate b-from-right    b-delay03 ">Lorem ipsum dolor sit amet.<br><span class="m_4">Photography</span></p></div></a>
+		                </div>
+					</div>	
+					<div class="portfolio logo mix_all" data-cat="logo" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="#small-dialog6" class="b-link-stripe b-animate-go  thickbox popup-with-zoom-anim">
+						     <img src="images/pic8.jpg" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "><img src="images/icon-eye.png" alt=""/></h2>
+						  	<p class="b-animate b-from-right    b-delay03 ">Lorem ipsum dolor sit amet.<br><span class="m_4">Photography</span></p></div></a>
+		                </div>
+					</div>	
+					<div class="portfolio card mix_all" data-cat="card" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="#small-dialog7" class="b-link-stripe b-animate-go  thickbox popup-with-zoom-anim">
+						     <img src="images/pic7.jpg" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "><img src="images/icon-eye.png" alt=""/></h2>
+						  	<p class="b-animate b-from-right    b-delay03 ">Lorem ipsum dolor sit amet.<br><span class="m_4">Photography</span></p></div></a>
+		                </div>
+					</div>			
+					<div class="portfolio app mix_all"  data-cat="app" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="#small-dialog8" class="b-link-stripe b-animate-go  thickbox popup-with-zoom-anim">
+						     <img src="images/pic9.jpg" class="img-hid" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "><img src="images/icon-eye.png" alt=""/></h2>
+						  	<p class="b-animate b-from-right    b-delay03 ">Lorem ipsum dolor sit amet.<br><span class="m_4">Photography</span></p></div></a>
+		                </div>
+					</div>
+				</div>
+				</div>
+				<div class="clearfix"></div>-->
+				<!---pop-up-box---->
+					  <script type="text/javascript" src="js/modernizr.custom.min.js"></script>    
+					<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
+					<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+				<!---//pop-up-box---->
+					<!--<div id="small-dialog" class="mfp-hide">
+						<div class="image-top">
+							<img src="images/pic1.jpg" alt=""/>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+						</div>
+					</div>
+					<div id="small-dialog1" class="mfp-hide">
+						<div class="image-top">
+							<img src="images/pic2.jpg" alt=""/>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+						</div>
+					</div>
+					<div id="small-dialog2" class="mfp-hide">
+						<div class="image-top">
+							<img src="images/pic5.jpg" alt=""/>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+						</div>
+					</div>
+					<div id="small-dialog3" class="mfp-hide">
+						<div class="image-top">
+							<img src="images/pic3.jpg" alt=""/>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+						</div>
+					</div>
+					<div id="small-dialog4" class="mfp-hide">
+						<div class="image-top">
+							<img src="images/pic4.jpg" alt=""/>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+						</div>
+					</div>
+					<div id="small-dialog5" class="mfp-hide">
+						<div class="image-top">
+							<img src="images/pic6.jpg" alt=""/>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+						</div>
+					</div>
+					<div id="small-dialog6" class="mfp-hide">
+						<div class="image-top">
+							<img src="images/pic8.jpg" alt=""/>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+						</div>
+					</div>
+					<div id="small-dialog7" class="mfp-hide">
+						<div class="image-top">
+							<img src="images/pic7.jpg" alt=""/>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+						</div>
+					</div>
+					<div id="small-dialog8" class="mfp-hide">
+						<div class="image-top">
+							<img src="images/pic9.jpg" alt=""/>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+						</div>
+					</div>-->
+			<!--<script>
+						$(document).ready(function() {
+						$('.popup-with-zoom-anim').magnificPopup({
+							type: 'inline',
+							fixedContentPos: false,
+							fixedBgPos: true,
+							overflowY: 'auto',
+							closeBtnInside: true,
+							preloader: false,
+							midClick: true,
+							removalDelay: 300,
+							mainClass: 'my-mfp-zoom-in'
+						});
+																						
+						});
+				</script>-->
+
+				<!---Services Starts Here ---->
+					<div class="services" id="service">
+							<h3 class="top-title">功能介绍</h3>
+							<div class="row services-row">
+								<div class="col-md-4 services-column">
+									<h4>在这里我可以告诉主人我的详细的能力哟</h4>
+									<h4>音乐规则</h4>
+									<image src="images/0.png" width="110" height="110"></image>
+									<p>当主人感觉到疲惫的时候我可以给主人唱歌哟，主人只需要点击菜单栏之中的音乐播放按钮，然后按照我能够听懂的语言进行输入就可以
+									让我播放音乐啦
+										<ul>
+											<li><span class="motion">播放音乐</span>:<span class="motionname">播放音乐+歌名</span></li>
+											<li><span class="motion">停止音乐</span>:<span class="motionname">停止播放</span></li>
+											<li><span class="motion">继续播放音乐</span>:<span class="motionname">继续播放</span></li>
+										</ul>
+									播放过的音乐会自动下载下来哟
+									</p>
+								</div>
+								<div class="col-md-4 services-column">
+									<h4>天气查询</h4>
+									<image src="images/3.png" width="110" height="110"></image>
+									<p>主人如果想要查询天气的话只需要跟我在输入框里面告诉我某个地方的天气我就可以将相应的天气情况呈现给主人啦，比如主人输入哈尔滨天气，我就会告诉主人哈尔滨的天气状况啦</p>
+								</div>
+								<div class="col-md-4 services-column">
+									<h4>教我说话</h4>
+									<image src="images/0.png" width="110" height="110"></image>
+									<p>在这里主人可以点击下方的添加按钮可以为我扩充知识量，如果主人不想要我记住某一句话，就可以长按这句话可以进行删除，或者点击这句话进行修改哟，主人还可以在右边发现隐藏的滚动条，滑动就可以快速寻找对应的
+										知识点哟</p>
+								</div>
+								<div class="col-md-4 services-column">
+									<h4>语音输入</h4>
+									<image src="images/3.png" width="110" height="110"></image>
+									<p>主人可以进行长按对话框进行语音的输入，我可以识别出来主人的声音哟</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+					</div>
+				<!---Services Ends Here ---->
+		</div>
+	</div>
+	<!--- Featured Work Ends Here ---->	
+	<!--- Contact-starts Here --->
+	<div class="contact" id="contact">
+		<div class="contact-map">
+			<iframe src=""></iframe>
+		</div>
+		<div class="contact-top">
+			<h3>联系我们</h3>
+			<div class="row contact-top-row">
+				<div class="col-md-4 contact-top-column">
+					<address>
+						<p>
+							邮箱：</br>
+							amadeus_offical@163.com<br>
+						</p>
+						<p>大家如果对于本APP有任何修改的建议都可以发送意见到这个邮箱之中，我们会尽我们最大的努力对本APP进行功能修改，为大家推出更加优质的体验，
+						现在请大家尽情享受本APP给大家带来的体验吧~</p>
+					</address>
+				</div>
+				<!--<div class="col-md-8 contact-top-column1">
+					<span class="text-box">
+						<label class="text-icon"></label>
+						<input type="text" placeholder="Name" required="">
+					</span>
+					<div class="text">
+						<span class="text-box">
+							<label class="text-icon2"></label>
+							<input type="text" placeholder="Email" required="">
+						</span>
+					</div>
+					<div class="text">
+						<span class="text-box">
+							<label class="text-icon3"></label>
+							<input type="text" placeholder="Website" required="">
+						</span>
+					</div>
+					<div class="text">
+						<textarea placeholder="Message" required></textarea>
+					</div>
+					<div class="text">
+						<input type="submit" value="send message">
+					</div>
+				</div>-->
+			</div>
+		</div>
+	</div>
+	<!--- Contact-Ends Here --->
+	<!--- Footer Starts here -->
+<!--	<div class="footer">
+		<ul class="footer-icons">
+			<li><i class="fb"></i></li>
+			<li><i class="twit"></i></li>
+		</ul>
+		<p class="copyright">Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+				<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+
+	</div>-->
+	<!--- Footer Ends here --->
+</body>
+</html>
