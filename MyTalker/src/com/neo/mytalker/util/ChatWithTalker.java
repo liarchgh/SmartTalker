@@ -2,6 +2,7 @@ package com.neo.mytalker.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -26,6 +27,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 	public static final String FEATURE_MUSIC = "music#",
 		FEATURE_MUSIC_PLAY = "play#",
 		FEATURE_MUSIC_STOP = "stop",
+		FEATURE_MUSIC_LIST = "list",
 		FEATURE_MUSIC_CONTINUE = "continue";
 	private static MediaPlayer music = null;
 	private static String musicFolderPath = null;
@@ -181,6 +183,23 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		return ChatWithTalker.ANSWER_MUSIC_ERROR;
 	}
 	
+	public static String featureMusicList() {
+		List<String>musics = GetMusicUrl.getSongsDownloaded(musicFolderPath);
+		StringBuffer res = new StringBuffer();
+		boolean first = false;
+		for(Iterator<String>it = musics.iterator();
+				it.hasNext(); ) {
+			if(first) {
+				res.append("\n");
+			}
+			else {
+				first = true;
+			}
+			res.append(it.next());
+		}
+		return res.toString();
+	}
+	
 	private static String featureMusic(String musicControl) {
 		if(musicControl.length() >= ChatWithTalker.FEATURE_MUSIC_PLAY.length()
 			&& musicControl.substring(0, ChatWithTalker.FEATURE_MUSIC_PLAY.length())
@@ -200,6 +219,12 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 				.equals(ChatWithTalker.FEATURE_MUSIC_CONTINUE)
 			) {
 			return featureMusicContinue();
+		}
+		else if(musicControl.length() >= ChatWithTalker.FEATURE_MUSIC_LIST.length()
+			&& musicControl.substring(0, ChatWithTalker.FEATURE_MUSIC_LIST.length())
+				.equals(ChatWithTalker.FEATURE_MUSIC_LIST)
+			) {
+			return featureMusicList();
 		}
 		return null;
 	}
@@ -245,7 +270,6 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 	protected void onPostExecute(String result) {
 		// TODO Auto-generated method stub
 		mChatRecFrag.stopLoading();
-		mChatRecFrag.SetSpeak();
 		mChatRecFrag.AddRecord(false, result);
 		super.onPostExecute(result);
 	}
