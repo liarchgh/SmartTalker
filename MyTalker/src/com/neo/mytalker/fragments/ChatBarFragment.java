@@ -3,6 +3,7 @@
 import com.neo.mytalker.R;
 import com.neo.mytalker.activity.ChatActivity;
 import com.neo.mytalker.util.ChatWithTalker;
+import com.neo.mytalker.util.Voice2Text;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -11,7 +12,11 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -50,15 +55,12 @@ public class ChatBarFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (!mChatActivity.isKeyboardOn) {
-					if (mChatActivity.findViewById(R.id.message_plus_fragment).getVisibility() == View.GONE) {
-						mChatActivity.findViewById(R.id.message_plus_fragment).setVisibility(View.VISIBLE);
-						Toast.makeText(mContext, "GONE", Toast.LENGTH_LONG).show();
-					} else {
-						mChatActivity.findViewById(R.id.message_plus_fragment).setVisibility(View.GONE);
-						Toast.makeText(mContext, "VISIBLE", Toast.LENGTH_LONG).show();
-					}
+				if ((mChatActivity.getWindow().getAttributes().softInputMode==WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)) {
+					
+					mChatActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 				}
+				mChatMenuFragment.ToggleMenu(mMore);
+
 			}
 
 		});
@@ -76,6 +78,19 @@ public class ChatBarFragment extends Fragment {
 			}
 
 		});
+		mText.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				// TODO Auto-generated method stub
+				if (hasFocus) {
+					mChatMenuFragment.ToggleMenu(false);
+					//Log.i(this, "键盘弹起", Toast.LENGTH_SHORT).show();
+				}
+
+			}
+
+		});
 		mChatRecFrag = mChatActivity.mChatRecFrag;
 		mSend = (TextView) mRoot.findViewById(R.id.chat_bottombar_send);
 		mSend.setOnClickListener(new OnClickListener() {
@@ -88,6 +103,20 @@ public class ChatBarFragment extends Fragment {
 			}
 
 		});
+		
+		mSend.setLongClickable(true);
+		mSend.setOnLongClickListener(new OnLongClickListener() {
+			
+			@Override
+			public boolean onLongClick(View arg0) {
+				// TODO Auto-generated method stub
+				new Voice2Text(mChatActivity, (EditText)mRoot.findViewById(R.id.chat_bottombar_sendingtext)).voice2Text();;
+//				Dialog dl = new Dialog(mChatActivity);
+//				dl.setTitle("VOICE");
+//				dl.show();
+				return true;
+			}
+		});
 	}
 
 	@Override
@@ -95,6 +124,7 @@ public class ChatBarFragment extends Fragment {
 		// TODO Auto-generated method stub
 		return mRoot;
 	}
+
 	public void SendText() {
 		String tmp = mText.getText().toString();
 		if (!tmp.equals("")) {

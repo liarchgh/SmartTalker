@@ -29,7 +29,7 @@
         android:layout_centerVertical="true"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:text="Send"
+        android:text="发送"
         android:textColor="#ffffff"
         android:textSize="15sp" />
 
@@ -42,8 +42,8 @@
         android:layout_marginTop="5dp"
         android:layout_toLeftOf="@id/chat_bottombar_send"
         android:layout_toRightOf="@id/chat_bottombar_morefun"
-        android:background="#ffffff"
-        android:hint="Texting here..."
+        android:background="@drawable/msg_edit_bg"
+        android:hint="在这里和我对话..."
         android:padding="5dp"
         android:textColor="#000000"
         android:textSize="15sp" 
