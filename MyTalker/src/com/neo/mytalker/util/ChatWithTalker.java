@@ -269,7 +269,8 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 	@Override
 	protected void onPostExecute(String result) {
 		// TODO Auto-generated method stub
-		mChatRecFrag.stopLoading();
+//		mChatRecFrag.stopLoading();
+Log.i("dynamic", "res:"+result);
 		mChatRecFrag.AddRecord(false, result);
 		super.onPostExecute(result);
 	}

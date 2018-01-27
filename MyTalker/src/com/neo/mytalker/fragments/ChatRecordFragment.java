@@ -35,7 +35,7 @@ public class ChatRecordFragment extends Fragment {
 	private ChatRecordAdapter mChatRecordAdapter;
 	private ListView mChatRecordListView;
 //	private TextView loadingView = null;
-	private int loadingPosition;
+//	private int mChatRecordData.size();
 	private static int LIST_MIN_PART_CNT = 2, LIST_MAX_PART_CNT = 4;
 	private boolean isMaximized = false, isScrolling = false;
 	//当前列表中最早记录的数据库中的id -1表示列表没有数据
@@ -194,27 +194,33 @@ public class ChatRecordFragment extends Fragment {
 	
 	public void AddRecord(boolean isMine,String content)
 	{
+		stopLoading();
 		ChatRecordData tmp = new ChatRecordData();
 		tmp.msg = content;
 		tmp.time = new Date().getTime();
 		tmp.isMe = isMine;
+//		mChatRecordData.add(tmp);
+//		mChatRecordData.add(lastPosition=mChatRecordData.size(), tmp);
 		mChatRecordData.add(tmp);
 		mChatRecordAdapter.notifyDataSetChanged();
 		setListViewHeightBasedOnChildren(mChatRecordListView, isMaximized?LIST_MAX_PART_CNT:LIST_MIN_PART_CNT);
 	}
-	
-	public void addItem(boolean isMine,String content) {
-		ChatRecordData tmp = new ChatRecordData();
-		tmp.msg = content;
-		tmp.time = new Date().getTime();
-		tmp.isMe = isMine;
-		mChatRecordData.add(loadingPosition=mChatRecordData.size(), tmp);
-		mChatRecordAdapter.notifyDataSetChanged();
-		setListViewHeightBasedOnChildren(mChatRecordListView, isMaximized?LIST_MAX_PART_CNT:LIST_MIN_PART_CNT);
-	}
+//	
+//	public void addItem(boolean isMine,String content) {
+//		stopLoading();
+//		ChatRecordData tmp = new ChatRecordData();
+//		tmp.msg = content;
+//		tmp.time = new Date().getTime();
+//		tmp.isMe = isMine;
+//		mChatRecordData.add(lastPosition=mChatRecordData.size(), tmp);
+////		mChatRecordAdapter.notifyDataSetChanged();
+//		mChatRecordAdapter.notifyDataSetInvalidated();
+//		mChatRecordAdapter.notifyDataSetChanged();
+//		setListViewHeightBasedOnChildren(mChatRecordListView, isMaximized?LIST_MAX_PART_CNT:LIST_MIN_PART_CNT);
+//	}
 	
 	public void loading() {
-		addItem(false, ".");
+		AddRecord(false, ".");
 		Timer loadTimer = new Timer();
 		mChatRecordListView.setTag(loadTimer);
 		loadTimer.schedule(new TimerTask() {
@@ -227,12 +233,12 @@ public class ChatRecordFragment extends Fragment {
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						String loadText = mChatRecordData.get(loadingPosition).msg+".";
+						String loadText = mChatRecordData.get(mChatRecordData.size() - 1).msg+".";
 						if(loadText.length() > 6) {
 							loadText = ".";
 						}
-Log.i("dynamic", loadText);
-						mChatRecordData.get(loadingPosition).msg = loadText;
+//Log.i("dynamic", loadText);
+						mChatRecordData.get(mChatRecordData.size() - 1).msg = loadText;
 						mChatRecordAdapter.notifyDataSetChanged();
 					}
 				});
@@ -244,8 +250,9 @@ Log.i("dynamic", loadText);
 		Timer ttm = (Timer)mChatRecordListView.getTag();
 		if(ttm != null) {
 			ttm.cancel(); 
+			mChatRecordData.remove(mChatRecordData.size() - 1);
+			mChatRecordListView.setTag(null);
 		}
-		mChatRecordData.remove(loadingPosition);
 //		mChatRecordAdapter.notifyDataSetChanged();
 //		loadingView = null;
 	}
