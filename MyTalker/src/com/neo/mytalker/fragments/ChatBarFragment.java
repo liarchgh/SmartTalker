@@ -3,6 +3,7 @@
 import com.neo.mytalker.R;
 import com.neo.mytalker.activity.ChatActivity;
 import com.neo.mytalker.util.ChatWithTalker;
+import com.neo.mytalker.util.Voice2Text;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -12,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -99,6 +102,20 @@ public class ChatBarFragment extends Fragment {
 				SendText();
 			}
 
+		});
+		
+		mSend.setLongClickable(true);
+		mSend.setOnLongClickListener(new OnLongClickListener() {
+			
+			@Override
+			public boolean onLongClick(View arg0) {
+				// TODO Auto-generated method stub
+				new Voice2Text(mChatActivity, (EditText)mRoot.findViewById(R.id.chat_bottombar_sendingtext)).voice2Text();;
+//				Dialog dl = new Dialog(mChatActivity);
+//				dl.setTitle("VOICE");
+//				dl.show();
+				return true;
+			}
 		});
 	}
 
