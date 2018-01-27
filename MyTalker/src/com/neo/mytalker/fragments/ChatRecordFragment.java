@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +26,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class ChatRecordFragment extends Fragment {
 	private ArrayList<ChatRecordData> mChatRecordData;
@@ -231,6 +231,7 @@ public class ChatRecordFragment extends Fragment {
 						if(loadText.length() > 6) {
 							loadText = ".";
 						}
+Log.i("dynamic", loadText);
 						mChatRecordData.get(loadingPosition).msg = loadText;
 						mChatRecordAdapter.notifyDataSetChanged();
 					}
@@ -240,8 +241,16 @@ public class ChatRecordFragment extends Fragment {
 	}
 	
 	public void stopLoading() {
-		((Timer)mChatRecordListView.getTag()).cancel(); 
+		Timer ttm = (Timer)mChatRecordListView.getTag();
+		if(ttm != null) {
+			ttm.cancel(); 
+		}
 		mChatRecordData.remove(loadingPosition);
+//		mChatRecordAdapter.notifyDataSetChanged();
 //		loadingView = null;
+	}
+	public void SetSpeak()
+	{
+		mChatActivity.Speak();
 	}
 }

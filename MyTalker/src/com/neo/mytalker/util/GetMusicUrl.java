@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.provider.ContactsContract.Directory;
 import android.util.Log;
 
 public class GetMusicUrl {
@@ -115,5 +116,19 @@ public class GetMusicUrl {
 			}
 		}
 		return songUrls;
+	}
+	
+	public static List<String>getSongsDownloaded(final String musicFolderPath){
+		List<String>musics = new ArrayList<String>();
+		File folder = new File(musicFolderPath);
+		if(folder.exists() && folder.isDirectory()) {
+			File[] files = folder.listFiles();
+			String name = null;
+			for(int i = 0; i < files.length; ++i) {
+				name = files[i].getName();
+				musics.add(name.substring(0, name.length() - 4));
+			}
+		}
+		return musics;
 	}
 }

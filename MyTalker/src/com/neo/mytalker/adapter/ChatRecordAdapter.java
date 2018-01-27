@@ -20,7 +20,6 @@ public class ChatRecordAdapter extends BaseAdapter {
 	Activity context;
 	int resId;
 	View srcView;
-	ViewGroup parent;
 	public ChatRecordAdapter(Activity ccontext,ArrayList<ChatRecordData> data,int rresId)
 	{
 		al=data;
@@ -49,7 +48,6 @@ public class ChatRecordAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		this.parent = parent;
 		if(convertView==null)
 		{
 			convertView=newView(parent);

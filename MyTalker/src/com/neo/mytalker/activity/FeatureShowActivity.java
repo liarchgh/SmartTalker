@@ -138,7 +138,7 @@ public class FeatureShowActivity extends FragmentActivity {
 			@Override
 			public void onPageSelected(int arg0) {
 				// TODO Auto-generated method stub
-				if (mVp.getCurrentItem() < mVp.getChildCount()) {
+				if (mVp.getCurrentItem() < mVs.size()-1) {
 					if (isAuto) {
 
 						((FeaturePageFragment) mVs.get(arg0)).InitAnimation();

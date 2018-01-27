@@ -7,6 +7,8 @@ import com.neo.mytalker.R;
 import com.neo.mytalker.fragments.ChatBarFragment;
 import com.neo.mytalker.fragments.ChatMenuFragment;
 import com.neo.mytalker.fragments.ChatRecordFragment;
+import com.unity3d.player.UnityPlayer;
+import com.unity3d.player.UnityPlayerActivity;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -18,41 +20,51 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnLayoutChangeListener;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-public class ChatActivity extends Activity implements OnLayoutChangeListener{
+//TODO:Remove this to enable UNITY
+public class ChatActivity extends UnityPlayerActivity implements OnLayoutChangeListener {
+	// public class ChatActivity extends Activity implements OnLayoutChangeListener
+	// {
 	public ChatRecordFragment mChatRecFrag;
 	public ChatBarFragment mChatBarFrag;
 	public ChatMenuFragment mChatMenuFragment;
 	private View mRootView;
 	private int mScreenHeight;
 	private int mkeyHeight;
-	private boolean isQuitting;
-	
-	
-	@SuppressWarnings("deprecation")
+	public boolean isQuitting, isKeyboardOn = false;
+
+	private boolean SIMPLE_MODE = false;// TODO:turn off to enable Unity.
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_chat);
-		
+
 		mRootView = findViewById(R.id.chat_root);
 		mScreenHeight = this.getWindowManager().getDefaultDisplay().getHeight();
-		mkeyHeight = mScreenHeight/3;
-		mChatRecFrag=new ChatRecordFragment(this);
-		
-		mChatBarFrag=new ChatBarFragment(this);
+		mkeyHeight = mScreenHeight / 3;
+		mChatRecFrag = new ChatRecordFragment(this);
+
+		mChatBarFrag = new ChatBarFragment(this);
 		mChatMenuFragment = new ChatMenuFragment();
 		SetFragment(R.id.chat_recordfrag, mChatRecFrag);
-		SetFragment(R.id.chat_bottombarfrag,mChatBarFrag);
+		SetFragment(R.id.chat_bottombarfrag, mChatBarFrag);
 		SetFragment(R.id.message_plus_fragment, mChatMenuFragment);
-		
+
 		setAnimation();
+		// TODO:Remove this to enable UNITY
+
+		if (!SIMPLE_MODE) {
+			LinearLayout ll = (LinearLayout) findViewById(R.id.chat_unityview);
+			View myview = mUnityPlayer.getView();
+			ll.addView(myview);
+		}
+
 	}
-	
+
 	private void SetFragment(int content, Fragment frag) {
 		FragmentManager fm = getFragmentManager();
 		FragmentTransaction transaction = fm.beginTransaction();
@@ -64,10 +76,13 @@ public class ChatActivity extends Activity implements OnLayoutChangeListener{
 	public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight,
 			int oldBottom) {
 		// TODO Auto-generated method stub
-		if(bottom != 0 && oldBottom != 0 && oldBottom-bottom > mkeyHeight) {
-			this.findViewById(R.id.message_plus_fragment).setVisibility(View.GONE);
+		if (bottom != 0 && oldBottom != 0 && oldBottom - bottom > mkeyHeight) {
+			isKeyboardOn = true;
+			mChatMenuFragment.ToggleMenu(!isKeyboardOn);
 			Toast.makeText(this, "键盘弹起", Toast.LENGTH_SHORT).show();
-		}else if(bottom != 0 && oldBottom != 0 && bottom-oldBottom > mkeyHeight){
+		} else if (bottom != 0 && oldBottom != 0 && bottom - oldBottom > mkeyHeight) {
+			isKeyboardOn = false;
+			mChatMenuFragment.ToggleMenu(!isKeyboardOn);
 			Toast.makeText(this, "键盘收起", Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -79,7 +94,7 @@ public class ChatActivity extends Activity implements OnLayoutChangeListener{
 		mRootView.addOnLayoutChangeListener(this);
 		hideKeyboardOnStartup();
 	}
-	
+
 	public void setAnimation() {
 		View logo = findViewById(R.id.chat_splash);
 		ObjectAnimator animator1 = ObjectAnimator.ofFloat(logo, "alpha", 1f, 0f);
@@ -91,8 +106,7 @@ public class ChatActivity extends Activity implements OnLayoutChangeListener{
 		TextView config_hidden = (TextView) this.findViewById(R.id.config_hidden);
 		config_hidden.requestFocus();
 	}
-	
-	
+
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
 		// TODO Auto-generated method stub
@@ -119,4 +133,20 @@ public class ChatActivity extends Activity implements OnLayoutChangeListener{
 		}
 	}
 
+	public void Speak() {
+		// TODO:Remove this to enable UNITY
+
+		if (!SIMPLE_MODE) {
+			UnityPlayer.UnitySendMessage("miku", "Speak", "");
+			Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
+
+				@Override
+				public void run() { // TODO Auto-generated method stub
+					UnityPlayer.UnitySendMessage("miku", "Idle", "");
+				}
+			}, 1000);
+		}
+
+	}
 }

@@ -10,11 +10,12 @@
             android:layout_height="0dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:background="#E0E0E0"
-            android:gravity="center_vertical"
+            android:background="#66ccff"
+            android:gravity="center"
             android:paddingLeft="5dp"
-            android:text="Here are questions you have defined"
-            android:textSize="18sp" />
+            android:text="在这里点击可以改变我的知识储备哟~"
+            android:textSize="18sp"
+            android:textColor="@android:color/white" />
 
     <FrameLayout
         android:id="@+id/fra_id"
@@ -31,7 +32,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:background="@drawable/show_head_toast_bg"
+            android:background="@drawable/char_bg"
             android:gravity="center"
             android:text="E"
             android:textColor="#ffffff"
@@ -47,11 +48,15 @@
     </FrameLayout>
 
     
-    <ImageView
+    <TextView
             android:id="@+id/add_rules_btn"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:src="@drawable/alb" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="+"
+            android:textSize="28sp"
+            android:padding="5dp"
+            android:textColor="#ffffff"
+            android:background="#66ccff" />
 
 </LinearLayout>
