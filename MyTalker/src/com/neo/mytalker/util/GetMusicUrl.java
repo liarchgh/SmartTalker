@@ -1,6 +1,7 @@
 package com.neo.mytalker.util;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -27,6 +28,7 @@ public class GetMusicUrl {
 
 		final String musicFilePath = musicFolderPath+
 			File.separator+songName+".mp3";
+Log.i("music", "file uri:"+musicFilePath);
 		if(new File(musicFilePath).exists()) {
 			return musicFilePath;
 		}
@@ -47,6 +49,7 @@ public class GetMusicUrl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+Log.i("music", "id:"+songId);
 		final String url = fileUrlPre.replace(songIdHolder, songId);
 		if(songId != null) {
 			
@@ -74,8 +77,10 @@ public class GetMusicUrl {
 	}
 
 	private static String getSongId(String songName) throws IOException {
-		String url = searchUrlPre.replace(songNameHolder, songName);
+		String url = searchUrlPre.replace(songNameHolder, URLEncoder.encode(songName, "utf-8"));
+//		url = URLEncoder.encode(url, "utf-8");
 		url = url.replace(" ", "%20");
+Log.i("music", "id url:"+url);
 		String content = NetUtil.doGetString(url, null);
 		Pattern rule = Pattern.compile(songIdInJson);
 		Matcher mt = rule.matcher(content);

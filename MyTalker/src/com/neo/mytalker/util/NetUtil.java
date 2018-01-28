@@ -10,6 +10,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
+import android.os.Build;
+
 public class NetUtil {
 	public static void doGetMusic(final String url, final String filePath) throws IOException {
 		//use url and parameter to get realurl
@@ -80,6 +82,20 @@ public class NetUtil {
 		// open connection
 		URL apiUrl = new URL(realUrl.toString());
 		HttpURLConnection huc = (HttpURLConnection) apiUrl.openConnection();
+//		URLConnection huc = apiUrl.openConnection();
+
+		if (Integer.parseInt(Build.VERSION.SDK) < Build.VERSION_CODES.FROYO) {
+			System.setProperty("http.keepAlive", "false");
+		}
+		huc.setRequestProperty("charset", "utf-8");
+//		huc.setRequestProperty("Accept-Encoding", "utf-8");
+//		huc.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+//		huc.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
+//		huc.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+//		huc.setRequestProperty("Connection", "keep-alive");
+//		huc.setRequestProperty("Host", "api.imjad.cn");
+//		huc.setRequestProperty("Upgrade-Insecure-Requests", "1");
+//				User-Agent	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36
 		huc.setRequestMethod("GET");
 		huc.connect();
 
