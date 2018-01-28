@@ -1,4 +1,4 @@
-package com.neo.mytalker.util;
+package com.example.testandroid;
 
 
 import java.io.BufferedReader;

@@ -1,4 +1,3 @@
-package com.neo.mytalker.entity;
 import java.util.List;
 
 public class MusicEntity {

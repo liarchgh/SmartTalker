@@ -10,11 +10,24 @@ import android.media.MediaPlayer;
 public abstract class MusicManager {
 	private MediaPlayer musicControler = null;
 	private MusicEntity music = null;
-	protected abstract void init();
-	protected abstract void musicPlay();
+	private List<MusicEntity>musicHistory;
+	protected void init() {
+		if(musicControler == null) {
+			musicControler = new MediaPlayer();
+		}
+	}
+	protected void musicPlay() {
+		init();
+		musicControler.start();
+	}
 
-	public abstract List<MusicEntity>getMusicHistory();
-	public abstract List<MusicEntity>searchMusicInNetease(String key);
+	public List<MusicEntity>getMusicHistory(){
+		return musicHistory;
+	}
+	public List<MusicEntity>searchMusicInNetease(String key){
+		GetMusicUrl.getSongUrls(key);
+		return null;
+	}
 	public abstract List<MusicEntity>searchMusicInNetease(MusicEntity key);
 //	public abstract void musicPlayById(String musicId);
 	public abstract void musicPlay(String musicId);

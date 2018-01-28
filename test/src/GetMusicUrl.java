@@ -1,4 +1,3 @@
-package com.neo.mytalker.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +11,6 @@ import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.neo.mytalker.entity.MusicEntity;
 
 public class GetMusicUrl {
 	private final static String

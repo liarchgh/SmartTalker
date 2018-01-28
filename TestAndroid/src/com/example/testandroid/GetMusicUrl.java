@@ -1,4 +1,4 @@
-package com.neo.mytalker.util;
+package com.example.testandroid;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,8 @@ import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.neo.mytalker.entity.MusicEntity;
+
+import android.util.Log;
 
 public class GetMusicUrl {
 	private final static String
@@ -26,6 +27,9 @@ public class GetMusicUrl {
 		fileUrlPre = "http://music.163.com/song/media/outer/url?id="+songIdHolder+".mp3",
 		songIdInJson = "\"id\":[^\"]*";
 
+	public static String getSongUrlById(long id) {
+		return fileUrlPre.replace(songIdHolder, id+"");
+	}
 
 	public static String getSongUrl(String songName, final String musicFolderPath) {
 //		return "http://music.163.com/song/media/outer/url?id=640565.mp3";
@@ -94,8 +98,9 @@ public class GetMusicUrl {
 
 	private static List<String> getSongIds(String songName) throws IOException {
 		List<String>res = new ArrayList<String>();
-		String url = searchUrlPre.replace(songNameHolder, songName);
+		String url = searchUrlPre.replace(songNameHolder, URLEncoder.encode(songName, "utf-8"));
 		url = url.replace(" ", "%20");
+Log.i("music", "url:"+url);
 		String content = NetUtil.doGetString(url, null);
 		Pattern rule = Pattern.compile(songIdInJson);
 		Matcher mt = rule.matcher(content);

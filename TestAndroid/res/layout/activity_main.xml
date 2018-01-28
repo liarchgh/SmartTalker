@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/tv"
+        android:layout_height="60dp"
+        android:text="@string/hello_world" />
+    
+    <EditText 
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/et"
+        />
+    <Button 
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:onClick="click"
+        android:text="start"
+        />
+    <Button 
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:onClick="pause"
+        android:text="pause"
+        />
+    <Button 
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:onClick="cc"
+        android:text="continue"
+        />
+
+</LinearLayout>

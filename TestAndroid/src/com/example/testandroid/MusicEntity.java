@@ -1,12 +1,14 @@
-package com.neo.mytalker.entity;
+package com.example.testandroid;
 import java.util.List;
+
+import android.app.Activity;
 
 public class MusicEntity {
 	private String musicName;
 	private long musicId;
 	private List<String> artistNames;
 	private String albumName;
-	private String albumImageUrl;
+	private String albumImageUri;
 
 	public String getMusicName() {
 		return musicName;
@@ -39,27 +41,30 @@ public class MusicEntity {
 		this.albumName = albumName;
 	}
 
-	public String getAlbumImageUrl() {
-		return albumImageUrl;
+	public String getAlbumImageUri() {
+		return albumImageUri;
 	}
 
-	public void setAlbumImageUrl(String albumImageUrl) {
-		this.albumImageUrl = albumImageUrl;
+	public void setAlbumImageUri(String albumImageUri) {
+		this.albumImageUri = albumImageUri;
 	}
-	
+
 	public MusicEntity(String musicName, long musicId) {
 		super();
 		this.musicName = musicName;
 		this.musicId = musicId;
 	}
 
-	public MusicEntity(String musicName, long musicId, List<String> artistNames, String albumName,
-			String albumImageUrl) {
+	public MusicEntity(String musicName, long musicId, List<String> artistNames, String albumName, String albumImageUri) {
 		super();
 		this.musicName = musicName;
 		this.musicId = musicId;
 		this.artistNames = artistNames;
 		this.albumName = albumName;
-		this.albumImageUrl = albumImageUrl;
+		this.albumImageUri = albumImageUri;
+	}
+	
+	public void play(Activity activity) {
+		MusicManager.musicPlay(activity, this);
 	}
 }

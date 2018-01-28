@@ -111,7 +111,6 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 	}
 
 	private static String featureMusicPlay(String musicName) {
-Log.i("music", "music name:"+musicName);
 		final String musicUrl = GetMusicUrl.getSongUrl(musicName, musicFolderPath);
 		if(musicUrl == null || musicUrl.equals("")) {
 			return ChatWithTalker.ANSWER_MUSIC_PLAY_NOT_FOUND;
