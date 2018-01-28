@@ -1,5 +1,7 @@
 package com.example.testandroid;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,26 +27,32 @@ public class MainActivity extends Activity {
 			public void run() {
 				// TODO Auto-generated method stub
 
-				String mn = "辣妹子";
+				String mn = et.getText().toString();
 				MusicEntity me = MusicManager.searchMusicInNetease(mn).get(0);
 				final String res = me.getAlbumName();
 //				MusicManager.musicPlay(MainActivity.this, MusicManager.searchMusicInNetease(mn).get(0));
 				me.play(MainActivity.this);
-				tv.post(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						tv.setText(res);
-					}
-				});
 			}
 		}).start();
+	}
+	public void list(View v) {
+		List<MusicEntity>lls = MusicManager.getMusicHistory();
+		String res = "";
+		for(int i = 0; i < lls.size(); ++i) {
+			res = res + lls.get(i).getMusicName()+"\n";
+		}
+		tv.setText(res);
 	}
 	public void pause(View v) {
 		MusicManager.musicStop(MainActivity.this);
 	}
 	public void cc(View v) {
 		MusicManager.musicContinue();
+	}
+	public void pp(View v) {
+		MusicManager.musicPrevious(MainActivity.this);
+	}
+	public void nn(View v) {
+		MusicManager.musicNext(MainActivity.this);
 	}
 }

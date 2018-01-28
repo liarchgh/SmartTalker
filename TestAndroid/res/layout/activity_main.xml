@@ -15,24 +15,67 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:id="@+id/et"
+        android:text="天空之城"
         />
-    <Button 
+    <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:onClick="click"
-        android:text="start"
-        />
-    <Button 
+        android:orientation="horizontal"
+        >
+		<Button 
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="match_parent"
+			android:onClick="click"
+			android:text="start"
+			/>
+		<Button 
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="match_parent"
+			android:onClick="pause"
+			android:text="pause"
+			/>
+    </LinearLayout>
+    <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:onClick="pause"
-        android:text="pause"
-        />
-    <Button 
+        android:orientation="horizontal"
+        >
+		<Button 
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="match_parent"
+			android:onClick="cc"
+			android:text="continue"
+			/>
+		<Button 
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="match_parent"
+			android:onClick="pp"
+			android:text="previous"
+			/>
+    </LinearLayout>
+    <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:onClick="cc"
-        android:text="continue"
-        />
+        android:orientation="horizontal"
+        >
+		<Button 
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="match_parent"
+			android:onClick="nn"
+			android:text="next"
+			/>
+		<Button 
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="match_parent"
+			android:onClick="list"
+			android:text="list"
+			/>
+    </LinearLayout>
 
 </LinearLayout>

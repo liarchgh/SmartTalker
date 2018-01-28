@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -22,8 +20,8 @@ public abstract class MusicManager {
 	private static Activity activity = null;
 	private static MediaPlayer musicControler = null;
 	private static MusicEntity musicNow = null;
-	private static Queue<MusicEntity>musicHistory = new LinkedList<MusicEntity>();
-	private static List<MusicEntity>musicDownloaded = new ArrayList<MusicEntity>();
+	private static List<MusicEntity>musicHistory = new ArrayList<MusicEntity>(),
+			musicDownloaded = new ArrayList<MusicEntity>();
 	public static void init(Activity at) {
 		activity = at;
 		if(musicControler == null) {
@@ -82,9 +80,9 @@ public abstract class MusicManager {
 					uri = GetMusicUrl.getSongUrlById(music.getMusicId());
 					musicDownload(music);
 				}
-				else {
-					music = findDownloadById(at, music.getMusicId());
-				}
+//				else {
+//					music = findDownloadById(at, music.getMusicId());
+//				}
 	Log.i("music", "uri:"+uri);
 				if(uri == null) {
 					return ;
@@ -143,10 +141,21 @@ Log.i("music", "index:"+musicHistory.indexOf(music));
 		}
 	}
 	
-	public static void musicPrevious() {
+	public static void musicPrevious(Activity activity) {
+		init(activity);
 		int index = musicHistory.indexOf(musicNow);
 		if(index > 0) {
-			
+			musicNow = musicHistory.get(index - 1);
+			musicNow.play(activity);
+		}
+	}
+	
+	public static void musicNext(Activity activity) {
+		init(activity);
+		int index = musicHistory.indexOf(musicNow);
+		if(index < musicHistory.size()) {
+			musicNow = musicHistory.get(index + 1);
+			musicNow.play(activity);
 		}
 	}
 
