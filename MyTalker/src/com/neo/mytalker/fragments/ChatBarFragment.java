@@ -59,7 +59,9 @@ public class ChatBarFragment extends Fragment implements ThemeInterface{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				new Voice2Text(mChatActivity, (EditText)
+					mRoot.findViewById(R.id.chat_bottombar_sendingtext)
+					).voice2Text();
 			}});
 		
 		mMore = (ImageView) mRoot.findViewById(R.id.chat_bottombar_morefun);

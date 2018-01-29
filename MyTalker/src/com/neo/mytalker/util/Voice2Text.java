@@ -320,7 +320,11 @@ public class Voice2Text {
 			resultBuffer.append(mIatResults.get(key));
 		}
 
-		mResultText.setText(resultBuffer.toString());
+		String res = resultBuffer.toString();
+		if(res.charAt(res.length() - 1) == '。') {
+			res = res.substring(0, res.length() - 1);
+		}
+		mResultText.setText(res);
 		mResultText.setSelection(mResultText.length());
 	}
 

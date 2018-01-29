@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import com.neo.mytalker.entity.MusicEntity;
 import com.neo.mytalker.fragments.ChatRecordFragment;
 
 import android.content.Context;
@@ -27,7 +28,8 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 	public static final String FEATURE_MUSIC = "",
 		FEATURE_MUSIC_PLAY = "播放音乐",
 		FEATURE_MUSIC_STOP = "停止播放",
-		FEATURE_MUSIC_LIST = "音乐列表",
+		FEATURE_MUSIC_HISTORY = "音乐列表",
+		FEATURE_MUSIC_DOWNLOADED = "已下载音乐",
 		FEATURE_MUSIC_CONTINUE = "继续播放";
 	private static MediaPlayer music = null;
 	private static String musicFolderPath = null;
@@ -183,7 +185,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		return ChatWithTalker.ANSWER_MUSIC_ERROR;
 	}
 	
-	public static String featureMusicList() {
+	public static String featureMusicHistory() {
 		List<String>musics = GetMusicUrl.getSongsDownloaded(musicFolderPath);
 		StringBuffer res = new StringBuffer();
 		boolean first = false;
@@ -201,10 +203,11 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 	}
 	
 	private static String featureMusic(String musicControl) {
-Log.i("music", "music control:"+musicControl);
 		if(musicControl.length() >= ChatWithTalker.FEATURE_MUSIC_PLAY.length()
 			&& musicControl.substring(0, ChatWithTalker.FEATURE_MUSIC_PLAY.length())
 				.equals(ChatWithTalker.FEATURE_MUSIC_PLAY)
+			&& musicControl.substring(
+				ChatWithTalker.FEATURE_MUSIC_PLAY.length()).length() > 0
 			) {
 			return featureMusicPlay(musicControl.substring(
 					ChatWithTalker.FEATURE_MUSIC_PLAY.length()));
@@ -212,20 +215,34 @@ Log.i("music", "music control:"+musicControl);
 		else if(musicControl.length() >= ChatWithTalker.FEATURE_MUSIC_STOP.length()
 			&& musicControl.substring(0, ChatWithTalker.FEATURE_MUSIC_STOP.length())
 				.equals(ChatWithTalker.FEATURE_MUSIC_STOP)
+			&& musicControl.substring(
+				ChatWithTalker.FEATURE_MUSIC_STOP.length()).length() <= 0
 			) {
 			return featureMusicStop();
 		}
 		else if(musicControl.length() >= ChatWithTalker.FEATURE_MUSIC_CONTINUE.length()
 			&& musicControl.substring(0, ChatWithTalker.FEATURE_MUSIC_CONTINUE.length())
 				.equals(ChatWithTalker.FEATURE_MUSIC_CONTINUE)
+			&& musicControl.substring(
+				ChatWithTalker.FEATURE_MUSIC_CONTINUE.length()).length() <= 0
 			) {
 			return featureMusicContinue();
 		}
-		else if(musicControl.length() >= ChatWithTalker.FEATURE_MUSIC_LIST.length()
-			&& musicControl.substring(0, ChatWithTalker.FEATURE_MUSIC_LIST.length())
-				.equals(ChatWithTalker.FEATURE_MUSIC_LIST)
+		else if(musicControl.length() >= ChatWithTalker.FEATURE_MUSIC_HISTORY.length()
+			&& musicControl.substring(0, ChatWithTalker.FEATURE_MUSIC_HISTORY.length())
+				.equals(ChatWithTalker.FEATURE_MUSIC_HISTORY)
+			&& musicControl.substring(
+				ChatWithTalker.FEATURE_MUSIC_HISTORY.length()).length() <= 0
 			) {
-			return featureMusicList();
+			return featureMusicHistory();
+		}
+		else if(musicControl.length() >= ChatWithTalker.FEATURE_MUSIC_HISTORY.length()
+			&& musicControl.substring(0, ChatWithTalker.FEATURE_MUSIC_HISTORY.length())
+				.equals(ChatWithTalker.FEATURE_MUSIC_HISTORY)
+			&& musicControl.substring(
+				ChatWithTalker.FEATURE_MUSIC_HISTORY.length()).length() <= 0
+			) {
+			return featureMusicHistory();
 		}
 		return null;
 	}
