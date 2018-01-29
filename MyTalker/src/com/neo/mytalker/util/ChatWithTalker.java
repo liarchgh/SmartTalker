@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Random;
 
 import com.neo.mytalker.entity.MusicEntity;
+import com.neo.mytalker.entity.MusicEntity.artist;
 import com.neo.mytalker.fragments.ChatRecordFragment;
+import com.neo.mytalker.util.MusicManager.MUSIC_STATUS;
 
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -23,17 +25,27 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		ANSWER_MUSIC_CONTINUE = "音乐酱又回来了\no(*≧▽≦)ツ",
 		ANSWER_MUSIC_CONTINUE_IS_PLAYING = "音乐酱早就在了\n(￣、￣)",
 		ANSWER_MUSIC_ERROR = "音乐酱出错了\n(┙>∧<)┙へ┻┻",
+		ANSWER_MUSIC_NO_HISTORY = "音乐酱还没来过\n(￣、￣)",
+		ANSWER_MUSIC_PREVIOUS = "音乐酱退后了一首",
+		ANSWER_MUSIC_PREVIOUS_NOT_FOUND = "音乐酱没有路可退了",
+		ANSWER_MUSIC_NEXT = "音乐酱前进了一首",
+		ANSWER_MUSIC_NEXT_NOT_FOUND = "音乐酱已经没路可走了",
 		ANSWER_FEATURE_ERROR = "命令出错了\n(╬▔皿▔)",
 		MUSIC_FOLDER = "music";
-	public static final String FEATURE_MUSIC = "",
+	public static final String
 		FEATURE_MUSIC_PLAY = "播放音乐",
 		FEATURE_MUSIC_STOP = "停止播放",
-		FEATURE_MUSIC_HISTORY = "音乐列表",
+		FEATURE_MUSIC_HISTORY = "音乐历史",
 		FEATURE_MUSIC_DOWNLOADED = "已下载音乐",
+		FEATURE_MUSIC_PREVIOUS = "上一首",
+		FEATURE_MUSIC_NEXT = "下一首",
 		FEATURE_MUSIC_CONTINUE = "继续播放";
-	private static MediaPlayer music = null;
-	private static String musicFolderPath = null;
+//	private static MediaPlayer music = null;
+//	private static String musicFolderPath = null;
+	private static Context context1 = null;
 	private static String chat(Context context, int userId, String ask) {
+		ChatWithTalker.context = context;
+		
 		//最后应该返回的回答
 		String ans = null;
 
@@ -41,7 +53,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		Random rd = new Random();
 
 		//判断是否进入特殊功能 
-		String ansFeature = checkFeature(ask);
+		String ansFeature = checkFeature(context, ask);
 		
 		
 		//进入普通聊天
@@ -95,101 +107,125 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		return ansFeature;
 	}
 	
-	private static String checkFeature(String ask) {
-		String answer = null;
-		if(ask.length() >= ChatWithTalker.FEATURE_MUSIC.length()
-			&& ask.substring(0, ChatWithTalker.FEATURE_MUSIC.length())
-				.equals(ChatWithTalker.FEATURE_MUSIC)
-			) {
-			answer = ChatWithTalker.featureMusic(
-				ask.substring(ChatWithTalker.FEATURE_MUSIC.length())
-			);
-			if(answer == null || answer.equals("")) {
-				answer = ChatWithTalker.ANSWER_FEATURE_ERROR;
-			}
-			return answer;
+//	private static String checkFeature(String ask) {
+//		String answer = null;
+//		if(ask.length() >= ChatWithTalker.FEATURE_MUSIC.length()
+//			&& ask.substring(0, ChatWithTalker.FEATURE_MUSIC.length())
+//				.equals(ChatWithTalker.FEATURE_MUSIC)
+//			) {
+//			answer = ChatWithTalker.featureMusic(
+//				ask.substring(ChatWithTalker.FEATURE_MUSIC.length())
+//			);
+//			if(answer == null || answer.equals("")) {
+//				answer = ChatWithTalker.ANSWER_FEATURE_ERROR;
+//			}
+//			return answer;
+//		}
+//		return null;
+//	}
+//
+	private static String featureMusicPlay(Context ct, String musicName) {
+		List<MusicEntity>ms = MusicManager.searchMusicInNetease(musicName);
+		if(ms.size() > 0) {
+			ms.get(0).play(ct);
+			return ANSWER_MUSIC_PLAY;
 		}
-		return null;
+		else {
+			return ANSWER_MUSIC_PLAY_NOT_FOUND;
+		}
+//		final String musicUrl = GetMusicUrl.getSongUrl(musicName, musicFolderPath);
+//		if(musicUrl == null || musicUrl.equals("")) {
+//			return ChatWithTalker.ANSWER_MUSIC_PLAY_NOT_FOUND;
+//		}
+//		try {
+//			music.stop();
+//			music = new MediaPlayer();
+//			music.setDataSource(musicUrl);
+//			music.prepare();
+//			music.start();
+//
+//			return ChatWithTalker.ANSWER_MUSIC_PLAY;
+//		} catch (IllegalArgumentException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (SecurityException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IllegalStateException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return ChatWithTalker.ANSWER_MUSIC_ERROR;
 	}
 
-	private static String featureMusicPlay(String musicName) {
-		final String musicUrl = GetMusicUrl.getSongUrl(musicName, musicFolderPath);
-		if(musicUrl == null || musicUrl.equals("")) {
-			return ChatWithTalker.ANSWER_MUSIC_PLAY_NOT_FOUND;
+	private static String featureMusicPrevious(Context ct) {
+		MUSIC_STATUS res = MusicManager.musicPrevious(ct);;
+		if(res == MusicManager.MUSIC_STATUS.PREVIOUS_SUCCESS) {
+			return ANSWER_MUSIC_PREVIOUS;
 		}
-		try {
-			music.stop();
-			music = new MediaPlayer();
-			music.setDataSource(musicUrl);
-			music.prepare();
-			music.start();
-
-			return ChatWithTalker.ANSWER_MUSIC_PLAY;
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		else if(res == MUSIC_STATUS.PREVIOUS_NOT_FOUND) {
+			return ANSWER_MUSIC_PREVIOUS_NOT_FOUND;
 		}
-		return ChatWithTalker.ANSWER_MUSIC_ERROR;
+		return ANSWER_MUSIC_ERROR;
 	}
 
-	private static String featureMusicStop() {
-		try {
-			if(music.isPlaying()) {
-				music.pause();
-				return ChatWithTalker.ANSWER_MUSIC_STOP;
-			}
-			else {
-				return ChatWithTalker.ANSWER_MUSIC_STOP_NO_MUSIC;
-			}
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	private static String featureMusicNext(Context ct) {
+		MUSIC_STATUS res = MusicManager.musicNext(ct);;
+		if(res == MusicManager.MUSIC_STATUS.NEXT_SUCCESS) {
+			return ANSWER_MUSIC_NEXT;
 		}
-		return ChatWithTalker.ANSWER_MUSIC_ERROR;
+		else if(res == MUSIC_STATUS.NEXT_NOT_FOUND) {
+			return ANSWER_MUSIC_NEXT_NOT_FOUND;
+		}
+		return ANSWER_MUSIC_ERROR;
 	}
 
-	private static String featureMusicContinue() {
-		try {
-			if(!music.isPlaying()) {
-				music.start();
-				return ChatWithTalker.ANSWER_MUSIC_CONTINUE;
-			}
-			else {
-				return ChatWithTalker.ANSWER_MUSIC_CONTINUE_IS_PLAYING;
-			}
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	private static String featureMusicStop(Context ct) {
+//		try {
+//			if(music.isPlaying()) {
+//				music.pause();
+//				return ChatWithTalker.ANSWER_MUSIC_STOP;
+//			}
+//			else {
+//				return ChatWithTalker.ANSWER_MUSIC_STOP_NO_MUSIC;
+//			}
+//		} catch (IllegalArgumentException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (SecurityException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IllegalStateException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return ChatWithTalker.ANSWER_MUSIC_ERROR;
+		MUSIC_STATUS res = MusicManager.musicStop(ct);
+		if(res == MusicManager.MUSIC_STATUS.STOP_SUCCESS) {
+			return ANSWER_MUSIC_STOP;
 		}
+		else if(res == MUSIC_STATUS.STOP_NO_MUSIC) {
+			return ANSWER_MUSIC_STOP_NO_MUSIC;
+		}
+		return ANSWER_MUSIC_ERROR;
+	}
+
+	private static String featureMusicContinue(Context at) {
+		MusicManager.musicContinue(at);
 		return ChatWithTalker.ANSWER_MUSIC_ERROR;
 	}
 	
-	public static String featureMusicHistory() {
-		List<String>musics = GetMusicUrl.getSongsDownloaded(musicFolderPath);
+	public static String featureMusicHistoryToString() {
+//		List<String>musics = GetMusicUrl.getSongsDownloaded(musicFolderPath);
+		List<MusicEntity>musics = MusicManager.getMusicHistory();
 		StringBuffer res = new StringBuffer();
 		boolean first = false;
-		for(Iterator<String>it = musics.iterator();
+		MusicEntity temp = null;
+Log.i("music", "size:"+musics.size());
+		for(Iterator<MusicEntity>it = musics.iterator();
 				it.hasNext(); ) {
 			if(first) {
 				res.append("\n");
@@ -197,82 +233,110 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 			else {
 				first = true;
 			}
-			res.append(it.next());
+			temp = it.next();
+			StringBuffer ars = new StringBuffer();
+			for(Iterator<String>ar = temp.getArtistNames().iterator();
+					true;) {
+				ars.append(ar.next());
+				if(ar.hasNext()) {
+					ars.append(",");
+				}
+				else {
+					break;
+				}
+			}
+			res.append(temp.getMusicName()+"("+temp.getAlbumName()+")"
+				+"("+ars.toString()+")");
 		}
-		return res.toString();
+Log.i("music", "res:"+res.toString());
+		String ret = res.toString();
+		if(ret == null || ret.length() <= 0) {
+			return ANSWER_MUSIC_NO_HISTORY;
+		}
+		return ret;
 	}
 	
-	private static String featureMusic(String musicControl) {
-		if(musicControl.length() >= ChatWithTalker.FEATURE_MUSIC_PLAY.length()
-			&& musicControl.substring(0, ChatWithTalker.FEATURE_MUSIC_PLAY.length())
+	private static String checkFeature(Context ct, String feature) {
+Log.i("music", "music control:"+feature);
+		if(feature.length() >= ChatWithTalker.FEATURE_MUSIC_PLAY.length()
+			&& feature.substring(0, ChatWithTalker.FEATURE_MUSIC_PLAY.length())
 				.equals(ChatWithTalker.FEATURE_MUSIC_PLAY)
-			&& musicControl.substring(
+			&& feature.substring(
 				ChatWithTalker.FEATURE_MUSIC_PLAY.length()).length() > 0
 			) {
-			return featureMusicPlay(musicControl.substring(
+			
+			return featureMusicPlay(ct, feature.substring(
 					ChatWithTalker.FEATURE_MUSIC_PLAY.length()));
 		}
-		else if(musicControl.length() >= ChatWithTalker.FEATURE_MUSIC_STOP.length()
-			&& musicControl.substring(0, ChatWithTalker.FEATURE_MUSIC_STOP.length())
+		else if(feature.length() >= ChatWithTalker.FEATURE_MUSIC_STOP.length()
+			&& feature.substring(0, ChatWithTalker.FEATURE_MUSIC_STOP.length())
 				.equals(ChatWithTalker.FEATURE_MUSIC_STOP)
-			&& musicControl.substring(
+			&& feature.substring(
 				ChatWithTalker.FEATURE_MUSIC_STOP.length()).length() <= 0
 			) {
-			return featureMusicStop();
+			return featureMusicStop(ct);
 		}
-		else if(musicControl.length() >= ChatWithTalker.FEATURE_MUSIC_CONTINUE.length()
-			&& musicControl.substring(0, ChatWithTalker.FEATURE_MUSIC_CONTINUE.length())
+		else if(feature.length() >= ChatWithTalker.FEATURE_MUSIC_CONTINUE.length()
+			&& feature.substring(0, ChatWithTalker.FEATURE_MUSIC_CONTINUE.length())
 				.equals(ChatWithTalker.FEATURE_MUSIC_CONTINUE)
-			&& musicControl.substring(
+			&& feature.substring(
 				ChatWithTalker.FEATURE_MUSIC_CONTINUE.length()).length() <= 0
 			) {
-			return featureMusicContinue();
+			return featureMusicContinue(ct);
 		}
-		else if(musicControl.length() >= ChatWithTalker.FEATURE_MUSIC_HISTORY.length()
-			&& musicControl.substring(0, ChatWithTalker.FEATURE_MUSIC_HISTORY.length())
+		else if(feature.length() >= ChatWithTalker.FEATURE_MUSIC_HISTORY.length()
+			&& feature.substring(0, ChatWithTalker.FEATURE_MUSIC_HISTORY.length())
 				.equals(ChatWithTalker.FEATURE_MUSIC_HISTORY)
-			&& musicControl.substring(
+			&& feature.substring(
 				ChatWithTalker.FEATURE_MUSIC_HISTORY.length()).length() <= 0
 			) {
-			return featureMusicHistory();
+			return featureMusicHistoryToString();
 		}
-		else if(musicControl.length() >= ChatWithTalker.FEATURE_MUSIC_HISTORY.length()
-			&& musicControl.substring(0, ChatWithTalker.FEATURE_MUSIC_HISTORY.length())
-				.equals(ChatWithTalker.FEATURE_MUSIC_HISTORY)
-			&& musicControl.substring(
-				ChatWithTalker.FEATURE_MUSIC_HISTORY.length()).length() <= 0
+		else if(feature.length() >= ChatWithTalker.FEATURE_MUSIC_PREVIOUS.length()
+			&& feature.substring(0, ChatWithTalker.FEATURE_MUSIC_PREVIOUS.length())
+				.equals(ChatWithTalker.FEATURE_MUSIC_PREVIOUS)
+			&& feature.substring(
+				ChatWithTalker.FEATURE_MUSIC_PREVIOUS.length()).length() <= 0
 			) {
-			return featureMusicHistory();
+			return featureMusicPrevious(ct);
+		}
+		else if(feature.length() >= ChatWithTalker.FEATURE_MUSIC_NEXT.length()
+			&& feature.substring(0, ChatWithTalker.FEATURE_MUSIC_NEXT.length())
+				.equals(ChatWithTalker.FEATURE_MUSIC_NEXT)
+			&& feature.substring(
+				ChatWithTalker.FEATURE_MUSIC_NEXT.length()).length() <= 0
+			) {
+			return featureMusicNext(ct);
 		}
 		return null;
 	}
 	
-	private Context context = null;
-	private int userId = 0;
-	private String ask = null;
+	private static Context context = null;
+	private static int userId = 0;
+	private static String ask = null;
 	private ChatRecordFragment mChatRecFrag;
 	public ChatWithTalker(ChatRecordFragment mChatRecFrag, Context context, int userId, String ask) {
 		// TODO Auto-generated constructor stub
-		this.context = context;
-		this.userId = userId;
-		this.ask = ask;
+		ChatWithTalker.context = context;
+		ChatWithTalker.userId = userId;
+		ChatWithTalker.ask = ask;
 		this.mChatRecFrag = mChatRecFrag;
-		init();
+//		init();
 	}
 	
-	private void init() {
-		if(music == null) {
-			music = new MediaPlayer();
-		}
-		if(musicFolderPath == null) {
-			musicFolderPath = context.getFilesDir().getPath()+File.separator
-				+MUSIC_FOLDER;
-			File tPath = new File(musicFolderPath);
-			if(!tPath.exists()) {
-				tPath.mkdir();
-			}
-		}
-	}
+//	private static void init() {
+//		if(music == null) {
+//			music = new MediaPlayer();
+//		}
+//		if(musicFolderPath == null) {
+//			musicFolderPath = context1.getFilesDir().getPath()+File.separator
+//				+MUSIC_FOLDER;
+//			File tPath = new File(musicFolderPath);
+//			if(!tPath.exists()) {
+//				tPath.mkdir();
+//			}
+//		}
+//	}
 	
 	@Override
 	protected String doInBackground(Void... params) {
@@ -290,6 +354,10 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 //		mChatRecFrag.stopLoading();
 //Log.i("dynamic", "res:"+result);
 		mChatRecFrag.AddRecord(false, result);
+		if(result.equals(ChatWithTalker.ANSWER_MUSIC_PLAY)) {
+			MusicEntity me = MusicManager.getMusicNow();
+			mChatRecFrag.mChatActivity.initNotificationBar(me.getMusicName(), me.getAlbumImage());
+		}
 		super.onPostExecute(result);
 	}
 }

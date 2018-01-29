@@ -2,6 +2,7 @@ package com.neo.mytalker.util;
 
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +11,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class NetUtil {
 	public static void doGetMusic(final String url, final String filePath) throws IOException {
@@ -162,5 +166,59 @@ public class NetUtil {
 		}
 		uc.disconnect();
 		return res.toString();
+	}
+
+	public static byte[] doGetByteArray(String url, Map<String, String> paras) throws IOException {
+		// use url and parameter to get realurl
+		StringBuffer realUrl = new StringBuffer(url);
+		if (paras != null) {
+			for (String key : paras.keySet()) {
+				if (realUrl.length() > url.length() + 1) {
+					realUrl.append('&');
+				} else {
+					realUrl.append('&');
+				}
+				realUrl.append(key + "=" + paras.get(key));
+			}
+		}
+
+		// open connection
+		URL apiUrl = new URL(realUrl.toString());
+		HttpURLConnection huc = (HttpURLConnection) apiUrl.openConnection();
+		huc.setRequestProperty("charset", "utf-8");
+		huc.setRequestProperty("Accept-Encoding", "utf-8");
+		huc.setRequestMethod("GET");
+		huc.connect();
+
+		// receive data as data
+		InputStream is = huc.getInputStream();
+		byte[] byar = new byte[1024];
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//		Bitmap bm = Bitmap.createBitmap();
+//		bm.compress(format, quality, stream)
+		while (true) {
+			int len = is.read(byar);
+			if (len <= 0) {
+				break;
+			}
+//			res.append(new String(byar, 0, len));
+			bos.write(byar, 0, len);
+		}
+//		return BitmapFactory.decodeByteArray(bos.toByteArray(), 0, bos.size());
+		return bos.toByteArray();
+	}
+	
+	public static Bitmap doGetBitmap(String url, Map<String, String> paras) {
+		byte[] ba = null;
+		try {
+			ba = doGetByteArray(url, paras);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(ba == null) {
+			return null;
+		}
+		return BitmapFactory.decodeByteArray(ba, 0, ba.length);
 	}
 }

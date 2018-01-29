@@ -13,6 +13,11 @@ import java.util.regex.Pattern;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.neo.mytalker.entity.MusicEntity;
+import com.neo.mytalker.entity.MusicEntity.RequestBody;
+import com.neo.mytalker.entity.MusicEntity.artist;
+import com.neo.mytalker.entity.MusicEntity.song;
+
+import android.util.Log;
 
 public class GetMusicUrl {
 	private final static String
@@ -26,22 +31,25 @@ public class GetMusicUrl {
 		fileUrlPre = "http://music.163.com/song/media/outer/url?id="+songIdHolder+".mp3",
 		songIdInJson = "\"id\":[^\"]*";
 
+	public static String getSongUrlById(long id) {
+		return fileUrlPre.replace(songIdHolder, id+"");
+	}
 
 	public static String getSongUrl(String songName, final String musicFolderPath) {
 //		return "http://music.163.com/song/media/outer/url?id=640565.mp3";
 
-		final String musicFilePath = musicFolderPath+
-			File.separator+songName+".mp3";
-		if(new File(musicFilePath).exists()) {
-			return musicFilePath;
-		}
-		
-		File file = new File(musicFolderPath);
-		if(!file.exists()) {
-			if(!file.mkdir()) {
-				return null;
-			}
-		}
+//		final String musicFilePath = musicFolderPath+
+//			File.separator+songName+".mp3";
+//		if(new File(musicFilePath).exists()) {
+//			return musicFilePath;
+//		}
+//		
+//		File file = new File(musicFolderPath);
+//		if(!file.exists()) {
+//			if(!file.mkdir()) {
+//				return null;
+//			}
+//		}
 			
 		String songId = "";
 		try {
@@ -53,28 +61,28 @@ public class GetMusicUrl {
 			e.printStackTrace();
 		}
 		final String url = fileUrlPre.replace(songIdHolder, songId);
-		if(songId != null) {
-			
-			new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					try {
-						NetUtil.doGetMusic(url, musicFilePath);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}).start();
-		}
+//		if(songId != null) {
+//			
+//			new Thread(new Runnable() {
+//				
+//				@Override
+//				public void run() {
+//					// TODO Auto-generated method stub
+//					try {
+//						Thread.sleep(5000);
+//					} catch (InterruptedException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+//					try {
+//						NetUtil.doGetMusic(url, musicFilePath);
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
+//			}).start();
+//		}
 		return url;
 	}
 	
@@ -94,8 +102,9 @@ public class GetMusicUrl {
 
 	private static List<String> getSongIds(String songName) throws IOException {
 		List<String>res = new ArrayList<String>();
-		String url = searchUrlPre.replace(songNameHolder, songName);
+		String url = searchUrlPre.replace(songNameHolder, URLEncoder.encode(songName, "utf-8"));
 		url = url.replace(" ", "%20");
+Log.i("music", "url:"+url);
 		String content = NetUtil.doGetString(url, null);
 		Pattern rule = Pattern.compile(songIdInJson);
 		Matcher mt = rule.matcher(content);
@@ -167,48 +176,24 @@ public class GetMusicUrl {
 //			resJson.fromJson(content, tokens);
 //			System.out.println(request.result.songs.get(0).ar.get(0).name);
 			
-			List<RequestBody.song>songs = request.result.songs;
+			List<song>songs = request.result.songs;
 			List<String>temps = null;
-			for(Iterator<RequestBody.song>it = songs.iterator();
+			for(Iterator<song>it = songs.iterator();
 					it.hasNext(); ) {
 //				System.out.println("SS");
-				RequestBody.song so = it.next();
+				song so = it.next();
 				temps = new ArrayList<String>();
-				for(Iterator<RequestBody.artist>aar = so.ar.iterator();
+				for(Iterator<artist>aar = so.ar.iterator();
 						aar.hasNext(); ) {
 					temps.add(aar.next().name);
 				}
-				musics.add(new MusicEntity(so.name, so.id, temps, so.al.name, so.al.picUrl));
+				musics.add(new MusicEntity(so.name, so.id, temps,
+					so.al.name, so.al.picUrl, so.al.id));
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return musics;
-	}
-
-	private class RequestBody{
-		public resBody result;
-		public long code;
-		
-		class resBody{
-			public List<song> songs;
-			public long songCount;
-		}
-		class song{
-			public long id;
-			public String name;
-			public List<artist> ar;
-			public album al;
-		}
-		class album{
-			public long id;
-			public String name;
-			public String picUrl;
-		}
-		class artist{
-			public long id;
-			public String name;
-		}
 	}
 }

@@ -33,7 +33,7 @@ public class ChatRecordFragment extends Fragment implements ThemeInterface {
 	private ArrayList<ChatRecordData> mChatRecordData;
 	private View mRoot;
 	private Context mContext;
-	private ChatActivity mChatActivity;
+	public ChatActivity mChatActivity;
 	private ChatRecordAdapter mChatRecordAdapter;
 	private ListView mChatRecordListView;
 	// private TextView loadingView = null;

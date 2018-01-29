@@ -7,10 +7,12 @@ import java.util.TimerTask;
 
 import com.neo.mytalker.R;
 import com.neo.mytalker.entity.GlobalSettings;
+import com.neo.mytalker.entity.MusicEntity;
 import com.neo.mytalker.fragments.ChatBarFragment;
 import com.neo.mytalker.fragments.ChatMenuFragment;
 import com.neo.mytalker.fragments.ChatRecordFragment;
 import com.neo.mytalker.myinterface.ThemeInterface;
+import com.neo.mytalker.util.MusicManager;
 import com.unity3d.player.UnityPlayer;
 import com.unity3d.player.UnityPlayerActivity;
 
@@ -21,10 +23,17 @@ import android.app.FragmentTransaction;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -36,7 +45,7 @@ import android.widget.Toast;
 
 //TODO:Remove this to enable UNITY
 public class ChatActivity extends UnityPlayerActivity {
-// public class ChatActivity extends Activity {
+	// public class ChatActivity extends Activity {
 	public ChatRecordFragment mChatRecFrag;
 	public ChatBarFragment mChatBarFrag;
 	public ChatMenuFragment mChatMenuFragment;
@@ -51,6 +60,7 @@ public class ChatActivity extends UnityPlayerActivity {
 	private SharedPreferences mSharedPreferences;
 	private TextView mText;
 	private String[] mQualityStrings = { "极低画质", "低画质", "中画质", "高画质", "超高画质", "极高画质", };
+	private Mp3Receiver mMp3Receiver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,16 +86,21 @@ public class ChatActivity extends UnityPlayerActivity {
 				.show();
 
 		setAnimation();
-
-		initNotificationBar();
-		// TODO:Remove this to enable UNITY
+        mMp3Receiver=new Mp3Receiver();
+        IntentFilter inf=new IntentFilter();
+        inf.addAction("play");
+        inf.addAction("pause");
+        inf.addAction("next");
+        inf.addAction("last");
+		registerReceiver(mMp3Receiver,inf);
+        // TODO:Remove this to enable UNITY
 		mSharedPreferences = getSharedPreferences("AppCountss", MODE_PRIVATE);
 		currentQualityLevel = mSharedPreferences.getInt("Quality", 2);
-		
+
 		if (!SIMPLE_MODE) {
-		LinearLayout ll = (LinearLayout) findViewById(R.id.chat_unityview);
-		mUnityView = mUnityPlayer.getView();
-		ll.addView(mUnityView);
+			LinearLayout ll = (LinearLayout) findViewById(R.id.chat_unityview);
+			mUnityView = mUnityPlayer.getView();
+			ll.addView(mUnityView);
 		}
 
 	}
@@ -96,7 +111,7 @@ public class ChatActivity extends UnityPlayerActivity {
 		transaction.replace(content, frag);
 		transaction.commit();
 	}
-
+    
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
@@ -151,15 +166,15 @@ public class ChatActivity extends UnityPlayerActivity {
 		// TODO:Remove this to enable UNITY
 
 		if (!SIMPLE_MODE) {
-		UnityPlayer.UnitySendMessage("miku", "Speak", "");
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-		
-		@Override
-		public void run() { // TODO Auto-generated method stub
-		UnityPlayer.UnitySendMessage("miku", "Idle", "");
-		}
-		}, 1000);
+			UnityPlayer.UnitySendMessage("miku", "Speak", "");
+			Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
+
+				@Override
+				public void run() { // TODO Auto-generated method stub
+					UnityPlayer.UnitySendMessage("miku", "Idle", "");
+				}
+			}, 1000);
 		}
 
 	}
@@ -168,13 +183,13 @@ public class ChatActivity extends UnityPlayerActivity {
 		// TODO:Remove this to enable UNITY
 
 		if (!SIMPLE_MODE) {
-		View tmp = findViewById(R.id.chat_cover);
-		tmp.setVisibility(View.VISIBLE);
-		ObjectAnimator animator1 = ObjectAnimator.ofFloat(tmp, "alpha", 1f, 0f);
-		
-		animator1.setDuration(1000);
-		animator1.start();
-		UnityPlayer.UnitySendMessage("miku", "Dance", "");
+			View tmp = findViewById(R.id.chat_cover);
+			tmp.setVisibility(View.VISIBLE);
+			ObjectAnimator animator1 = ObjectAnimator.ofFloat(tmp, "alpha", 1f, 0f);
+
+			animator1.setDuration(1000);
+			animator1.start();
+			UnityPlayer.UnitySendMessage("miku", "Dance", "");
 		}
 
 	}
@@ -188,8 +203,8 @@ public class ChatActivity extends UnityPlayerActivity {
 		// TODO:Remove this to enable UNITY
 
 		if (!SIMPLE_MODE) {
-		UnityPlayer.UnitySendMessage("miku", "SetQualityLevel", String.valueOf(l));
-		currentQualityLevel = l;
+			UnityPlayer.UnitySendMessage("miku", "SetQualityLevel", String.valueOf(l));
+			currentQualityLevel = l;
 		}
 
 	}
@@ -198,10 +213,9 @@ public class ChatActivity extends UnityPlayerActivity {
 		// TODO:Remove this to enable UNITY
 
 		if (!SIMPLE_MODE) {
-		mText=txt;
-		UnityPlayer.UnitySendMessage("miku", "AutoDetectQuality",
-		String.valueOf(maxLevel));
-		Toast.makeText(this, "正在自动调整画质，请稍后", Toast.LENGTH_SHORT).show();
+			mText = txt;
+			UnityPlayer.UnitySendMessage("miku", "AutoDetectQuality", String.valueOf(maxLevel));
+			Toast.makeText(this, "正在自动调整画质，请稍后", Toast.LENGTH_SHORT).show();
 		}
 
 	}
@@ -239,6 +253,7 @@ public class ChatActivity extends UnityPlayerActivity {
 		editor.commit();
 		LoadThemeColor();
 	}
+
 	public void ChangeThemeColor(int color) {
 
 		GlobalSettings.THEME_COLOR = color;
@@ -248,6 +263,7 @@ public class ChatActivity extends UnityPlayerActivity {
 		editor.commit();
 		LoadThemeColor();
 	}
+
 	public void LoadThemeColor() {
 
 		for (ThemeInterface t : mThemeList) {
@@ -264,20 +280,33 @@ public class ChatActivity extends UnityPlayerActivity {
 	private RemoteViews contentView;
 
 	private Notification notification;
-	public NotificationManager notManager; 
-	public void initNotificationBar() {
-		notManager=(NotificationManager) getSystemService(NOTIFICATION_SERVICE); 
+	public NotificationManager notManager;
+
+	public void initNotificationBar(String name, Bitmap cover) {
+		notManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		Notification.Builder mBuilder = new Notification.Builder(this);
-		
+
 		notification = new Notification();
 		// 初始化通知
 		notification.icon = R.drawable.iclauncher;
 		contentView = new RemoteViews(getPackageName(), R.layout.notification_control);
 		notification.contentView = contentView;
-		Intent intentPlay = new Intent("play");
-		PendingIntent pIntentPlay = PendingIntent.getBroadcast(this, 0, intentPlay, 0);
-		contentView.setOnClickPendingIntent(R.id.music_isplaying, pIntentPlay);// 为play控件注册事件
+		if (!MusicManager.musicIsPlaying()) {
+			Intent intentPlay = new Intent("play");
+			PendingIntent pIntentPlay = PendingIntent.getBroadcast(this, 0, intentPlay, 0);
 
+			contentView.setImageViewBitmap(R.id.music_isplaying, BitmapFactory.decodeResource(getResources(), R.drawable.ic_play_arrow_white_48dp));
+			
+			contentView.setOnClickPendingIntent(R.id.music_isplaying, pIntentPlay);// 为play控件注册事件
+		} else {
+			Intent intentPlay = new Intent("pause");
+			PendingIntent pIntentPlay = PendingIntent.getBroadcast(this, 0, intentPlay, 0);
+			
+			contentView.setImageViewBitmap(R.id.music_isplaying, BitmapFactory.decodeResource(getResources(), R.drawable.ic_pause_white_48dp));
+			contentView.setOnClickPendingIntent(R.id.music_isplaying, pIntentPlay);// 为play控件注册事件
+		}
+		contentView.setImageViewBitmap(R.id.music_cover, cover);
+		contentView.setTextViewText(R.id.music_title, name);
 
 		Intent intentNext = new Intent("next");
 		PendingIntent pIntentNext = PendingIntent.getBroadcast(this, 0, intentNext, 0);
@@ -292,5 +321,35 @@ public class ChatActivity extends UnityPlayerActivity {
 		notManager.notify(32000, notification);// 开启通知
 
 	}
-
+	public class Mp3Receiver extends BroadcastReceiver {  
+	    //private MusicManager application;  
+	  
+	    @Override  
+	    public void onReceive(Context context, Intent intent) {  
+	          
+	        //application = (Mp3Application) context.getApplicationContext();  
+	        String ctrl_code = intent.getAction();//获取action标记，用户区分点击事件  
+	          
+			final MusicEntity me = MusicManager.getMusicNow();
+	        //music = application.music;//获取全局播放控制对象，该对象已在Activity中初始化  
+			if ("play".equals(ctrl_code)) {
+				MusicManager.musicContinue(context);
+				initNotificationBar(
+					me.getMusicName(), me.getAlbumImage());
+			} else if ("pause".equals(ctrl_code)) {  
+				MusicManager.musicStop(context);
+				initNotificationBar(
+					me.getMusicName(), me.getAlbumImage());
+			} else if ("next".equals(ctrl_code)) {  
+				MusicManager.musicNext(context);
+				initNotificationBar(
+					me.getMusicName(), me.getAlbumImage());
+			} else if ("last".equals(ctrl_code)) {  
+				MusicManager.musicPrevious(context);
+				initNotificationBar(
+					me.getMusicName(), me.getAlbumImage());
+			}  
+	    }  
+	  
+	}  
 }

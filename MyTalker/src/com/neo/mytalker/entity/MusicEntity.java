@@ -1,12 +1,37 @@
 package com.neo.mytalker.entity;
+import java.io.Serializable;
 import java.util.List;
 
-public class MusicEntity {
+import com.neo.mytalker.util.MusicManager;
+import com.neo.mytalker.util.NetUtil;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+
+public class MusicEntity implements Serializable{
 	private String musicName;
 	private long musicId;
 	private List<String> artistNames;
 	private String albumName;
-	private String albumImageUrl;
+	private String albumImageUri;
+	private long albumId;
+	private Bitmap albumImage = null;
+
+	public Bitmap getAlbumImage() {
+		return albumImage;
+	}
+
+	public void setAlbumImage(Bitmap albumImage) {
+		this.albumImage = albumImage;
+	}
+
+	public long getAlbumId() {
+		return albumId;
+	}
+
+	public void setAlbumId(long albumId) {
+		this.albumId = albumId;
+	}
 
 	public String getMusicName() {
 		return musicName;
@@ -39,27 +64,60 @@ public class MusicEntity {
 		this.albumName = albumName;
 	}
 
-	public String getAlbumImageUrl() {
-		return albumImageUrl;
+	public String getAlbumImageUri() {
+		return albumImageUri;
 	}
 
-	public void setAlbumImageUrl(String albumImageUrl) {
-		this.albumImageUrl = albumImageUrl;
+	public void setAlbumImageUri(String albumImageUri) {
+		this.albumImageUri = albumImageUri;
 	}
-	
+
 	public MusicEntity(String musicName, long musicId) {
 		super();
 		this.musicName = musicName;
 		this.musicId = musicId;
 	}
 
-	public MusicEntity(String musicName, long musicId, List<String> artistNames, String albumName,
-			String albumImageUrl) {
+	public MusicEntity(String musicName, long musicId, List<String> artistNames, String albumName, String albumImageUri,
+			long albumId) {
 		super();
 		this.musicName = musicName;
 		this.musicId = musicId;
 		this.artistNames = artistNames;
 		this.albumName = albumName;
-		this.albumImageUrl = albumImageUrl;
+		this.albumImageUri = albumImageUri;
+		this.albumId = albumId;
+	}
+
+	public void play(Context activity) {
+		MusicManager.musicPlay(activity, this);
+	}
+	public class RequestBody{
+		public resBody result;
+		public long code;
+	}
+	public class resBody{
+		public List<song> songs;
+		public long songCount;
+	}
+	public class song{
+		public long id;
+		public String name;
+		public List<artist> ar;
+		public album al;
+	}
+	public class album{
+		public long id;
+		public String name;
+		public String picUrl;
+	}
+	public class artist{
+		public long id;
+		public String name;
+	}
+
+	public Bitmap loadAlbumBitmap(Context context) {
+		setAlbumImage(MusicManager.getAlbumImage(context, this));
+		return getAlbumImage();
 	}
 }
