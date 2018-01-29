@@ -9,18 +9,21 @@ import java.util.Map;
 import com.neo.mytalker.R;
 import com.neo.mytalker.adapter.ChatRulesAdapter;
 import com.neo.mytalker.entity.ChatDialogEntity;
+import com.neo.mytalker.entity.GlobalSettings;
 import com.neo.mytalker.myinterface.CharacterParser;
 import com.neo.mytalker.myinterface.CustomDialog;
 import com.neo.mytalker.myinterface.CustomDialog.Builder;
 import com.neo.mytalker.myinterface.PinyinComparator;
 import com.neo.mytalker.myinterface.SideBar;
 import com.neo.mytalker.myinterface.SideBar.OnTouchingLetterChangedListener;
+import com.neo.mytalker.myinterface.ThemeInterface;
 import com.neo.mytalker.util.ChatRulesManager;
 import com.neo.mytalker.util.SQLiteManager;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,12 +32,12 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ChatRulesActivity extends Activity {
+public class ChatRulesActivity extends Activity implements ThemeInterface {
 	ListView mListView;
 	ChatDialogEntity mChatDialogEntity;
 	List<ChatDialogEntity> mChatDialogEntityList;
@@ -51,6 +54,9 @@ public class ChatRulesActivity extends Activity {
 	CharacterParser mCharacterParser;
 	PinyinComparator mPinyinComparator;
 	List<ChatDialogEntity> mFilterData;
+	TextView mQuestionTitle, mMessageTextView;
+	Button mPositiveButton, mNegativeButton;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,7 @@ public class ChatRulesActivity extends Activity {
 		setListener();
 		setAdapter();
 		setOnClick();
+		ChangeThemeColor();
 	}
 
 	@SuppressLint("DefaultLocale")
@@ -102,6 +109,10 @@ public class ChatRulesActivity extends Activity {
 		mLetterDialog = (TextView) this.findViewById(R.id.letter_dialog);
 		mSideBar = (SideBar) this.findViewById(R.id.sidebar);
 		mSideBar.setTextView(mLetterDialog);
+		mQuestionTitle = (TextView) this.findViewById(R.id.question_title);
+		mPositiveButton = (Button) mView.findViewById(R.id.positive_button);
+		mNegativeButton = (Button) mView.findViewById(R.id.negative_button);
+		mMessageTextView = (TextView) mView.findViewById(R.id.message);
 	}
 
 	public void setListener() {
@@ -344,5 +355,13 @@ public class ChatRulesActivity extends Activity {
 				.setPositiveButton(confirmBtn, conFirmListener).setNegativeButton(cancleBtn, cancelListener)
 				.createTwoButtonDialogWithEdit();
 		mCustomDialog.show();
+	}
+
+	@Override
+	public void ChangeThemeColor() {
+		// TODO Auto-generated method stub
+		mQuestionTitle.setBackgroundColor(GlobalSettings.THEME_COLOR);
+		mAddRulesBtn.setBackgroundColor(GlobalSettings.THEME_COLOR);
+
 	}
 }

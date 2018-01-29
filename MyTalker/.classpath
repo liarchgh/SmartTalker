@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="libs/Sunflower.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="libs/unity-classes.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -4,22 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ff66ccff" >
-
-    <TextView
-        android:id="@+id/chat_bottombar_morefun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/chat_bottombar_voice"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:gravity="center"
-
-        android:text="+"
-        android:textColor="#ffffff"
-        android:textSize="25sp" />
+        android:src="@drawable/ic_mic_white_48dp"/>
+    <ImageView
+        android:id="@+id/chat_bottombar_morefun"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:src="@drawable/ic_add_white_48dp"
+        android:layout_toRightOf="@id/chat_bottombar_voice"/>
 
     <TextView
         android:id="@+id/chat_bottombar_send"
@@ -33,6 +33,8 @@
         android:textColor="#ffffff"
         android:textSize="15sp" />
 
+
+
     <EditText
         android:id="@+id/chat_bottombar_sendingtext"
         android:layout_width="match_parent"
@@ -44,10 +46,10 @@
         android:layout_toRightOf="@id/chat_bottombar_morefun"
         android:background="@drawable/msg_edit_bg"
         android:hint="在这里和我对话..."
-        android:padding="5dp"
-        android:textColor="#000000"
-        android:textSize="15sp" 
         android:inputType="text"
-        android:singleLine="true"/>
+        android:padding="5dp"
+        android:singleLine="true"
+        android:textColor="#000000"
+        android:textSize="15sp" />
 
 </RelativeLayout>

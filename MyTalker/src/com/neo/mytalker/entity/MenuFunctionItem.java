@@ -4,7 +4,6 @@ public class MenuFunctionItem {
 	private int icon;//图标
 	private String name;//图标名称
 	private int position;//位置 
-	
 	public int getIcon() {
 		return icon;
 	}
