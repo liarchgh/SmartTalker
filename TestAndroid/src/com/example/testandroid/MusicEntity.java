@@ -1,9 +1,11 @@
 package com.example.testandroid;
+import java.io.Serializable;
 import java.util.List;
 
 import android.app.Activity;
+import android.widget.SectionIndexer;
 
-public class MusicEntity {
+public class MusicEntity implements Serializable{
 	private String musicName;
 	private long musicId;
 	private List<String> artistNames;
