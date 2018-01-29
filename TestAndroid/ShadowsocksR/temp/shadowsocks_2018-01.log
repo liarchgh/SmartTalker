@@ -1,0 +1,43 @@
+[2018-01-29 10:25:19] ShadowsocksR started on port 1080
+[2018-01-29 10:25:29] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:30] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:30] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:31] [Info] Disconnect raw.githubusercontent.com:443
+[2018-01-29 10:25:31] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:31] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:32] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:32] [Info] Disconnect raw.githubusercontent.com:443
+[2018-01-29 10:25:32] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:33] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:33] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:34] [Info] Disconnect raw.githubusercontent.com:443
+[2018-01-29 10:25:34] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:34] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:35] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:35] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:35] [Info] Disconnect raw.githubusercontent.com:443
+[2018-01-29 10:25:35] [Error] connect to update server error
+[2018-01-29 10:25:36] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:36] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:37] [Info] Disconnect raw.githubusercontent.com:443
+[2018-01-29 10:25:37] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:37] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:38] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:38] [Info] Disconnect raw.githubusercontent.com:443
+[2018-01-29 10:25:38] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:39] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:39] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:40] [Info] Disconnect raw.githubusercontent.com:443
+[2018-01-29 10:25:40] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:40] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:41] [Info] Connect raw.githubusercontent.com:443
+[2018-01-29 10:25:41] [Info] Disconnect raw.githubusercontent.com:443
+[2018-01-29 10:25:41] [Error] System.Reflection.TargetInvocationException: 操作过程中出现异常，结果无效。有关异常的详细信息，请查看 InnerException。 ---> System.Net.WebException: 基础连接已经关闭: 连接被意外关闭。
+   在 System.Net.HttpWebRequest.EndGetResponse(IAsyncResult asyncResult)
+   在 System.Net.WebClient.GetWebResponse(WebRequest request, IAsyncResult result)
+   在 System.Net.WebClient.DownloadBitsResponseCallback(IAsyncResult result)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.ComponentModel.AsyncCompletedEventArgs.RaiseExceptionIfNecessary()
+   在 System.Net.DownloadStringCompletedEventArgs.get_Result()
+   在 Shadowsocks.Controller.GFWListUpdater.http_DownloadGFWTemplateCompleted(Object sender, DownloadStringCompletedEventArgs e)
+[2018-01-29 10:25:48] [Info] Direct connect sp1.baidu.com:443

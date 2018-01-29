@@ -1,13 +1,18 @@
 package com.neo.mytalker.util;
+
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.provider.ContactsContract.Directory;
-import android.util.Log;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.neo.mytalker.entity.MusicEntity;
 
 public class GetMusicUrl {
 	private final static String
@@ -72,9 +77,10 @@ public class GetMusicUrl {
 		}
 		return url;
 	}
-
+	
 	private static String getSongId(String songName) throws IOException {
-		String url = searchUrlPre.replace(songNameHolder, songName);
+		String url = searchUrlPre.replace(songNameHolder, URLEncoder.encode(songName, "utf-8"));
+//		url = URLEncoder.encode(url, "utf-8");
 		url = url.replace(" ", "%20");
 		String content = NetUtil.doGetString(url, null);
 		Pattern rule = Pattern.compile(songIdInJson);
@@ -130,5 +136,79 @@ public class GetMusicUrl {
 			}
 		}
 		return musics;
+	}
+	
+	public static List<MusicEntity>searchMusicByKey(String key){
+		String content;
+		List<MusicEntity>musics = new ArrayList<MusicEntity>();
+		try {
+			//拼接查询的url
+			String url = searchUrlPre.replace(songNameHolder, URLEncoder.encode(key, "utf-8"));
+//System.out.println(url);
+			url = url.replace(" ", "%20");
+			
+			//使用get方法获得json
+			content = NetUtil.doGetString(url, null);
+//System.out.println(content);
+//			for(int i = 0; i < content.length(); ++i) {
+//				if(i == 15448) {
+//					System.out.print("\n");
+//				}
+//				if(i > 15448-100 && i < 15548) {
+//					System.out.print(content.charAt(i));
+//				}
+//			}
+			
+			//解析json
+			Gson resJson = new Gson();
+			Type tokens = new TypeToken<RequestBody>(){}.getType();
+			//request即为解析结果
+			RequestBody request = resJson.fromJson(content, tokens);
+//			resJson.fromJson(content, tokens);
+//			System.out.println(request.result.songs.get(0).ar.get(0).name);
+			
+			List<RequestBody.song>songs = request.result.songs;
+			List<String>temps = null;
+			for(Iterator<RequestBody.song>it = songs.iterator();
+					it.hasNext(); ) {
+//				System.out.println("SS");
+				RequestBody.song so = it.next();
+				temps = new ArrayList<String>();
+				for(Iterator<RequestBody.artist>aar = so.ar.iterator();
+						aar.hasNext(); ) {
+					temps.add(aar.next().name);
+				}
+				musics.add(new MusicEntity(so.name, so.id, temps, so.al.name, so.al.picUrl));
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return musics;
+	}
+
+	private class RequestBody{
+		public resBody result;
+		public long code;
+		
+		class resBody{
+			public List<song> songs;
+			public long songCount;
+		}
+		class song{
+			public long id;
+			public String name;
+			public List<artist> ar;
+			public album al;
+		}
+		class album{
+			public long id;
+			public String name;
+			public String picUrl;
+		}
+		class artist{
+			public long id;
+			public String name;
+		}
 	}
 }

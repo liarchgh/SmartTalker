@@ -129,7 +129,6 @@ public final class R {
         public static final int feature_splash=0x7f0a0010;
         public static final int fra_id=0x7f0a000a;
         public static final int help_webview=0x7f0a0012;
-        public static final int iatRadioCloud=0x7f0a003f;
         public static final int imageShow=0x7f0a0032;
         public static final int jumpBtn=0x7f0a0037;
         public static final int jump_main_buttons=0x7f0a0036;
@@ -156,24 +155,12 @@ public final class R {
         public static final int question_dialog=0x7f0a003a;
         public static final int question_title=0x7f0a0009;
         public static final int quit_app=0x7f0a0038;
-        public static final int radioGroup=0x7f0a003e;
         public static final int rules_list=0x7f0a000b;
         public static final int sidebar=0x7f0a000d;
         public static final int single_button=0x7f0a001d;
         public static final int single_button_layout=0x7f0a001c;
         public static final int two_button_layout=0x7f0a0019;
         public static final int two_edit_text=0x7f0a0016;
-        public static final int voice_ali=0x7f0a0047;
-        public static final int voice_ali_stop=0x7f0a0048;
-        public static final int voice_bd=0x7f0a0045;
-        public static final int voice_bd_stop=0x7f0a0046;
-        public static final int voice_bt=0x7f0a0040;
-        public static final int voice_et=0x7f0a003d;
-        public static final int voice_play=0x7f0a0041;
-        public static final int voice_seekbar=0x7f0a0042;
-        public static final int voice_tv=0x7f0a003c;
-        public static final int voice_xf=0x7f0a0043;
-        public static final int voice_xf_stop=0x7f0a0044;
     }
     public static final class layout {
         public static final int activity_chat=0x7f030000;
@@ -193,7 +180,6 @@ public final class R {
         public static final int message_function_layout=0x7f03000e;
         public static final int single_image=0x7f03000f;
         public static final int son_of_dialog_list_view_layout=0x7f030010;
-        public static final int test=0x7f030011;
     }
     public static final class string {
         /**      <string name="app_name">讯飞语音示例</string>

@@ -1,5 +1,6 @@
 package com.neo.mytalker.util;
 
+
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -80,6 +81,20 @@ public class NetUtil {
 		// open connection
 		URL apiUrl = new URL(realUrl.toString());
 		HttpURLConnection huc = (HttpURLConnection) apiUrl.openConnection();
+//		URLConnection huc = apiUrl.openConnection();
+
+//		if (Integer.parseInt(Build.VERSION.SDK) < Build.VERSION_CODES.FROYO) {
+//			System.setProperty("http.keepAlive", "false");
+//		}
+		huc.setRequestProperty("charset", "utf-8");
+		huc.setRequestProperty("Accept-Encoding", "utf-8");
+//		huc.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+//		huc.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
+//		huc.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+//		huc.setRequestProperty("Connection", "keep-alive");
+//		huc.setRequestProperty("Host", "api.imjad.cn");
+//		huc.setRequestProperty("Upgrade-Insecure-Requests", "1");
+//				User-Agent	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36
 		huc.setRequestMethod("GET");
 		huc.connect();
 
@@ -88,11 +103,12 @@ public class NetUtil {
 		char[] byar = new char[1024];
 		StringBuffer res = new StringBuffer();
 		while (true) {
-			int len = os.read(byar, 0, byar.length);
+//			int len = os.read(byar, 0, byar.length);
+			int len = os.read(byar);
 			if (len <= 0) {
 				break;
 			}
-			res.append(new String(byar));
+			res.append(new String(byar, 0, len));
 		}
 		return res.toString();
 	}

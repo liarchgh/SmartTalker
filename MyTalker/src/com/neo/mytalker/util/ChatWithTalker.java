@@ -24,11 +24,11 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		ANSWER_MUSIC_ERROR = "音乐酱出错了\n(┙>∧<)┙へ┻┻",
 		ANSWER_FEATURE_ERROR = "命令出错了\n(╬▔皿▔)",
 		MUSIC_FOLDER = "music";
-	public static final String FEATURE_MUSIC = "music#",
-		FEATURE_MUSIC_PLAY = "play#",
-		FEATURE_MUSIC_STOP = "stop",
-		FEATURE_MUSIC_LIST = "list",
-		FEATURE_MUSIC_CONTINUE = "continue";
+	public static final String FEATURE_MUSIC = "",
+		FEATURE_MUSIC_PLAY = "播放音乐",
+		FEATURE_MUSIC_STOP = "停止播放",
+		FEATURE_MUSIC_LIST = "音乐列表",
+		FEATURE_MUSIC_CONTINUE = "继续播放";
 	private static MediaPlayer music = null;
 	private static String musicFolderPath = null;
 	private static String chat(Context context, int userId, String ask) {
@@ -201,6 +201,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 	}
 	
 	private static String featureMusic(String musicControl) {
+Log.i("music", "music control:"+musicControl);
 		if(musicControl.length() >= ChatWithTalker.FEATURE_MUSIC_PLAY.length()
 			&& musicControl.substring(0, ChatWithTalker.FEATURE_MUSIC_PLAY.length())
 				.equals(ChatWithTalker.FEATURE_MUSIC_PLAY)
@@ -270,7 +271,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 	protected void onPostExecute(String result) {
 		// TODO Auto-generated method stub
 //		mChatRecFrag.stopLoading();
-Log.i("dynamic", "res:"+result);
+//Log.i("dynamic", "res:"+result);
 		mChatRecFrag.AddRecord(false, result);
 		super.onPostExecute(result);
 	}
