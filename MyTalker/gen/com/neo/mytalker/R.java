@@ -8,51 +8,117 @@
 package com.neo.mytalker;
 
 public final class R {
+    public static final class anim {
+        public static final int miku_frame=0x7f040000;
+    }
     public static final class array {
-        public static final int category_entries=0x7f08000c;
-        public static final int category_values=0x7f08000d;
-        public static final int dwa_entries=0x7f080011;
-        public static final int emot_entries=0x7f080004;
-        public static final int emot_values=0x7f080005;
+        public static final int category_entries=0x7f09000c;
+        public static final int category_values=0x7f09000d;
+        public static final int dwa_entries=0x7f090011;
+        public static final int emot_entries=0x7f090004;
+        public static final int emot_values=0x7f090005;
         /**  合成 
          */
-        public static final int engine_entries=0x7f080000;
-        public static final int engine_values=0x7f080001;
-        public static final int ise_language_entries=0x7f08000a;
-        public static final int ise_language_values=0x7f08000b;
+        public static final int engine_entries=0x7f090000;
+        public static final int engine_values=0x7f090001;
+        public static final int ise_language_entries=0x7f09000a;
+        public static final int ise_language_values=0x7f09000b;
         /**  语言 
          */
-        public static final int language_entries=0x7f080008;
-        public static final int language_values=0x7f080009;
+        public static final int language_entries=0x7f090008;
+        public static final int language_values=0x7f090009;
         /**  标点符号 
          */
-        public static final int punc_entries=0x7f08000f;
-        public static final int punc_values=0x7f080010;
-        public static final int result_level_entries=0x7f08000e;
-        public static final int stream_entries=0x7f080006;
-        public static final int stream_values=0x7f080007;
-        public static final int voicer_cloud_entries=0x7f080002;
-        public static final int voicer_cloud_values=0x7f080003;
+        public static final int punc_entries=0x7f09000f;
+        public static final int punc_values=0x7f090010;
+        public static final int result_level_entries=0x7f09000e;
+        public static final int stream_entries=0x7f090006;
+        public static final int stream_values=0x7f090007;
+        public static final int voicer_cloud_entries=0x7f090002;
+        public static final int voicer_cloud_values=0x7f090003;
     }
     public static final class attr {
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int SineWave_horizontal_speed=0x7f010004;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int SineWave_max_value=0x7f010001;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int SineWave_min_amplitude=0x7f010003;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int SineWave_vertical_restore_speed=0x7f010006;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int SineWave_vertical_speed=0x7f010005;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int SineWave_wave_color=0x7f010000;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int SineWave_wave_period=0x7f010002;
     }
     public static final class color {
-        public static final int chat_msglist_bgcolor=0x7f050004;
-        public static final int content_color=0x7f050003;
+        public static final int chat_msglist_bgcolor=0x7f060004;
+        public static final int content_color=0x7f060003;
         /**  控件按下时显示的颜色 
          */
-        public static final int list_backgroud_color=0x7f050001;
-        public static final int title_color=0x7f050002;
-        public static final int white=0x7f050000;
+        public static final int list_backgroud_color=0x7f060001;
+        public static final int title_color=0x7f060002;
+        public static final int white=0x7f060000;
     }
     public static final class dimen {
-        public static final int btn_size=0x7f060002;
+        public static final int btn_size=0x7f070002;
         /**  分割线高度 
          */
-        public static final int line_height=0x7f060004;
-        public static final int margin_=0x7f060000;
-        public static final int pading_=0x7f060001;
-        public static final int txt_size=0x7f060003;
+        public static final int line_height=0x7f070004;
+        public static final int margin_=0x7f070000;
+        public static final int pading_=0x7f070001;
+        public static final int txt_size=0x7f070003;
     }
     public static final class drawable {
         public static final int alb=0x7f020000;
@@ -60,107 +126,150 @@ public final class R {
         public static final int chat_msglist_gradient=0x7f020002;
         public static final int d1=0x7f020003;
         public static final int d2=0x7f020004;
-        public static final int dialog_bg=0x7f020005;
-        public static final int emotionstore_progresscancelbtn=0x7f020006;
-        public static final int f0=0x7f020007;
-        public static final int f1=0x7f020008;
-        public static final int f2=0x7f020009;
-        public static final int feat_1=0x7f02000a;
-        public static final int feat_2=0x7f02000b;
-        public static final int function_selector=0x7f02000c;
-        public static final int function_selector_shape=0x7f02000d;
-        public static final int help=0x7f02000e;
-        public static final int ic_launcher=0x7f02000f;
-        public static final int ic_search_72pt=0x7f020010;
-        public static final int iclauncher=0x7f020011;
-        public static final int launchbg=0x7f020012;
+        public static final int dance=0x7f020005;
+        public static final int dialog_bg=0x7f020006;
+        public static final int dialog_title=0x7f020007;
+        public static final int dialog_white_bg=0x7f020008;
+        public static final int emotionstore_progresscancelbtn=0x7f020009;
+        public static final int f0=0x7f02000a;
+        public static final int f1=0x7f02000b;
+        public static final int f2=0x7f02000c;
+        public static final int feat_1=0x7f02000d;
+        public static final int feat_2=0x7f02000e;
+        public static final int function_selector=0x7f02000f;
+        public static final int function_selector_shape=0x7f020010;
+        public static final int help=0x7f020011;
+        public static final int ic_add_white_48dp=0x7f020012;
+        public static final int ic_launcher=0x7f020013;
+        public static final int ic_mic_white_48dp=0x7f020014;
+        public static final int ic_navigate_before_white_48dp=0x7f020015;
+        public static final int ic_navigate_next_white_48dp=0x7f020016;
+        public static final int ic_pause_white_48dp=0x7f020017;
+        public static final int ic_play_arrow_white_48dp=0x7f020018;
+        public static final int ic_remove_white_48dp=0x7f020019;
+        public static final int ic_search_72pt=0x7f02001a;
+        public static final int ic_send_white_48dp=0x7f02001b;
+        public static final int ic_skip_next_white_48dp=0x7f02001c;
+        public static final int ic_skip_previous_white_48dp=0x7f02001d;
+        public static final int iclauncher=0x7f02001e;
+        public static final int launchbg=0x7f02001f;
         /**  画面背景色 
          */
-        public static final int layout_backgroud=0x7f020026;
+        public static final int layout_backgroud=0x7f02003b;
         /**  分割线背景色 
          */
-        public static final int line_background=0x7f020027;
-        public static final int list_bg_color=0x7f020013;
-        public static final int logo=0x7f020014;
-        public static final int logo_blur=0x7f020015;
-        public static final int main_setting_btn_np=0x7f020016;
-        public static final int msg_bg=0x7f020017;
-        public static final int msg_edit_bg=0x7f020018;
-        public static final int msg_op_bg=0x7f020019;
-        public static final int music=0x7f02001a;
-        public static final int rules=0x7f02001b;
-        public static final int search_bar_edit_normal=0x7f02001c;
-        public static final int search_bar_edit_pressed=0x7f02001d;
-        public static final int search_bar_edit_selector=0x7f02001e;
-        public static final int search_bar_icon_normal=0x7f02001f;
-        public static final int setting=0x7f020020;
-        public static final int setting_p=0x7f020021;
-        public static final int settings=0x7f020022;
-        public static final int show_head_toast_bg=0x7f020023;
-        public static final int sidebar_background=0x7f020024;
-        public static final int user=0x7f020025;
+        public static final int line_background=0x7f02003c;
+        public static final int list_bg_color=0x7f020020;
+        public static final int logo=0x7f020021;
+        public static final int logo_blur=0x7f020022;
+        public static final int main_setting_btn_np=0x7f020023;
+        public static final int miku1=0x7f020024;
+        public static final int miku2=0x7f020025;
+        public static final int miku3=0x7f020026;
+        public static final int miku4=0x7f020027;
+        public static final int miku5=0x7f020028;
+        public static final int miku6=0x7f020029;
+        public static final int miku7=0x7f02002a;
+        public static final int miku8=0x7f02002b;
+        public static final int msg_bg=0x7f02002c;
+        public static final int msg_edit_bg=0x7f02002d;
+        public static final int msg_op_bg=0x7f02002e;
+        public static final int music=0x7f02002f;
+        public static final int rules=0x7f020030;
+        public static final int search_bar_edit_normal=0x7f020031;
+        public static final int search_bar_edit_pressed=0x7f020032;
+        public static final int search_bar_edit_selector=0x7f020033;
+        public static final int search_bar_icon_normal=0x7f020034;
+        public static final int setting=0x7f020035;
+        public static final int setting_p=0x7f020036;
+        public static final int settings=0x7f020037;
+        public static final int show_head_toast_bg=0x7f020038;
+        public static final int sidebar_background=0x7f020039;
+        public static final int user=0x7f02003a;
     }
     public static final class id {
-        public static final int add_rules_btn=0x7f0a000e;
-        public static final int answer_dialog=0x7f0a003b;
-        public static final int catalog=0x7f0a0039;
-        public static final int chat_bottombar=0x7f0a001e;
-        public static final int chat_bottombar_morefun=0x7f0a001f;
-        public static final int chat_bottombar_send=0x7f0a0020;
-        public static final int chat_bottombar_sendingtext=0x7f0a0021;
-        public static final int chat_bottombarfrag=0x7f0a0004;
-        public static final int chat_frame=0x7f0a0001;
-        public static final int chat_logo=0x7f0a0007;
-        public static final int chat_msg_topgradientbar=0x7f0a0024;
-        public static final int chat_msglist=0x7f0a0025;
-        public static final int chat_recordfrag=0x7f0a0003;
-        public static final int chat_root=0x7f0a0000;
-        public static final int chat_splash=0x7f0a0006;
-        public static final int chat_unityview=0x7f0a0002;
-        public static final int config_hidden=0x7f0a0008;
-        public static final int content=0x7f0a0014;
-        public static final int edit_one=0x7f0a0017;
-        public static final int edit_two=0x7f0a0018;
-        public static final int feature_bg=0x7f0a0028;
-        public static final int feature_description=0x7f0a0027;
-        public static final int feature_logo=0x7f0a0011;
-        public static final int feature_page=0x7f0a0026;
-        public static final int feature_show_pages=0x7f0a000f;
-        public static final int feature_splash=0x7f0a0010;
-        public static final int fra_id=0x7f0a000a;
-        public static final int help_webview=0x7f0a0012;
-        public static final int imageShow=0x7f0a0032;
-        public static final int jumpBtn=0x7f0a0037;
-        public static final int jump_main_buttons=0x7f0a0036;
-        public static final int letter_dialog=0x7f0a000c;
-        public static final int main_logo=0x7f0a0013;
-        public static final int message=0x7f0a0015;
-        public static final int message_function_btn=0x7f0a0030;
-        public static final int message_function_name=0x7f0a0031;
-        public static final int message_plus_fragment=0x7f0a0005;
-        public static final int message_plus_viewpager=0x7f0a0022;
-        public static final int mp_image=0x7f0a0023;
-        public static final int msg_part_msg=0x7f0a002d;
-        public static final int music_isplaying=0x7f0a002e;
-        public static final int music_list=0x7f0a0029;
-        public static final int music_name=0x7f0a002f;
-        public static final int music_next=0x7f0a002c;
-        public static final int music_prev=0x7f0a002a;
-        public static final int music_state=0x7f0a002b;
-        public static final int negative_button=0x7f0a001b;
-        public static final int page_end=0x7f0a0033;
-        public static final int page_end_text=0x7f0a0034;
-        public static final int page_end_text_view=0x7f0a0035;
-        public static final int positive_button=0x7f0a001a;
-        public static final int question_dialog=0x7f0a003a;
-        public static final int question_title=0x7f0a0009;
-        public static final int quit_app=0x7f0a0038;
-        public static final int rules_list=0x7f0a000b;
-        public static final int sidebar=0x7f0a000d;
-        public static final int single_button=0x7f0a001d;
-        public static final int single_button_layout=0x7f0a001c;
-        public static final int two_button_layout=0x7f0a0019;
-        public static final int two_edit_text=0x7f0a0016;
+        public static final int add_rules_btn=0x7f0b000f;
+        public static final int answer_dialog=0x7f0b004d;
+        public static final int catalog=0x7f0b004b;
+        public static final int chat_bottombar=0x7f0b002d;
+        public static final int chat_bottombar_morefun=0x7f0b002f;
+        public static final int chat_bottombar_send=0x7f0b0030;
+        public static final int chat_bottombar_sendingtext=0x7f0b0031;
+        public static final int chat_bottombar_voice=0x7f0b002e;
+        public static final int chat_bottombarfrag=0x7f0b0004;
+        public static final int chat_cover=0x7f0b0006;
+        public static final int chat_frame=0x7f0b0002;
+        public static final int chat_logo=0x7f0b0008;
+        public static final int chat_msg_topgradientbar=0x7f0b0034;
+        public static final int chat_msglist=0x7f0b0035;
+        public static final int chat_recordfrag=0x7f0b0003;
+        public static final int chat_root=0x7f0b0001;
+        public static final int chat_splash=0x7f0b0007;
+        public static final int chat_unityview=0x7f0b0000;
+        public static final int config_hidden=0x7f0b0009;
+        public static final int content=0x7f0b0015;
+        public static final int edit_one=0x7f0b0018;
+        public static final int edit_two=0x7f0b0019;
+        public static final int feature_bg=0x7f0b0038;
+        public static final int feature_description=0x7f0b0037;
+        public static final int feature_logo=0x7f0b0012;
+        public static final int feature_page=0x7f0b0036;
+        public static final int feature_show_pages=0x7f0b0010;
+        public static final int feature_splash=0x7f0b0011;
+        public static final int fra_id=0x7f0b000b;
+        public static final int help_webview=0x7f0b0013;
+        public static final int imageShow=0x7f0b0044;
+        public static final int jumpBtn=0x7f0b0049;
+        public static final int jump_main_buttons=0x7f0b0048;
+        public static final int letter_dialog=0x7f0b000d;
+        public static final int loading_img=0x7f0b001f;
+        public static final int loading_text=0x7f0b0020;
+        public static final int main_logo=0x7f0b0014;
+        public static final int message=0x7f0b0016;
+        public static final int message_function_btn=0x7f0b003d;
+        public static final int message_function_name=0x7f0b003e;
+        public static final int message_plus_fragment=0x7f0b0005;
+        public static final int message_plus_viewpager=0x7f0b0032;
+        public static final int mp_image=0x7f0b0033;
+        public static final int msg_part_msg=0x7f0b003a;
+        public static final int music_cover=0x7f0b003f;
+        public static final int music_isplaying=0x7f0b003b;
+        public static final int music_list=0x7f0b0039;
+        public static final int music_name=0x7f0b003c;
+        public static final int music_next=0x7f0b0043;
+        public static final int music_prev=0x7f0b0041;
+        public static final int music_state=0x7f0b0042;
+        public static final int music_title=0x7f0b0040;
+        public static final int negative_button=0x7f0b001c;
+        public static final int page_end=0x7f0b0045;
+        public static final int page_end_text=0x7f0b0046;
+        public static final int page_end_text_view=0x7f0b0047;
+        public static final int positive_button=0x7f0b001b;
+        public static final int quality_accept=0x7f0b0029;
+        public static final int quality_autohigh=0x7f0b0026;
+        public static final int quality_autolow=0x7f0b0027;
+        public static final int quality_bottombar=0x7f0b0028;
+        public static final int quality_decline=0x7f0b002a;
+        public static final int quality_down=0x7f0b0022;
+        public static final int quality_now=0x7f0b0023;
+        public static final int quality_topbar=0x7f0b0021;
+        public static final int quality_topbar2=0x7f0b0025;
+        public static final int quality_up=0x7f0b0024;
+        public static final int question_dialog=0x7f0b004c;
+        public static final int question_title=0x7f0b000a;
+        public static final int quit_app=0x7f0b004a;
+        public static final int rules_list=0x7f0b000c;
+        public static final int setting_img=0x7f0b0050;
+        public static final int setting_linear=0x7f0b004f;
+        public static final int setting_list=0x7f0b002c;
+        public static final int setting_name=0x7f0b0051;
+        public static final int setting_text=0x7f0b002b;
+        public static final int settinglog=0x7f0b004e;
+        public static final int sidebar=0x7f0b000e;
+        public static final int single_button=0x7f0b001e;
+        public static final int single_button_layout=0x7f0b001d;
+        public static final int two_button_layout=0x7f0b001a;
+        public static final int two_edit_text=0x7f0b0017;
     }
     public static final class layout {
         public static final int activity_chat=0x7f030000;
@@ -169,67 +278,74 @@ public final class R {
         public static final int activity_help=0x7f030003;
         public static final int activity_main=0x7f030004;
         public static final int dialog_layout=0x7f030005;
-        public static final int fragment_chat_bar=0x7f030006;
-        public static final int fragment_chat_menu=0x7f030007;
-        public static final int fragment_chat_record=0x7f030008;
-        public static final int fragment_feature_finalpage=0x7f030009;
-        public static final int fragment_feature_page1=0x7f03000a;
-        public static final int fragment_musicplayer=0x7f03000b;
-        public static final int listpart_chat_record=0x7f03000c;
-        public static final int listpart_musicitem=0x7f03000d;
-        public static final int message_function_layout=0x7f03000e;
-        public static final int single_image=0x7f03000f;
-        public static final int son_of_dialog_list_view_layout=0x7f030010;
+        public static final int dialog_miku_progress=0x7f030006;
+        public static final int dialog_qualitysettings=0x7f030007;
+        public static final int dialog_setting=0x7f030008;
+        public static final int fragment_chat_bar=0x7f030009;
+        public static final int fragment_chat_menu=0x7f03000a;
+        public static final int fragment_chat_record=0x7f03000b;
+        public static final int fragment_feature_finalpage=0x7f03000c;
+        public static final int fragment_feature_page1=0x7f03000d;
+        public static final int fragment_musicplayer=0x7f03000e;
+        public static final int listpart_chat_record=0x7f03000f;
+        public static final int listpart_musicitem=0x7f030010;
+        public static final int message_function_layout=0x7f030011;
+        public static final int notification_control=0x7f030012;
+        public static final int single_image=0x7f030013;
+        public static final int son_of_dialog_list_view_layout=0x7f030014;
+        public static final int son_of_setting_list=0x7f030015;
     }
     public static final class string {
         /**      <string name="app_name">讯飞语音示例</string>
  
  请替换成在语音云官网申请的appid 
          */
-        public static final int app_id=0x7f070007;
-        public static final int app_name=0x7f070000;
-        public static final int create_title=0x7f070003;
-        public static final int example_explain=0x7f070008;
-        public static final int face_model_delete=0x7f070019;
-        public static final int hello_world=0x7f070001;
-        public static final int pref_key_iat_show=0x7f070015;
-        public static final int pref_key_translate=0x7f070017;
-        public static final int pref_title_iat_show=0x7f070016;
-        public static final int pref_title_translate=0x7f070018;
+        public static final int app_id=0x7f080008;
+        public static final int app_name=0x7f080000;
+        public static final int create_title=0x7f080003;
+        public static final int example_explain=0x7f080009;
+        public static final int face_model_delete=0x7f08001a;
+        public static final int hello_world=0x7f080001;
+        public static final int pref_key_iat_show=0x7f080016;
+        public static final int pref_key_translate=0x7f080018;
+        public static final int pref_title_iat_show=0x7f080017;
+        public static final int pref_title_translate=0x7f080019;
         /**  听写 
          */
-        public static final int text_begin=0x7f07000d;
-        public static final int text_begin_ise=0x7f07000f;
-        public static final int text_begin_recognizer=0x7f07000e;
-        public static final int text_cn_sentence=0x7f070021;
-        public static final int text_cn_syllable=0x7f07001f;
-        public static final int text_cn_word=0x7f070020;
-        public static final int text_download_success=0x7f070014;
-        public static final int text_en_sentence=0x7f07001e;
+        public static final int text_begin=0x7f08000e;
+        public static final int text_begin_ise=0x7f080010;
+        public static final int text_begin_recognizer=0x7f08000f;
+        public static final int text_cn_sentence=0x7f080022;
+        public static final int text_cn_syllable=0x7f080020;
+        public static final int text_cn_word=0x7f080021;
+        public static final int text_download_success=0x7f080015;
+        public static final int text_en_sentence=0x7f08001f;
         /**  语音评测 
          */
-        public static final int text_en_word=0x7f07001d;
-        public static final int text_isr_abnf_hint=0x7f07000b;
-        public static final int text_tts_source=0x7f070009;
-        public static final int text_tts_source_en=0x7f07000a;
-        public static final int text_understand_hint=0x7f07000c;
-        public static final int text_upload_contacts=0x7f070010;
-        public static final int text_upload_success=0x7f070012;
-        public static final int text_upload_userwords=0x7f070011;
-        public static final int text_userword_empty=0x7f070013;
-        public static final int title_activity_chat_menu_fragment=0x7f070006;
-        public static final int title_activity_chat_rules=0x7f070005;
-        public static final int title_activity_home=0x7f070002;
-        public static final int title_activity_main=0x7f070004;
-        public static final int title_face_idf=0x7f07001a;
-        public static final int title_vocal_idf=0x7f07001b;
-        public static final int tts_toast_format=0x7f07001c;
+        public static final int text_en_word=0x7f08001e;
+        public static final int text_isr_abnf_hint=0x7f08000c;
+        public static final int text_tts_source=0x7f08000a;
+        public static final int text_tts_source_en=0x7f08000b;
+        public static final int text_understand_hint=0x7f08000d;
+        public static final int text_upload_contacts=0x7f080011;
+        public static final int text_upload_success=0x7f080013;
+        public static final int text_upload_userwords=0x7f080012;
+        public static final int text_userword_empty=0x7f080014;
+        public static final int title_activity_chat_menu_fragment=0x7f080006;
+        public static final int title_activity_chat_rules=0x7f080005;
+        public static final int title_activity_home=0x7f080002;
+        public static final int title_activity_main=0x7f080004;
+        public static final int title_activity_setting=0x7f080007;
+        public static final int title_face_idf=0x7f08001b;
+        public static final int title_vocal_idf=0x7f08001c;
+        public static final int tts_toast_format=0x7f08001d;
     }
     public static final class style {
-        public static final int Animation=0x7f090002;
+        public static final int Animation=0x7f0a0002;
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
 
 
     
@@ -239,27 +355,161 @@ public final class R {
             backward-compatibility can go here.
 
 
+
         
          */
-        public static final int AppBaseTheme=0x7f090000;
+        public static final int AppBaseTheme=0x7f0a0000;
         /**  Application theme. 
          */
-        public static final int AppTheme=0x7f090001;
-        public static final int Dialog=0x7f090009;
-        /** 模糊
+        public static final int AppTheme=0x7f0a0001;
+        public static final int Dialog=0x7f0a0009;
+        /**  模糊 
          */
-        public static final int dialog=0x7f09000a;
-        public static final int sdw_79351b=0x7f090006;
-        public static final int sdw_white=0x7f090005;
-        public static final int text_15_666666_sdw=0x7f090008;
-        public static final int text_15_ffffff_sdw=0x7f090007;
-        public static final int text_16_666666=0x7f090004;
-        public static final int text_18_ffffff=0x7f090003;
+        public static final int DialogNotDim=0x7f0a000a;
+        public static final int sdw_79351b=0x7f0a0006;
+        public static final int sdw_white=0x7f0a0005;
+        public static final int text_15_666666_sdw=0x7f0a0008;
+        public static final int text_15_ffffff_sdw=0x7f0a0007;
+        public static final int text_16_666666=0x7f0a0004;
+        public static final int text_18_ffffff=0x7f0a0003;
     }
     public static final class xml {
-        public static final int iat_setting=0x7f040000;
-        public static final int ise_settings=0x7f040001;
-        public static final int tts_setting=0x7f040002;
-        public static final int understand_setting=0x7f040003;
+        public static final int iat_setting=0x7f050000;
+        public static final int ise_settings=0x7f050001;
+        public static final int tts_setting=0x7f050002;
+        public static final int understand_setting=0x7f050003;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a SineWave.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #SineWave_SineWave_horizontal_speed com.neo.mytalker:SineWave_horizontal_speed}</code></td><td></td></tr>
+           <tr><td><code>{@link #SineWave_SineWave_max_value com.neo.mytalker:SineWave_max_value}</code></td><td></td></tr>
+           <tr><td><code>{@link #SineWave_SineWave_min_amplitude com.neo.mytalker:SineWave_min_amplitude}</code></td><td></td></tr>
+           <tr><td><code>{@link #SineWave_SineWave_vertical_restore_speed com.neo.mytalker:SineWave_vertical_restore_speed}</code></td><td></td></tr>
+           <tr><td><code>{@link #SineWave_SineWave_vertical_speed com.neo.mytalker:SineWave_vertical_speed}</code></td><td></td></tr>
+           <tr><td><code>{@link #SineWave_SineWave_wave_color com.neo.mytalker:SineWave_wave_color}</code></td><td></td></tr>
+           <tr><td><code>{@link #SineWave_SineWave_wave_period com.neo.mytalker:SineWave_wave_period}</code></td><td></td></tr>
+           </table>
+           @see #SineWave_SineWave_horizontal_speed
+           @see #SineWave_SineWave_max_value
+           @see #SineWave_SineWave_min_amplitude
+           @see #SineWave_SineWave_vertical_restore_speed
+           @see #SineWave_SineWave_vertical_speed
+           @see #SineWave_SineWave_wave_color
+           @see #SineWave_SineWave_wave_period
+         */
+        public static final int[] SineWave = {
+            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
+            0x7f010004, 0x7f010005, 0x7f010006
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.neo.mytalker.R.attr#SineWave_horizontal_speed}
+          attribute's value can be found in the {@link #SineWave} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.neo.mytalker:SineWave_horizontal_speed
+        */
+        public static final int SineWave_SineWave_horizontal_speed = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.neo.mytalker.R.attr#SineWave_max_value}
+          attribute's value can be found in the {@link #SineWave} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.neo.mytalker:SineWave_max_value
+        */
+        public static final int SineWave_SineWave_max_value = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.neo.mytalker.R.attr#SineWave_min_amplitude}
+          attribute's value can be found in the {@link #SineWave} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.neo.mytalker:SineWave_min_amplitude
+        */
+        public static final int SineWave_SineWave_min_amplitude = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.neo.mytalker.R.attr#SineWave_vertical_restore_speed}
+          attribute's value can be found in the {@link #SineWave} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.neo.mytalker:SineWave_vertical_restore_speed
+        */
+        public static final int SineWave_SineWave_vertical_restore_speed = 6;
+        /**
+          <p>This symbol is the offset where the {@link com.neo.mytalker.R.attr#SineWave_vertical_speed}
+          attribute's value can be found in the {@link #SineWave} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.neo.mytalker:SineWave_vertical_speed
+        */
+        public static final int SineWave_SineWave_vertical_speed = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.neo.mytalker.R.attr#SineWave_wave_color}
+          attribute's value can be found in the {@link #SineWave} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.neo.mytalker:SineWave_wave_color
+        */
+        public static final int SineWave_SineWave_wave_color = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.neo.mytalker.R.attr#SineWave_wave_period}
+          attribute's value can be found in the {@link #SineWave} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.neo.mytalker:SineWave_wave_period
+        */
+        public static final int SineWave_SineWave_wave_period = 2;
+    };
 }

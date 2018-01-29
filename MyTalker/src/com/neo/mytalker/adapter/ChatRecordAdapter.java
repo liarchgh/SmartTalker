@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import com.neo.mytalker.R;
 import com.neo.mytalker.entity.ChatRecordData;
+import com.neo.mytalker.entity.GlobalSettings;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +88,7 @@ public class ChatRecordAdapter extends BaseAdapter {
 				lp.addRule(RelativeLayout.ALIGN_PARENT_END);
 				vh.tv_msg.setLayoutParams(lp);
 				vh.tv_msg.setBackgroundResource(R.drawable.msg_bg);
+				((GradientDrawable) vh.tv_msg.getBackground()).setColor(GlobalSettings.THEME_COLOR);
 				vh.tv_msg.setTextColor(Color.parseColor("#ffffff"));
 	//			RelativeLayout.LayoutParams lp2=new RelativeLayout.LayoutParams((int)(40*dp2px),(int)(40*dp2px));
 	//			lp2.addRule(RelativeLayout.ALIGN_PARENT_END);
@@ -106,11 +109,15 @@ public class ChatRecordAdapter extends BaseAdapter {
 			}
 			vh.tv_msg.setText(al.get(position).msg);
 		}
+		
 	}
-	class ViewHolder
+
+	public class ViewHolder
 	{
-		TextView tv_head;
-		TextView tv_msg;
+		public TextView tv_head;
+		public TextView tv_msg;
 	}
+
+
 
 }

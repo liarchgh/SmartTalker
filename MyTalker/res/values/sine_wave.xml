@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SineWave">
+        <attr name="SineWave_wave_color" format="color" />
+        <attr name="SineWave_max_value" format="float" />
+        <attr name="SineWave_wave_period" format="float" />
+        <attr name="SineWave_min_amplitude" format="float" />
+        <attr name="SineWave_horizontal_speed" format="dimension" />
+        <attr name="SineWave_vertical_speed" format="dimension" />
+        <attr name="SineWave_vertical_restore_speed" format="dimension" />
+    </declare-styleable>
+</resources>

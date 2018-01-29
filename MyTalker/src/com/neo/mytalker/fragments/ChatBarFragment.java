@@ -2,6 +2,8 @@
 
 import com.neo.mytalker.R;
 import com.neo.mytalker.activity.ChatActivity;
+import com.neo.mytalker.entity.GlobalSettings;
+import com.neo.mytalker.myinterface.ThemeInterface;
 import com.neo.mytalker.util.ChatWithTalker;
 import com.neo.mytalker.util.Voice2Text;
 
@@ -17,15 +19,17 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
-public class ChatBarFragment extends Fragment {
+public class ChatBarFragment extends Fragment implements ThemeInterface{
 
 	private View mRoot, mChatActivityView;
 	private Context mContext;
-	private TextView mMore, mSend, mText;
+	private TextView mSend, mText;
+	private ImageView mMore,mVoice;
 	private ChatActivity mChatActivity;
 	private ChatRecordFragment mChatRecFrag;
 	private ChatMenuFragment mChatMenuFragment;
@@ -49,7 +53,16 @@ public class ChatBarFragment extends Fragment {
 	}
 
 	private void InitBarBtns() {
-		mMore = (TextView) mRoot.findViewById(R.id.chat_bottombar_morefun);
+		mVoice=(ImageView)mRoot.findViewById(R.id.chat_bottombar_voice);
+		mVoice.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}});
+		
+		mMore = (ImageView) mRoot.findViewById(R.id.chat_bottombar_morefun);
 		mMore.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -137,7 +150,18 @@ public class ChatBarFragment extends Fragment {
 			// TODO:Modify the result to update
 			new ChatWithTalker(mChatRecFrag, mContext, 0, tmp).execute();
 		} else {
-			Toast.makeText(mChatActivity, "Type to continue...", Toast.LENGTH_SHORT).show();
+			Toast.makeText(mChatActivity, "输入不能为空哦QwQ", Toast.LENGTH_SHORT).show();
 		}
 	}
+	public void SetText(String s)
+	{
+		mText.setText(s);
+	}
+	
+	@Override
+	public void ChangeThemeColor()
+	{
+		mRoot.setBackgroundColor(GlobalSettings.THEME_COLOR);
+	}
+	
 }

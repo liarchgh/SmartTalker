@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="#ffffff"
-        android:orientation="vertical" >
+        android:orientation="vertical" 
+        android:background="@drawable/dialog_white_bg">
 
         <LinearLayout
             android:id="@+id/content"
@@ -22,7 +23,7 @@
                 android:id="@+id/message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#66ccff"
+                android:background="@drawable/dialog_title"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:paddingLeft="30dp"

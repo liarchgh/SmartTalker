@@ -5,11 +5,13 @@ import java.util.List;
 
 import com.neo.mytalker.R;
 import com.neo.mytalker.adapter.MusicItemAdapter;
+import com.neo.mytalker.myinterface.ThemeInterface;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.GradientDrawable;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +48,7 @@ public class MusicPlayerDialog extends Dialog{
 			
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			mView = inflater.inflate(R.layout.fragment_musicplayer, null);
+			((GradientDrawable) mView.getBackground()).setColor(GlobalSettings.THEME_COLOR);
 			mMusicList=(ListView) mView.findViewById(R.id.music_list);
 			InitMusicData();
 			//mMusicItemList=musicdat;
@@ -59,7 +62,7 @@ public class MusicPlayerDialog extends Dialog{
 					// TODO Auto-generated method stub
 					MusicItemAdapter.ViewHolder vh=(MusicItemAdapter.ViewHolder) view.getTag();
 					vh.mName.setSelected(true);
-					return false;
+					return true;
 				}
 			});
 			mMusicList.setOnItemClickListener(new OnItemClickListener() {
@@ -179,117 +182,3 @@ public class MusicPlayerDialog extends Dialog{
 	
 	}
 }
-/*
-private ListView mMusicList;
-private List<MusicItemData> mMusicItemList;
-private MusicItemAdapter mMusicListAdapter;
-
-private Context mContext;
-private String content;
-private OnCloseListener listener;
-private String positiveName;
-private String negativeName;
-private String title;
-
-public MusicPlayerDialog(Context context) {
-	super(context);
-	this.mContext = context;
-}
-
-public MusicPlayerDialog(Context context, int themeResId, String content) {
-	super(context, themeResId);
-	this.mContext = context;
-	this.content = content;
-}
-
-public MusicPlayerDialog(Context context, int themeResId, String content, OnCloseListener listener) {
-	super(context, themeResId);
-	this.mContext = context;
-	this.content = content;
-	this.listener = listener;
-}
-
-protected MusicPlayerDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
-	super(context, cancelable, cancelListener);
-	this.mContext = context;
-}
-
-public MusicPlayerDialog setTitle(String title) {
-	this.title = title;
-	return this;
-}
-
-public MusicPlayerDialog setPositiveButton(String name) {
-	this.positiveName = name;
-	return this;
-}
-
-public MusicPlayerDialog setNegativeButton(String name) {
-	this.negativeName = name;
-	return this;
-}
-
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	setContentView(R.layout.fragment_musicplayer);
-	setCanceledOnTouchOutside(true);
-	initView();
-}
-
-private void initView() {
-//	contentTxt = (TextView) findViewById(R.id.content);
-//	titleTxt = (TextView) findViewById(R.id.title);
-//	submitTxt = (TextView) findViewById(R.id.submit);
-//	submitTxt.setOnClickListener(this);
-//	cancelTxt = (TextView) findViewById(R.id.cancel);
-//	cancelTxt.setOnClickListener(this);
-//
-//	contentTxt.setText(content);
-//	if (!TextUtils.isEmpty(positiveName)) {
-//		submitTxt.setText(positiveName);
-//	}
-//
-//	if (!TextUtils.isEmpty(negativeName)) {
-//		cancelTxt.setText(negativeName);
-//	}
-//
-//	if (!TextUtils.isEmpty(title)) {
-//		titleTxt.setText(title);
-//	}
-	mMusicList=(ListView) findViewById(R.id.music_list);
-	InitMusicData();
-	mMusicListAdapter=new MusicItemAdapter(mMusicItemList,this.getContext());
-	mMusicList.setAdapter(mMusicListAdapter);
-}
-private void InitMusicData()
-{
-	mMusicItemList=new ArrayList<MusicItemData>();
-	for(int i=0;i<100;i++)
-	{
-		MusicItemData tmp=new MusicItemData();
-		tmp.isPlaying=(i==1?true:false);
-		tmp.name="testMusic"+i;
-	}
-
-}
-@Override
-public void onClick(View v) {
-//	switch (v.getId()) {
-//	case R.id.cancel:
-//		if (listener != null) {
-//			listener.onClick(this, false);
-//		}
-//		this.dismiss();
-//		break;
-//	case R.id.submit:
-//		if (listener != null) {
-//			listener.onClick(this, true);
-//		}
-//		break;
-//	}
-}
-
-public interface OnCloseListener {
-	void onClick(Dialog dialog, boolean confirm);
-}*/
