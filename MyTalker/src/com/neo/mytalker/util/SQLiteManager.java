@@ -65,9 +65,16 @@ public class SQLiteManager {
 	
 	public void deleteItemById(int id) {
 		if(hasTable()) {
-			SQLiteManager.this.executeNotQuery("delete from "
-				+SQLiteManager.this.getTable()+" where id="+id
-			);
+			if(id > 0) {
+				SQLiteManager.this.executeNotQuery("delete from "
+					+SQLiteManager.this.getTable()+" where id="+id
+				);
+			}
+			else {
+				SQLiteManager.this.executeNotQuery("delete from "
+					+SQLiteManager.this.getTable()
+				);
+			}
 		}
 	}
 	
@@ -194,7 +201,7 @@ public class SQLiteManager {
 		if(SQLiteManager.this.hasTable()) {
 			Cursor cs = db.query(table, null, null, null, null, null, null);
 			if(cs.moveToLast()) {
-Log.i("chat", cs.getString(0));
+//Log.i("chat", cs.getString(0));
 				Map<String, String> bd = null;
 				if(id >= 0) {
 					while(cs.getInt(cs.getColumnIndex(
@@ -206,10 +213,10 @@ Log.i("chat", cs.getString(0));
 						return bs;
 					}
 				}
-Log.i("chat", cs.getString(0));
+//Log.i("chat", cs.getString(0));
 	
 				for(int j = 0; j < number; ++j){
-Log.i("chat", cs.getString(0));
+//Log.i("chat", cs.getString(0));
 					bd = new HashMap<String, String>();
 					//将本行信息传出
 					for(int i = 0; i < cs.getColumnCount(); ++i) {
@@ -218,7 +225,7 @@ Log.i("chat", cs.getString(0));
 						bd.put(key, value);
 					}
 					bs.add(0, bd);
-Log.i("chat", cs.getString(0));
+//Log.i("chat", cs.getString(0));
 					//跳向下一个 失败则退出
 					if(!cs.moveToPrevious()){
 						break;

@@ -7,10 +7,12 @@ import com.neo.mytalker.adapter.ChatRecordAdapter;
 import com.neo.mytalker.adapter.ChatRulesAdapter;
 import com.neo.mytalker.entity.ChatDialogEntity;
 import com.neo.mytalker.entity.ChatRecordData;
+import com.neo.mytalker.entity.GlobalSettings;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +55,8 @@ public class CustomDialog extends Dialog {
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			layout = inflater.inflate(R.layout.dialog_layout, null);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    		((GradientDrawable) layout.findViewById(R.id.message).getBackground()).setColor(GlobalSettings.THEME_COLOR);
+    		layout.findViewById(R.id.positive_button).setBackgroundColor(GlobalSettings.THEME_COLOR);
         }
 
 		public Builder seteditOne(String edit) {

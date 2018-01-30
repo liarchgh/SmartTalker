@@ -31,7 +31,7 @@ public class FeatureFinalPageFragment extends Fragment {
 	{
 		mText=text;
 		mFeatureShowActivity=featureShowAcitivity;
-		Log.i("ZX","InitFrag");
+//		Log.i("ZX","InitFrag");
 	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class FeatureFinalPageFragment extends Fragment {
 			FindContent();
 			InitContent();
 			//InitAnimation();
-			Log.i("ZX","CreateView");
+//			Log.i("ZX","CreateView");
 			return mRoot;
 	}
 	
@@ -94,6 +94,6 @@ public class FeatureFinalPageFragment extends Fragment {
 			}
 		});
 		animator1.start();
-		Log.i("ZX","InitStart");
+//		Log.i("ZX","InitStart");
 	}
 }

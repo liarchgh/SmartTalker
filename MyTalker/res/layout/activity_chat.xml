@@ -1,8 +1,21 @@
 ﻿<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    >
+    android:layout_height="match_parent" >
+	<ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="#000000"
+                android:contentDescription="Launchbg"
+                android:scaleType="centerInside"
+                android:src="@drawable/logo" />
+    <LinearLayout
+        android:id="@+id/chat_unityview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/chat_root"
@@ -15,23 +28,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="#aabbcc" >
+            >
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:background="#66ccff"
-                android:contentDescription="Launchbg"
-                android:scaleType="centerCrop"
-                android:src="@drawable/logo" />
-
-            <LinearLayout
-                android:id="@+id/chat_unityview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" >
-            </LinearLayout>
+            
 
             <RelativeLayout
                 android:id="@+id/chat_recordfrag"
@@ -55,12 +54,19 @@
             android:visibility="gone" >
         </FrameLayout>
     </LinearLayout>
-
+    <RelativeLayout
+        android:id="@+id/chat_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000" 
+        android:visibility="gone">
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/chat_splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000" >
+        android:background="#000000" 
+        >
 
         <ImageView
             android:id="@+id/chat_logo"
