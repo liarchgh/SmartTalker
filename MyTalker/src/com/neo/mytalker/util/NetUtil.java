@@ -14,23 +14,25 @@ import java.util.Map;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 public class NetUtil {
-	public static void doGetMusic(final String url, final String filePath) throws IOException {
+	public static int doGetMusic(final String url, final String filePath) throws IOException {
 		//use url and parameter to get realurl
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				
-				try {
-					//open connection
+//		new Thread(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				
+//				try {
+//					//open connection
 					URL apiUrl = new URL(url);
 					HttpURLConnection huc = (HttpURLConnection)apiUrl.openConnection();
 					huc.setRequestMethod("GET");
 					huc.setConnectTimeout(5000);
 					huc.connect();
+					int resCode = huc.getResponseCode();
 
 			//		File file = new File(filePath);
 			//Log.i("file path", filePath);
@@ -60,12 +62,13 @@ public class NetUtil {
 					osm.close();
 					is.close();
 			//		return res.toString();
-				}
-				catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
+					return resCode;
+//				}
+//				catch(Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}).start();
 	}
 
 	public static String doGetString(String url, Map<String, String> paras) throws IOException {
@@ -169,6 +172,7 @@ public class NetUtil {
 	}
 
 	public static byte[] doGetByteArray(String url, Map<String, String> paras) throws IOException {
+//Log.i("music", "do get ba");
 		// use url and parameter to get realurl
 		StringBuffer realUrl = new StringBuffer(url);
 		if (paras != null) {
@@ -199,6 +203,7 @@ public class NetUtil {
 		while (true) {
 			int len = is.read(byar);
 			if (len <= 0) {
+//Log.i("music", "len:"+len);
 				break;
 			}
 //			res.append(new String(byar, 0, len));
@@ -212,6 +217,7 @@ public class NetUtil {
 		byte[] ba = null;
 		try {
 			ba = doGetByteArray(url, paras);
+//Log.i("music", "image ba size:"+ba.length);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

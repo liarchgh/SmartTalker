@@ -2,11 +2,14 @@ package com.neo.mytalker.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import com.neo.mytalker.activity.ChatActivity;
 import com.neo.mytalker.util.MusicManager;
 import com.neo.mytalker.util.NetUtil;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.LayoutDirection;
+import android.util.Log;
 
 public class MusicEntity implements Serializable{
 	private String musicName;
@@ -89,8 +92,10 @@ public class MusicEntity implements Serializable{
 		this.albumId = albumId;
 	}
 
-	public void play(Context activity) {
+	public void play(ChatActivity activity) {
 		MusicManager.musicPlay(activity, this);
+		MusicManager.loadMusicInfoToNotification(this, activity);
+//		MusicManager.loadMusicOnlyButton(activity);
 	}
 	public class RequestBody{
 		public resBody result;
@@ -117,7 +122,15 @@ public class MusicEntity implements Serializable{
 	}
 
 	public Bitmap loadAlbumBitmap(Context context) {
-		setAlbumImage(MusicManager.getAlbumImage(context, this));
-		return getAlbumImage();
+//		if(getAlbumImage() != null) {
+//			return getAlbumImage();
+//		}
+//		setAlbumImage(MusicManager.getAlbumImage(context, this));
+//		MusicManager.saveAlbumImage(this);
+//		return getAlbumImage();
+//Log.i("bm", "url:"+getAlbumImageUri());
+		Bitmap bm = NetUtil.doGetBitmap(getAlbumImageUri(), null);
+//Log.i("bm", "height:"+bm.getHeight());
+		return bm;
 	}
 }

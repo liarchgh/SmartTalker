@@ -19,6 +19,9 @@ import com.neo.mytalker.entity.GlobalSettings;
 import com.neo.mytalker.entity.QualitySettingsDialog;
 import com.neo.mytalker.entity.SettingEntity;
 import com.neo.mytalker.myinterface.ColorPickerDialog.OnColorChangedListener;
+import com.neo.mytalker.util.AskAndAnswer;
+import com.neo.mytalker.util.ChatRulesManager;
+import com.neo.mytalker.util.MusicManager;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -29,8 +32,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class SettingDialog extends Dialog{
+	private static final String HINT_DELETE_CHAT_HISTORY = "聊天记录已删除",
+			HINT_DELETE_MUSIC_ALL = "音乐缓存已删除";
 	
 	public SettingDialog(Context context) {
 		super(context);
@@ -113,8 +119,18 @@ public class SettingDialog extends Dialog{
 						dialog.dismiss();
 						break;
 					case 1:
+						//To 清除聊天历史
+//						new ChatRulesManager(mContext, 0).deleteAnswerById(-1);;
+						new AskAndAnswer(mContext, 0).deleteAnswerById(-1);
+						mChatActivity.mChatRecFrag.CleanRecord();
+						Toast.makeText(mContext, HINT_DELETE_CHAT_HISTORY, Toast.LENGTH_LONG).show();
+						dialog.dismiss();
 						break;
 					case 2:
+						//To 清除音乐历史
+						MusicManager.deleteAllMusicDownloaded();
+						Toast.makeText(mContext, HINT_DELETE_MUSIC_ALL, Toast.LENGTH_LONG).show();
+						dialog.dismiss();
 						break;
 					case 3:
 						/**
@@ -142,7 +158,7 @@ public class SettingDialog extends Dialog{
 		public SettingDialog createSettingDialog() {
 			return dialog;
 		}
-		
+	
 		private void initSettingData() {
 			// TODO Auto-generated method stub
 			mSettingEntityList = new ArrayList<SettingEntity>();

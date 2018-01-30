@@ -6,9 +6,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
-                android:background="#66ccff"
+                android:background="#000000"
                 android:contentDescription="Launchbg"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
                 android:src="@drawable/logo" />
     <LinearLayout
         android:id="@+id/chat_unityview"

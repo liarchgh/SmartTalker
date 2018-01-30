@@ -3,14 +3,17 @@ package com.example.testandroid;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	TextView tv = null;
 	EditText et = null;
+	ImageView iv = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,25 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		tv = findViewById(R.id.tv);
 		et = findViewById(R.id.et);
+		iv = findViewById(R.id.iv);
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				String url = "http://p1.music.126.net/QXaISOoIt53f1nJFav_WEQ==/3312828537194189.jpg";
+				final Bitmap bm = NetUtil.doGetBitmap(url, null);
+				iv.post(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						iv.setImageBitmap(bm);
+					}
+				});
+			}
+		}).start();
 	}
 	
 	public void click(View v) {

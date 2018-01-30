@@ -24,12 +24,13 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
-public class ChatBarFragment extends Fragment implements ThemeInterface{
+public class ChatBarFragment extends Fragment implements ThemeInterface {
 
 	private View mRoot, mChatActivityView;
 	private Context mContext;
-	private TextView mSend, mText;
-	private ImageView mMore,mVoice;
+	private TextView mSend;
+	private EditText mText;
+	private ImageView mMore, mVoice;
 	private ChatActivity mChatActivity;
 	private ChatRecordFragment mChatRecFrag;
 	private ChatMenuFragment mChatMenuFragment;
@@ -53,25 +54,26 @@ public class ChatBarFragment extends Fragment implements ThemeInterface{
 	}
 
 	private void InitBarBtns() {
-		mVoice=(ImageView)mRoot.findViewById(R.id.chat_bottombar_voice);
+		mVoice = (ImageView) mRoot.findViewById(R.id.chat_bottombar_voice);
 		mVoice.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				new Voice2Text(mChatActivity, (EditText)
-					mRoot.findViewById(R.id.chat_bottombar_sendingtext)
-					).voice2Text();
-			}});
-		
+				new Voice2Text(mChatActivity, (EditText) mRoot.findViewById(R.id.chat_bottombar_sendingtext))
+						.voice2Text();
+			}
+		});
+
 		mMore = (ImageView) mRoot.findViewById(R.id.chat_bottombar_morefun);
 		mMore.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if ((mChatActivity.getWindow().getAttributes().softInputMode==WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)) {
-					
+				if ((mChatActivity.getWindow()
+						.getAttributes().softInputMode == WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)) {
+
 					mChatActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 				}
 				mChatMenuFragment.ToggleMenu(mMore);
@@ -82,7 +84,7 @@ public class ChatBarFragment extends Fragment implements ThemeInterface{
 
 		mChatMenuFragment = mChatActivity.mChatMenuFragment;
 
-		mText = (TextView) mRoot.findViewById(R.id.chat_bottombar_sendingtext);
+		mText = (EditText) mRoot.findViewById(R.id.chat_bottombar_sendingtext);
 		mText.setOnEditorActionListener(new OnEditorActionListener() {
 
 			@Override
@@ -93,6 +95,18 @@ public class ChatBarFragment extends Fragment implements ThemeInterface{
 			}
 
 		});
+
+		mText.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if (mChatActivity.mChatMenuFragment.isVisible()) {
+					mChatActivity.mChatMenuFragment.ToggleMenu(false);
+				}
+			}
+		});
+
 		mText.setOnFocusChangeListener(new OnFocusChangeListener() {
 
 			@Override
@@ -100,7 +114,7 @@ public class ChatBarFragment extends Fragment implements ThemeInterface{
 				// TODO Auto-generated method stub
 				if (hasFocus) {
 					mChatMenuFragment.ToggleMenu(false);
-					//Log.i(this, "键盘弹起", Toast.LENGTH_SHORT).show();
+					// Log.i(this, "键盘弹起", Toast.LENGTH_SHORT).show();
 				}
 
 			}
@@ -118,17 +132,19 @@ public class ChatBarFragment extends Fragment implements ThemeInterface{
 			}
 
 		});
-		
+
 		mSend.setLongClickable(true);
 		mSend.setOnLongClickListener(new OnLongClickListener() {
-			
+
 			@Override
 			public boolean onLongClick(View arg0) {
 				// TODO Auto-generated method stub
-				new Voice2Text(mChatActivity, (EditText)mRoot.findViewById(R.id.chat_bottombar_sendingtext)).voice2Text();;
-//				Dialog dl = new Dialog(mChatActivity);
-//				dl.setTitle("VOICE");
-//				dl.show();
+				new Voice2Text(mChatActivity, (EditText) mRoot.findViewById(R.id.chat_bottombar_sendingtext))
+						.voice2Text();
+				;
+				// Dialog dl = new Dialog(mChatActivity);
+				// dl.setTitle("VOICE");
+				// dl.show();
 				return true;
 			}
 		});
@@ -150,20 +166,20 @@ public class ChatBarFragment extends Fragment implements ThemeInterface{
 			mChatRecFrag.loading();
 
 			// TODO:Modify the result to update
-			new ChatWithTalker(mChatRecFrag, mContext, 0, tmp).execute();
+			new ChatWithTalker(mChatRecFrag, mChatActivity, 0, tmp).execute();
 		} else {
 			Toast.makeText(mChatActivity, "输入不能为空哦QwQ", Toast.LENGTH_SHORT).show();
 		}
 	}
-	public void SetText(String s)
-	{
+
+	public void SetText(String s) {
 		mText.setText(s);
+		((EditText)mText).setSelection(mText.getText().toString().length());
 	}
-	
+
 	@Override
-	public void ChangeThemeColor()
-	{
+	public void ChangeThemeColor() {
 		mRoot.setBackgroundColor(GlobalSettings.THEME_COLOR);
 	}
-	
+
 }

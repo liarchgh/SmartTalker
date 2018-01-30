@@ -30,7 +30,7 @@ public class FeaturePageFragment extends Fragment {
 	{
 		mText=text;
 		mResId=resId;
-		Log.i("ZX","InitFrag");
+//		Log.i("ZX","InitFrag");
 	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class FeaturePageFragment extends Fragment {
 			FindContent();
 			InitContent();
 			//InitAnimation();
-			Log.i("ZX","CreateView");
+//			Log.i("ZX","CreateView");
 			return mRoot;
 	}
 	
@@ -103,6 +103,6 @@ public class FeaturePageFragment extends Fragment {
 			}
 		});
 		animator1.start();
-		Log.i("ZX","InitStart");
+//		Log.i("ZX","InitStart");
 	}
 }

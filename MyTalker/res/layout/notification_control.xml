@@ -10,7 +10,8 @@
         android:layout_height="96dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:src="@drawable/iclauncher" />
+        android:src="@drawable/iclauncher" 
+        android:scaleType="fitCenter"/>
 
     <LinearLayout
         android:layout_width="0dp"

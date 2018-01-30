@@ -1,22 +1,27 @@
 package com.neo.mytalker.util;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import com.neo.mytalker.activity.ChatActivity;
 import com.neo.mytalker.entity.MusicEntity;
-import com.neo.mytalker.entity.MusicEntity.artist;
 import com.neo.mytalker.fragments.ChatRecordFragment;
 import com.neo.mytalker.util.MusicManager.MUSIC_STATUS;
 
-import android.content.Context;
-import android.media.MediaPlayer;
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
+	public static final String
+		FEATURE_MUSIC_HOW = "如何播放音乐",
+		FEATURE_MUSIC_PLAY = "播放音乐",
+		FEATURE_MUSIC_STOP = "停止播放",
+		FEATURE_MUSIC_HISTORY = "音乐历史",
+		FEATURE_MUSIC_DOWNLOADED = "已下载音乐",
+		FEATURE_MUSIC_PREVIOUS = "上一首",
+		FEATURE_MUSIC_NEXT = "下一首",
+		FEATURE_MUSIC_CONTINUE = "继续播放",
+		FEATURE_DANCE = "跳支舞吧";
 	private static final String ANSWER_NET_ERROR = "网线被人拔了！\n∑(っ °Д °;)っ",
 		ANSWER_MUSIC_PLAY = "音乐酱来了\nO(∩_∩)O~~",
 		ANSWER_MUSIC_PLAY_NOT_FOUND = "找不到音乐酱了\n(╯﹏╰)",
@@ -31,20 +36,14 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		ANSWER_MUSIC_NEXT = "音乐酱前进了一首",
 		ANSWER_MUSIC_NEXT_NOT_FOUND = "音乐酱已经没路可走了",
 		ANSWER_FEATURE_ERROR = "命令出错了\n(╬▔皿▔)",
+		ANSWER_MUSIC_HOW = "请输入：“"+FEATURE_MUSIC_PLAY+"{歌曲名}”，例如“"
+			+FEATURE_MUSIC_PLAY+"青花瓷”",
+		ANSWER_DANCE = "好好欣赏吧",
 		MUSIC_FOLDER = "music";
-	public static final String
-		FEATURE_MUSIC_PLAY = "播放音乐",
-		FEATURE_MUSIC_STOP = "停止播放",
-		FEATURE_MUSIC_HISTORY = "音乐历史",
-		FEATURE_MUSIC_DOWNLOADED = "已下载音乐",
-		FEATURE_MUSIC_PREVIOUS = "上一首",
-		FEATURE_MUSIC_NEXT = "下一首",
-		FEATURE_MUSIC_CONTINUE = "继续播放";
 //	private static MediaPlayer music = null;
 //	private static String musicFolderPath = null;
-	private static Context context1 = null;
-	private static String chat(Context context, int userId, String ask) {
-		ChatWithTalker.context = context;
+	private static String chat(ChatActivity mChatActivity, int userId, String ask) {
+		ChatWithTalker.mChatActivity = mChatActivity;
 		
 		//最后应该返回的回答
 		String ans = null;
@@ -53,13 +52,13 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		Random rd = new Random();
 
 		//判断是否进入特殊功能 
-		String ansFeature = checkFeature(context, ask);
+		String ansFeature = checkFeature(mChatActivity, ask);
 		
 		
 		//进入普通聊天
 		if(ansFeature == null || ansFeature.equals("")) {
 			//或许当前对应的规则
-			ChatRulesManager crm = new ChatRulesManager(context, userId);
+			ChatRulesManager crm = new ChatRulesManager(mChatActivity, userId);
 
 			//查询规则 获取结果
 			List<String>anss = crm.getRuleByAsk(ask);
@@ -70,7 +69,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 			}
 
 			//历史记录
-			AskAndAnswer aaa = new AskAndAnswer(context, userId);
+			AskAndAnswer aaa = new AskAndAnswer(mChatActivity, userId);
 //			//删除历史记录中的网络异常
 //			aaa.deleteAnswerByAnswer(ANSWER_NET_ERROR);
 
@@ -124,7 +123,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 //		return null;
 //	}
 //
-	private static String featureMusicPlay(Context ct, String musicName) {
+	private static String featureMusicPlay(ChatActivity ct, String musicName) {
 		List<MusicEntity>ms = MusicManager.searchMusicInNetease(musicName);
 		if(ms.size() > 0) {
 			ms.get(0).play(ct);
@@ -161,7 +160,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 //		return ChatWithTalker.ANSWER_MUSIC_ERROR;
 	}
 
-	private static String featureMusicPrevious(Context ct) {
+	private static String featureMusicPrevious(ChatActivity ct) {
 		MUSIC_STATUS res = MusicManager.musicPrevious(ct);;
 		if(res == MusicManager.MUSIC_STATUS.PREVIOUS_SUCCESS) {
 			return ANSWER_MUSIC_PREVIOUS;
@@ -172,7 +171,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		return ANSWER_MUSIC_ERROR;
 	}
 
-	private static String featureMusicNext(Context ct) {
+	private static String featureMusicNext(ChatActivity ct) {
 		MUSIC_STATUS res = MusicManager.musicNext(ct);;
 		if(res == MusicManager.MUSIC_STATUS.NEXT_SUCCESS) {
 			return ANSWER_MUSIC_NEXT;
@@ -183,7 +182,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		return ANSWER_MUSIC_ERROR;
 	}
 
-	private static String featureMusicStop(Context ct) {
+	private static String featureMusicStop(ChatActivity ct) {
 //		try {
 //			if(music.isPlaying()) {
 //				music.pause();
@@ -213,8 +212,14 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		return ANSWER_MUSIC_ERROR;
 	}
 
-	private static String featureMusicContinue(Context at) {
-		MusicManager.musicContinue(at);
+	private static String featureMusicContinue() {
+		MUSIC_STATUS ms = MusicManager.musicContinue(mChatActivity);
+		if(ms == MUSIC_STATUS.CONTINUE_SUCCESS) {
+			return ANSWER_MUSIC_CONTINUE;
+		}
+		else if(ms == MUSIC_STATUS.CONTINUE_IS_PLAYING) {
+			return ANSWER_MUSIC_CONTINUE_IS_PLAYING;
+		}
 		return ChatWithTalker.ANSWER_MUSIC_ERROR;
 	}
 	
@@ -224,7 +229,6 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		StringBuffer res = new StringBuffer();
 		boolean first = false;
 		MusicEntity temp = null;
-Log.i("music", "size:"+musics.size());
 		for(Iterator<MusicEntity>it = musics.iterator();
 				it.hasNext(); ) {
 			if(first) {
@@ -248,16 +252,24 @@ Log.i("music", "size:"+musics.size());
 			res.append(temp.getMusicName()+"("+temp.getAlbumName()+")"
 				+"("+ars.toString()+")");
 		}
-Log.i("music", "res:"+res.toString());
 		String ret = res.toString();
 		if(ret == null || ret.length() <= 0) {
 			return ANSWER_MUSIC_NO_HISTORY;
 		}
 		return ret;
 	}
+
+	private static String featureDance() {
+//		MusicManager.musicContinue(at);
+		return ChatWithTalker.ANSWER_DANCE;
+	}
 	
-	private static String checkFeature(Context ct, String feature) {
-Log.i("music", "music control:"+feature);
+	private static String featureMusicHow() {
+//		MusicManager.musicContinue(at);
+		return ChatWithTalker.ANSWER_MUSIC_HOW;
+	}
+	
+	private static String checkFeature(ChatActivity ct, String feature) {
 		if(feature.length() >= ChatWithTalker.FEATURE_MUSIC_PLAY.length()
 			&& feature.substring(0, ChatWithTalker.FEATURE_MUSIC_PLAY.length())
 				.equals(ChatWithTalker.FEATURE_MUSIC_PLAY)
@@ -282,7 +294,7 @@ Log.i("music", "music control:"+feature);
 			&& feature.substring(
 				ChatWithTalker.FEATURE_MUSIC_CONTINUE.length()).length() <= 0
 			) {
-			return featureMusicContinue(ct);
+			return featureMusicContinue();
 		}
 		else if(feature.length() >= ChatWithTalker.FEATURE_MUSIC_HISTORY.length()
 			&& feature.substring(0, ChatWithTalker.FEATURE_MUSIC_HISTORY.length())
@@ -308,16 +320,33 @@ Log.i("music", "music control:"+feature);
 			) {
 			return featureMusicNext(ct);
 		}
+		else if(feature.length() >= ChatWithTalker.FEATURE_DANCE.length()
+			&& feature.substring(0, ChatWithTalker.FEATURE_DANCE.length())
+				.equals(ChatWithTalker.FEATURE_DANCE)
+			&& feature.substring(
+				ChatWithTalker.FEATURE_DANCE.length()).length() <= 0
+			) {
+			return featureDance();
+		}
+		else if(feature.length() >= ChatWithTalker.FEATURE_MUSIC_HOW.length()
+			&& feature.substring(0, ChatWithTalker.FEATURE_MUSIC_HOW.length())
+				.equals(ChatWithTalker.FEATURE_MUSIC_HOW)
+			&& feature.substring(
+				ChatWithTalker.FEATURE_MUSIC_HOW.length()).length() <= 0
+			) {
+			return featureMusicHow();
+		}
 		return null;
 	}
 	
-	private static Context context = null;
+//	private static ChatActivity mChatActivity = null;
 	private static int userId = 0;
 	private static String ask = null;
 	private ChatRecordFragment mChatRecFrag;
-	public ChatWithTalker(ChatRecordFragment mChatRecFrag, Context context, int userId, String ask) {
+	private static ChatActivity mChatActivity = null;
+	public ChatWithTalker(ChatRecordFragment mChatRecFrag, ChatActivity mChatActivity, int userId, String ask) {
 		// TODO Auto-generated constructor stub
-		ChatWithTalker.context = context;
+		ChatWithTalker.mChatActivity = mChatActivity;
 		ChatWithTalker.userId = userId;
 		ChatWithTalker.ask = ask;
 		this.mChatRecFrag = mChatRecFrag;
@@ -341,7 +370,7 @@ Log.i("music", "music control:"+feature);
 	@Override
 	protected String doInBackground(Void... params) {
 		// TODO Auto-generated method stub
-		return chat(context, userId, ask);
+		return chat(mChatActivity, userId, ask);
 	}
 	@Override
 	protected void onPreExecute() {
@@ -357,6 +386,9 @@ Log.i("music", "music control:"+feature);
 		if(result.equals(ChatWithTalker.ANSWER_MUSIC_PLAY)) {
 			MusicEntity me = MusicManager.getMusicNow();
 			mChatRecFrag.mChatActivity.initNotificationBar(me.getMusicName(), me.getAlbumImage());
+		}
+		if(!ask.equals(ChatWithTalker.FEATURE_DANCE)) {
+			mChatActivity.Speak();
 		}
 		super.onPostExecute(result);
 	}

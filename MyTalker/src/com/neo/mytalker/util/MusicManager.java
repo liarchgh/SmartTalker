@@ -15,10 +15,11 @@ import java.util.List;
 import com.neo.mytalker.activity.ChatActivity;
 import com.neo.mytalker.entity.MusicEntity;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.util.Log;
+import android.widget.Toast;
 
 public abstract class MusicManager {
 	public static enum MUSIC_STATUS {
@@ -36,17 +37,18 @@ public abstract class MusicManager {
 		FOLDER;
 	}
 	
-	public static final String musicFolderHolder = File.separator+"music",
+	public static final String HINT_DOWNLOAD_MUSIC_ERROR = "音乐加载失败",
+			musicFolderHolder = File.separator+"music",
 			fileFolderHolder = File.separator+"file",
 			donwloadList = File.separator+"musicList",
 			imageFolderHolder = File.separator+"image";
 	public static String musicFolder = null;
-	private static Context context = null;
+	private static ChatActivity context = null;
 	private static MediaPlayer musicControler = null;
 	private static MusicEntity musicNow = null;
 	private static List<MusicEntity>musicHistory = new ArrayList<MusicEntity>(),
 			musicDownloaded = null;
-	public static void init(Context ct) {
+	public static void init(ChatActivity ct) {
 		context = ct;
 		if(musicControler == null) {
 			musicControler = new MediaPlayer();
@@ -59,7 +61,7 @@ public abstract class MusicManager {
 		}
 	}
 	
-	private static void musicPlay(Context at, String uri) {
+	private static void musicPlay(ChatActivity at, String uri) {
 		init(at);
 //		musicPlay();
 		try {
@@ -86,8 +88,9 @@ public abstract class MusicManager {
 	}
 	
 	//播放音乐
-	public static MusicEntity musicPlay(Context at, MusicEntity music) {
+	public static MusicEntity musicPlay(ChatActivity at, MusicEntity music) {
 		init(at);
+Log.i("music", "name:"+music.getAlbumName());
 		//判断是否是当前正在播放的歌曲，是的话直接返回当前播放对象
 		if(music != null && musicNow != null && 
 				music.getMusicId() == musicNow.getMusicId()) {
@@ -108,7 +111,7 @@ public abstract class MusicManager {
 				return null;
 			}
 			
-			saveAlbumImage(music);
+//			saveAlbumImage(music);
 	
 			//更新当前歌曲
 			musicNow = music;
@@ -116,6 +119,7 @@ public abstract class MusicManager {
 			if(temp != null) {
 				musicNow = temp;
 			}
+Log.i("music", "url:"+uri);
 			musicPlay(at, uri);
 			return musicNow;
 		} catch (IllegalArgumentException e) {
@@ -147,8 +151,10 @@ public abstract class MusicManager {
 					if(!file.exists()) {
 						file.mkdir();
 					}
-					NetUtil.doGetMusic(GetMusicUrl.getSongUrlById(music.getMusicId()),
-							file.getPath()+File.separator+music.getMusicId());
+					if(NetUtil.doGetMusic(GetMusicUrl.getSongUrlById(music.getMusicId()),
+						file.getPath()+File.separator+music.getMusicId()) != 200) {
+						Toast.makeText(context, HINT_DOWNLOAD_MUSIC_ERROR, Toast.LENGTH_LONG).show();
+					}
 					saveDownloadedMusicList(music);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -161,40 +167,27 @@ public abstract class MusicManager {
 		}).start();
 	}
 	
-	public static void musicContinue() {
-		if(musicControler != null) {
+	public static MUSIC_STATUS musicContinue(ChatActivity activity) {
+		init(activity);
+		if(musicControler != null && !musicControler.isPlaying()) {
 			musicControler.start();
+			loadMusicOnlyButton(context);
+			return MUSIC_STATUS.CONTINUE_SUCCESS;
 		}
+		return MUSIC_STATUS.CONTINUE_IS_PLAYING;
 	}
 	
-	public static MUSIC_STATUS musicPrevious(Context activity) {
-		init(activity);
-		int index = musicHistory.indexOf(musicNow);
-		if(index > 0) {
-//			musicNow = musicHistory.get(index - 1);
-//			musicNow.play(activity);
-			musicHistory.get(index - 1).play(activity);
-			return MUSIC_STATUS.PREVIOUS_SUCCESS;
-		}
-		return MUSIC_STATUS.PREVIOUS_NOT_FOUND;
-	}
-	
-	public static MUSIC_STATUS musicNext(Context activity) {
-		init(activity);
-		int index = musicHistory.indexOf(musicNow);
-		if(index < musicHistory.size() - 1) {
-//			musicNow = musicHistory.get(index + 1);
-//			musicNow.play(activity);
-			musicHistory.get(index + 1).play(activity);
-			return MUSIC_STATUS.NEXT_SUCCESS;
-		}
-			return MUSIC_STATUS.NEXT_NOT_FOUND;
-	}
+	//	public abstract void musicPlayById(String musicId);
+//	public static void musicContinue(ChatActivity at) {
+//		init(at);
+//		musicControler.start();
+//	}
 
-	public static MUSIC_STATUS musicStop(Context at) {
+	public static MUSIC_STATUS musicStop(ChatActivity at) {
 		init(at);
 		if(musicControler != null && musicControler.isPlaying()) {
 			musicControler.pause();
+			loadMusicOnlyButton(at);
 			return MUSIC_STATUS.STOP_SUCCESS;
 		}
 		else {
@@ -208,19 +201,14 @@ public abstract class MusicManager {
 	public static List<MusicEntity>searchMusicInNetease(String key){
 		return GetMusicUrl.searchMusicByKey(key);
 	}
-//	public abstract void musicPlayById(String musicId);
-	public static void musicContinue(Context at) {
-		init(at);
-		musicControler.start();
-	}
-	public static List<MusicEntity>getMusicDownloaded(){
+public static List<MusicEntity>getMusicDownloaded(){
 		return null;
 	}
 	public static Bitmap getMusicImageById(long musicId) {
 		return null;
 	}
 	
-	private static String findDownloaded(Context at, MusicEntity music) {
+	private static String findDownloaded(ChatActivity at, MusicEntity music) {
 		init(at);
 		MusicEntity res = null;
 		String uri = musicFolder+fileFolderHolder+File.separator+music.getMusicId();
@@ -239,7 +227,7 @@ public abstract class MusicManager {
 		return null;
 	}
 
-	public static MusicEntity findDownloadById(Context at, long musicId) {
+	public static MusicEntity findDownloadById(ChatActivity at, long musicId) {
 		MusicEntity res = null;
 		for(Iterator<MusicEntity>it = musicDownloaded.iterator();
 				it.hasNext();) {
@@ -271,6 +259,7 @@ public abstract class MusicManager {
 			ObjectOutputStream oos = new ObjectOutputStream(
 					new FileOutputStream(file));
 			oos.writeObject(musicDownloaded);
+			oos.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -316,12 +305,19 @@ public abstract class MusicManager {
 		musicHistory.add(musicNow);
 		return null;
 	}
-	public static Bitmap getAlbumImage(Context context, MusicEntity music) {
-		String uri = musicFolder+imageFolderHolder+File.separator+music.getAlbumId();
+	public static Bitmap getAlbumImage(ChatActivity context, MusicEntity music) {
+//Log.i("music", "image:"+music.getAlbumImageUri());
+		String uri = musicFolder+imageFolderHolder;
 		File file = new File(uri);
+		if(!file.exists()) {
+			file.mkdir();
+		}
+		uri += File.separator+music.getAlbumId();
+//Log.i("music", "image uri:"+uri);
 		if(file.exists()) {
 			return BitmapFactory.decodeFile(uri);
 		}
+//		saveAlbumImage(music);
 		return NetUtil.doGetBitmap(music.getAlbumImageUri(), null);
 	}
 	public static boolean saveAlbumImage(MusicEntity music) {
@@ -331,7 +327,7 @@ public abstract class MusicManager {
 			if(file.exists()) {
 				return false;
 			}
-			file.createNewFile();
+//			file.createNewFile();
 			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));   
 			music.getAlbumImage().compress(Bitmap.CompressFormat.JPEG, 100, bos);   
 			bos.flush();
@@ -352,5 +348,72 @@ public abstract class MusicManager {
 
 	public static MusicEntity getMusicNow() {
 		return musicNow;
+	}
+	
+	public static MUSIC_STATUS musicPrevious(ChatActivity context) {
+		MusicEntity me = MusicManager.getPreviousMusic(context);
+		if(me != null) {
+			me.play(context);
+			return MUSIC_STATUS.PREVIOUS_SUCCESS;
+		}
+		return MUSIC_STATUS.PREVIOUS_NOT_FOUND;
+	}
+	public static MusicEntity getPreviousMusic(ChatActivity context) {
+		init(context);
+		int index = musicHistory.indexOf(musicNow);
+		if(index > 0) {
+			return musicHistory.get(index - 1);
+		}
+		return null;
+	}
+
+	public static MUSIC_STATUS musicNext(ChatActivity context) {
+		MusicEntity me = MusicManager.getNextMusic(context);
+		if(me != null) {
+			me.play(context);
+			return MUSIC_STATUS.NEXT_SUCCESS;
+		}
+		return MUSIC_STATUS.NEXT_NOT_FOUND;
+	}
+
+	public static MusicEntity getNextMusic(ChatActivity context) {
+		init(context);
+		int index = musicHistory.indexOf(musicNow);
+		if(index < musicHistory.size() - 1) {
+//			musicNow = musicHistory.get(index + 1);
+//			musicNow.play(activity);
+			return musicHistory.get(index + 1);
+		}
+		return null;
+	}
+	
+	public static void deleteAllMusicDownloaded() {
+		File file = new File(musicFolder);
+		if(file.exists()) {
+			file.delete();
+		}
+	}
+
+	public static void loadMusicOnlyButton(ChatActivity ca) {
+		ca.initNotificationBar();
+	}
+
+	public static void loadMusicInfoToNotification(final MusicEntity me, final ChatActivity ca) {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				final Bitmap bm = me.loadAlbumBitmap(ca);
+				ca.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						ca.initNotificationBar(
+							me.getMusicName(), bm);
+					}
+				});
+			}
+		}).start();
 	}
 }

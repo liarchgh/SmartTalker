@@ -104,7 +104,7 @@ public class GetMusicUrl {
 		List<String>res = new ArrayList<String>();
 		String url = searchUrlPre.replace(songNameHolder, URLEncoder.encode(songName, "utf-8"));
 		url = url.replace(" ", "%20");
-Log.i("music", "url:"+url);
+//Log.i("music", "url:"+url);
 		String content = NetUtil.doGetString(url, null);
 		Pattern rule = Pattern.compile(songIdInJson);
 		Matcher mt = rule.matcher(content);
@@ -148,6 +148,7 @@ Log.i("music", "url:"+url);
 	}
 	
 	public static List<MusicEntity>searchMusicByKey(String key){
+//Log.i("music", "key:"+key);
 		String content;
 		List<MusicEntity>musics = new ArrayList<MusicEntity>();
 		try {
@@ -167,7 +168,7 @@ Log.i("music", "url:"+url);
 //					System.out.print(content.charAt(i));
 //				}
 //			}
-			
+	
 			//解析json
 			Gson resJson = new Gson();
 			Type tokens = new TypeToken<RequestBody>(){}.getType();
@@ -176,6 +177,11 @@ Log.i("music", "url:"+url);
 //			resJson.fromJson(content, tokens);
 //			System.out.println(request.result.songs.get(0).ar.get(0).name);
 			
+//Log.i("music", "request");
+			if(request.result.songs == null || request.result.songs.size() <= 0) {
+				return musics;
+			}
+//Log.i("music", "size:"+request.result.songs.size());
 			List<song>songs = request.result.songs;
 			List<String>temps = null;
 			for(Iterator<song>it = songs.iterator();
@@ -188,12 +194,13 @@ Log.i("music", "url:"+url);
 					temps.add(aar.next().name);
 				}
 				musics.add(new MusicEntity(so.name, so.id, temps,
-					so.al.name, so.al.picUrl, so.al.id));
+					so.al.name, so.al.picUrl.replace("https", "http"), so.al.id));
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+//Log.i("music", "size:"+musics.size());
 		return musics;
 	}
 }

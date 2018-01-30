@@ -104,46 +104,7 @@ public class MusicPlayerDialog extends Dialog{
 			});
 			
 			
-			TextView prev=(TextView) mView.findViewById(R.id.music_prev);
-			prev.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-			});
 			
-			TextView next=(TextView) mView.findViewById(R.id.music_next);
-			
-			next.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					
-					
-					
-					
-				}
-				
-			});
-			
-			TextView play=(TextView) mView.findViewById(R.id.music_state);
-			
-			play.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					
-					
-					
-					
-				}
-				
-			});
 			
 			
 			

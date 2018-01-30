@@ -62,7 +62,7 @@ public class FeatureShowActivity extends FragmentActivity {
 			editor.commit();
 			// initViewPager();
 		} else {
-			Log.i("DHJ", String.valueOf(count));
+//			Log.i("DHJ", String.valueOf(count));
 			myIntent = new Intent();
 			myIntent.setClass(FeatureShowActivity.this, ChatActivity.class);
 			startActivity(myIntent);
@@ -102,7 +102,7 @@ public class FeatureShowActivity extends FragmentActivity {
 	}
 
 	public void initViewPager() {
-		Log.i("DHJ", String.valueOf(count));
+//		Log.i("DHJ", String.valueOf(count));
 		mVs = new ArrayList<Fragment>();
 		mVs.add(new FeaturePageFragment("在这里你可以发送和我的对话内容", R.drawable.feat_1));
 		mVs.add(new FeaturePageFragment("点击+号打开功能面板\r\n享受更优质的功能服务", R.drawable.feat_2));

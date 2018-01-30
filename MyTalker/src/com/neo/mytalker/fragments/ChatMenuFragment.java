@@ -15,6 +15,8 @@ import com.neo.mytalker.entity.QualitySettingsDialog;
 import com.neo.mytalker.myinterface.MikuProgressDialog;
 import com.neo.mytalker.myinterface.SettingDialog;
 import com.neo.mytalker.myinterface.ThemeInterface;
+import com.neo.mytalker.util.ChatWithTalker;
+import com.neo.mytalker.util.MusicManager;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -230,15 +232,16 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener, T
 			break;
 		case 1:
 			ToggleMenu(false);
-			mMusicPlayerDialog = new MusicPlayerDialog.Builder(mContext, null).createListDialog();
-			mMusicPlayerDialog.show();
-			mChatActivity.mChatBarFrag.SetText("如何播放音乐");
+			//mMusicPlayerDialog = new MusicPlayerDialog.Builder(mContext, null).createListDialog();
+			//mMusicPlayerDialog.show();
+			mChatActivity.mChatBarFrag.SetText(ChatWithTalker.FEATURE_MUSIC_HOW);
 			mChatActivity.mChatBarFrag.SendText();
-			mChatActivity.mChatBarFrag.SetText("播放音乐");
+			mChatActivity.mChatBarFrag.SetText(ChatWithTalker.FEATURE_MUSIC_PLAY);
 			break;
 		case 2:
 			ToggleMenu(false);
-			mChatActivity.mChatBarFrag.SetText("跳支舞吧");
+			mChatActivity.mChatBarFrag.SetText(ChatWithTalker.FEATURE_DANCE);
+			MusicManager.musicStop(mChatActivity);
 			mChatActivity.mChatBarFrag.SendText();
 			mChatActivity.Dance();
 			break;

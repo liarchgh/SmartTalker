@@ -199,6 +199,7 @@ public class ChatRecordFragment extends Fragment implements ThemeInterface {
 		mChatRecordData.add(tmp);
 		mChatRecordAdapter.notifyDataSetChanged();
 		setListViewHeightBasedOnChildren(mChatRecordListView, isMaximized ? LIST_MAX_PART_CNT : LIST_MIN_PART_CNT);
+//		SetSpeak();
 	}
 	//
 	// public void addItem(boolean isMine,String content) {
@@ -269,6 +270,12 @@ public class ChatRecordFragment extends Fragment implements ThemeInterface {
 	@Override
 	public void ChangeThemeColor() {
 		// TODO Auto-generated method stub
+		mChatRecordAdapter.notifyDataSetChanged();
+	}
+
+	public void CleanRecord()
+	{
+		mChatRecordData.clear();
 		mChatRecordAdapter.notifyDataSetChanged();
 	}
 }
