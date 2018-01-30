@@ -35,7 +35,7 @@ public class AskAndAnswer {
 		init(context, userId, SQLiteManager.DB_NAME_HISTORY);
 	}
 
-	public void init(Context context, int userId, String dataBaseName) {
+	protected void init(Context context, int userId, String dataBaseName) {
 		// TODO Auto-generated constructor stub
 		this.dataBaseName = dataBaseName;
 		this.userId = "user"+userId;

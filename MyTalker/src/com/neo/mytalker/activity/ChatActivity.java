@@ -404,11 +404,17 @@ import android.widget.Toast;
 			}  
 	    }
 	}
+
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		notManager.cancelAll();
+		
 		super.onDestroy();
+		if (contentView != null) {  
+            notManager.cancel(100);  
+        }  
+        if (mMp3Receiver != null) {  
+            unregisterReceiver(mMp3Receiver);  
+        }  
 	}  
-	
 }

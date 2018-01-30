@@ -151,7 +151,7 @@ Log.i("music", "url:"+uri);
 					if(!file.exists()) {
 						file.mkdir();
 					}
-					if(NetUtil.doGetMusic(GetMusicUrl.getSongUrlById(music.getMusicId()),
+					if(NetUtil.doGetFile(GetMusicUrl.getSongUrlById(music.getMusicId()),
 						file.getPath()+File.separator+music.getMusicId()) != 200) {
 						Toast.makeText(context, HINT_DOWNLOAD_MUSIC_ERROR, Toast.LENGTH_LONG).show();
 					}
