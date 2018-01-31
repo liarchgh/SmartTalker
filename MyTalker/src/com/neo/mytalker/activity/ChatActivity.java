@@ -6,7 +6,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.neo.mytalker.R;
-import com.neo.mytalker.entity.AndroidBug5497Workaround;
 import com.neo.mytalker.entity.GlobalSettings;
 import com.neo.mytalker.entity.MusicEntity;
 import com.neo.mytalker.fragments.ChatBarFragment;
@@ -15,10 +14,9 @@ import com.neo.mytalker.fragments.ChatRecordFragment;
 import com.neo.mytalker.myinterface.MikuProgressDialog;
 import com.neo.mytalker.myinterface.ThemeInterface;
 import com.neo.mytalker.util.MusicManager;
-import com.unity3d.player.UnityPlayer;
-import com.unity3d.player.UnityPlayerActivity;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -37,18 +35,15 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
 //TODO:Remove this to enable UNITY
-public class ChatActivity extends UnityPlayerActivity {
-	// public class ChatActivity extends Activity {
+//public class ChatActivity extends UnityPlayerActivity {
+	 public class ChatActivity extends Activity {
 	public ChatRecordFragment mChatRecFrag;
 	public ChatBarFragment mChatBarFrag;
 	public ChatMenuFragment mChatMenuFragment;
@@ -110,35 +105,36 @@ public class ChatActivity extends UnityPlayerActivity {
 		inf.addAction("next");
 		inf.addAction("last");
 		registerReceiver(mMp3Receiver, inf);
-		// TODO:Remove this to enable UNITY
-		mSharedPreferences = getSharedPreferences("AppCountss", MODE_PRIVATE);
-		currentQualityLevel = mSharedPreferences.getInt("Quality", 2);
-		isGyroOn = true;
-		if (!SIMPLE_MODE) {
-			LinearLayout ll = (LinearLayout) findViewById(R.id.chat_unityview);
-			mUnityView = mUnityPlayer.getView();
-			ll.addView(mUnityView);
-		}
-
-		AndroidBug5497Workaround.assistActivity(this);
-
+//		// TODO:Remove this to enable UNITY
+//		mSharedPreferences = getSharedPreferences("AppCountss", MODE_PRIVATE);
+//		currentQualityLevel = mSharedPreferences.getInt("Quality", 2);
+//		isGyroOn = true;
+//		if (!SIMPLE_MODE) {
+//			LinearLayout ll = (LinearLayout) findViewById(R.id.chat_unityview);
+//			mUnityView = mUnityPlayer.getView();
+//			ll.addView(mUnityView);
+//		}
+//
+//		AndroidBug5497Workaround.assistActivity(this);
+//
 		mLoadingAnim = findViewById(R.id.chat_loadinganim);
-		mLoadingAnim.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View arg0, MotionEvent arg1) {
-				// TODO Auto-generated method stub
-
-				return true;
-			}
-		});
-
-		mTextDialog = (TextView) findViewById(R.id.chat_loading_text);
-		mTextDialog.setText("正在加载机器人...");
-		mImageView = (ImageView) findViewById(R.id.chat_loading_img);
-		mImageView.setBackgroundResource(R.anim.miku_frame);
-		mAnimationDrawable = (AnimationDrawable) mImageView.getBackground();
-		mAnimationDrawable.start();
+		mLoadingAnim.setVisibility(View.GONE);
+//		mLoadingAnim.setOnTouchListener(new OnTouchListener() {
+//
+//			@Override
+//			public boolean onTouch(View arg0, MotionEvent arg1) {
+//				// TODO Auto-generated method stub
+//
+//				return true;
+//			}
+//		});
+//
+//		mTextDialog = (TextView) findViewById(R.id.chat_loading_text);
+//		mTextDialog.setText("正在加载机器人...");
+//		mImageView = (ImageView) findViewById(R.id.chat_loading_img);
+//		mImageView.setBackgroundResource(R.anim.miku_frame);
+//		mAnimationDrawable = (AnimationDrawable) mImageView.getBackground();
+//		mAnimationDrawable.start();
 
 	}
 
@@ -201,34 +197,34 @@ public class ChatActivity extends UnityPlayerActivity {
 	public void Speak() {
 		// Log.i("speak", "start");
 
-		// TODO:Remove this to enable UNITY
-
-		if (!SIMPLE_MODE) {
-			UnityPlayer.UnitySendMessage("miku", "Speak", "");
-			Timer timer = new Timer();
-			timer.schedule(new TimerTask() {
-
-				@Override
-				public void run() { // TODO Auto-generated method stub
-					UnityPlayer.UnitySendMessage("miku", "Idle", "");
-				}
-			}, 1000);
-		}
+//		// TODO:Remove this to enable UNITY
+//
+//		if (!SIMPLE_MODE) {
+//			UnityPlayer.UnitySendMessage("miku", "Speak", "");
+//			Timer timer = new Timer();
+//			timer.schedule(new TimerTask() {
+//
+//				@Override
+//				public void run() { // TODO Auto-generated method stub
+//					UnityPlayer.UnitySendMessage("miku", "Idle", "");
+//				}
+//			}, 1000);
+//		}
 
 	}
 
 	public void Dance() {
-		// TODO:Remove this to enable UNITY
-
-		if (!SIMPLE_MODE) {
-			View tmp = findViewById(R.id.chat_cover);
-			tmp.setVisibility(View.VISIBLE);
-			ObjectAnimator animator1 = ObjectAnimator.ofFloat(tmp, "alpha", 1f, 0f);
-
-			animator1.setDuration(1000);
-			animator1.start();
-			UnityPlayer.UnitySendMessage("miku", "Dance", "");
-		}
+//		// TODO:Remove this to enable UNITY
+//
+//		if (!SIMPLE_MODE) {
+//			View tmp = findViewById(R.id.chat_cover);
+//			tmp.setVisibility(View.VISIBLE);
+//			ObjectAnimator animator1 = ObjectAnimator.ofFloat(tmp, "alpha", 1f, 0f);
+//
+//			animator1.setDuration(1000);
+//			animator1.start();
+//			UnityPlayer.UnitySendMessage("miku", "Dance", "");
+//		}
 
 	}
 
@@ -238,23 +234,23 @@ public class ChatActivity extends UnityPlayerActivity {
 	}
 
 	public void SetQuality(int l) {
-		// TODO:Remove this to enable UNITY
-
-		if (!SIMPLE_MODE) {
-			UnityPlayer.UnitySendMessage("miku", "SetQualityLevel", String.valueOf(l));
-			currentQualityLevel = l;
-		}
-
+//		// TODO:Remove this to enable UNITY
+//
+//		if (!SIMPLE_MODE) {
+//			UnityPlayer.UnitySendMessage("miku", "SetQualityLevel", String.valueOf(l));
+//			currentQualityLevel = l;
+//		}
+//
 	}
 
 	public void AutoAdjust(int maxLevel, TextView txt) {
-		// TODO:Remove this to enable UNITY
-
-		if (!SIMPLE_MODE) {
-			mText = txt;
-			UnityPlayer.UnitySendMessage("miku", "AutoDetectQuality", String.valueOf(maxLevel));
-			Toast.makeText(this, "正在自动调整画质，请稍后", Toast.LENGTH_SHORT).show();
-		}
+//		// TODO:Remove this to enable UNITY
+//
+//		if (!SIMPLE_MODE) {
+//			mText = txt;
+//			UnityPlayer.UnitySendMessage("miku", "AutoDetectQuality", String.valueOf(maxLevel));
+//			Toast.makeText(this, "正在自动调整画质，请稍后", Toast.LENGTH_SHORT).show();
+//		}
 
 	}
 
@@ -336,11 +332,11 @@ public class ChatActivity extends UnityPlayerActivity {
 	}
 
 	public void ToggleGyro(String args) {
-		// TODO:Remove this to enable UNITY
-		if (!SIMPLE_MODE) {
-			UnityPlayer.UnitySendMessage("miku", "ToogleGyro", "");
-			isGyroOn = !isGyroOn;
-		}
+//		// TODO:Remove this to enable UNITY
+//		if (!SIMPLE_MODE) {
+//			UnityPlayer.UnitySendMessage("miku", "ToogleGyro", "");
+//			isGyroOn = !isGyroOn;
+//		}
 	}
 
 	public void ToggleUnity() {

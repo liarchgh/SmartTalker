@@ -38,6 +38,7 @@ public abstract class MusicManager {
 	}
 	
 	public static final String HINT_DOWNLOAD_MUSIC_ERROR = "音乐加载失败",
+			HINT_NO_ARTIST_INFORMATION = "暂无歌手信息",
 			musicFolderHolder = File.separator+"music",
 			fileFolderHolder = File.separator+"file",
 			donwloadList = File.separator+"musicList",
@@ -462,5 +463,9 @@ public abstract class MusicManager {
 				});
 			}
 		}).start();
+	}
+	
+	public static boolean isPlaying(MusicEntity me) {
+		return me == musicNow;
 	}
 }

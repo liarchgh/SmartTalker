@@ -6,10 +6,14 @@ import java.util.Random;
 
 import com.neo.mytalker.activity.ChatActivity;
 import com.neo.mytalker.entity.MusicEntity;
+import com.neo.mytalker.entity.MusicPlayerDialog;
 import com.neo.mytalker.fragments.ChatRecordFragment;
 import com.neo.mytalker.util.MusicManager.MUSIC_STATUS;
 
+import android.app.Dialog;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Looper;
 
 public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 	public static final String
@@ -123,10 +127,23 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 //		return null;
 //	}
 //
-	private static String featureMusicPlay(ChatActivity ct, String musicName) {
-		List<MusicEntity>ms = MusicManager.searchMusicInNetease(ct, musicName);
+	private static String featureMusicPlay(final ChatActivity ct, String musicName) {
+		final List<MusicEntity>ms = MusicManager.searchMusicInNetease(ct, musicName);
 		if(ms.size() > 0) {
-			ms.get(0).play(ct);
+//			MusicPlayerDialog.Builder = mb;
+//			Looper.prepare();
+			ct.runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					final MusicPlayerDialog.Builder mb = new MusicPlayerDialog.Builder(ct, ms);
+					mb.createListDialog().show();
+//					new Dialog(ct).show();
+				}
+			});
+//			MusicPlayerDialog mpd = new MusicPlayerDialog(ct);
+//			ms.get(0).play(ct);
 			return ANSWER_MUSIC_PLAY;
 		}
 		else {
@@ -413,6 +430,14 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 //		}
 //	}
 	
+	public static void setNotification(ChatActivity ca) {
+		MusicEntity me = MusicManager.getMusicNow();
+		if(ChatWithTalker.mChatActivity != null && me!=null) {
+			ChatWithTalker.mChatActivity = ca;
+			ChatWithTalker.mChatActivity.initNotificationBar(me.getMusicName(), me.getAlbumImage());
+		}
+	}
+	
 	@Override
 	protected String doInBackground(Void... params) {
 		// TODO Auto-generated method stub
@@ -430,8 +455,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 //Log.i("dynamic", "res:"+result);
 		mChatRecFrag.AddRecord(false, result);
 		if(result.equals(ChatWithTalker.ANSWER_MUSIC_PLAY)) {
-			MusicEntity me = MusicManager.getMusicNow();
-			mChatRecFrag.mChatActivity.initNotificationBar(me.getMusicName(), me.getAlbumImage());
+			setNotification(mChatRecFrag.mChatActivity);
 		}
 		if(!ask.equals(ChatWithTalker.FEATURE_DANCE)) {
 			mChatActivity.Speak();
