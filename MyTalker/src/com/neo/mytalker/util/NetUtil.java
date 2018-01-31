@@ -102,6 +102,7 @@ public class NetUtil {
 //		huc.setRequestProperty("Upgrade-Insecure-Requests", "1");
 //				User-Agent	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36
 		huc.setRequestMethod("GET");
+		huc.setConnectTimeout(5000);
 		huc.connect();
 
 		// receive data as data
@@ -191,6 +192,7 @@ public class NetUtil {
 		huc.setRequestProperty("charset", "utf-8");
 		huc.setRequestProperty("Accept-Encoding", "utf-8");
 		huc.setRequestMethod("GET");
+		huc.setConnectTimeout(5000);
 		huc.connect();
 
 		// receive data as data
