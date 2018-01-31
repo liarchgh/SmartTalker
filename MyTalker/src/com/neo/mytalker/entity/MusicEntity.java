@@ -121,15 +121,15 @@ public class MusicEntity implements Serializable{
 		public String name;
 	}
 
-	public Bitmap loadAlbumBitmap(Context context) {
+	public Bitmap loadAlbumBitmap(ChatActivity context) {
 //		if(getAlbumImage() != null) {
 //			return getAlbumImage();
 //		}
-//		setAlbumImage(MusicManager.getAlbumImage(context, this));
+		Bitmap bm = MusicManager.getAlbumImage(context, this);
 //		MusicManager.saveAlbumImage(this);
 //		return getAlbumImage();
 //Log.i("bm", "url:"+getAlbumImageUri());
-		Bitmap bm = NetUtil.doGetBitmap(getAlbumImageUri(), null);
+//		Bitmap bm = NetUtil.doGetBitmap(getAlbumImageUri(), null);
 //Log.i("bm", "height:"+bm.getHeight());
 		return bm;
 	}

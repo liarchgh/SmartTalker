@@ -17,6 +17,8 @@ import com.neo.mytalker.entity.MusicEntity.RequestBody;
 import com.neo.mytalker.entity.MusicEntity.artist;
 import com.neo.mytalker.entity.MusicEntity.song;
 
+import android.util.Log;
+
 public class GetMusicUrl {
 	private final static String
 //		searchUrlPre = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.search.common&format=json&query={search}&page_no=1&page_size=30",
@@ -33,7 +35,7 @@ public class GetMusicUrl {
 		return fileUrlPre.replace(songIdHolder, id+"");
 	}
 
-	public static String getSongUrl(String songName) {
+	public static String getSongUrl(String songName, final String musicFolderPath) {
 //		return "http://music.163.com/song/media/outer/url?id=640565.mp3";
 
 //		final String musicFilePath = musicFolderPath+
@@ -131,19 +133,19 @@ public class GetMusicUrl {
 		return songUrls;
 	}
 	
-//	public static List<String>getSongsDownloaded(final String musicFolderPath){
-//		List<String>musics = new ArrayList<String>();
-//		File folder = new File(musicFolderPath);
-//		if(folder.exists() && folder.isDirectory()) {
-//			File[] files = folder.listFiles();
-//			String name = null;
-//			for(int i = 0; i < files.length; ++i) {
-//				name = files[i].getName();
-//				musics.add(name.substring(0, name.length() - 4));
-//			}
-//		}
-//		return musics;
-//	}
+	public static List<String>getSongsDownloaded(final String musicFolderPath){
+		List<String>musics = new ArrayList<String>();
+		File folder = new File(musicFolderPath);
+		if(folder.exists() && folder.isDirectory()) {
+			File[] files = folder.listFiles();
+			String name = null;
+			for(int i = 0; i < files.length; ++i) {
+				name = files[i].getName();
+				musics.add(name.substring(0, name.length() - 4));
+			}
+		}
+		return musics;
+	}
 	
 	public static List<MusicEntity>searchMusicByKey(String key){
 //Log.i("music", "key:"+key);

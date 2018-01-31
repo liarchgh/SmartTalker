@@ -31,9 +31,9 @@ public class ColorPickerDialog extends Dialog {
      * @param listener �ص�
      */
     
-    public ColorPickerDialog(Context context, String title, 
+    public ColorPickerDialog(Context context,int theme, String title, 
             OnColorChangedListener listener) {
-        this(context, Color.BLACK, title, listener);
+        this(context, theme, Color.BLACK, title, listener);
     }
    /* public ColorPickerDialog(Context context, String title, 
             OnColorChangedListener listener) {
@@ -46,16 +46,20 @@ public class ColorPickerDialog extends Dialog {
      * @param title ����
      * @param listener �ص�
      */
-    public ColorPickerDialog(Context context, int initialColor, 
+    public ColorPickerDialog(Context context, int theme, int initialColor, 
             String title, OnColorChangedListener listener) {
-        super(context);
+        super(context, theme);
         this.context = context;
         mListener = listener;
         mInitialColor = initialColor;
         this.title = title;
     }
     
-    /*public ColorPickerDialog(Context context, int initialColor, 
+    public ColorPickerDialog(Context context, int theme) {
+    	super(context, theme);
+    }
+
+        /*public ColorPickerDialog(Context context, int initialColor, 
            OnColorChangedListener listener) {
         super(context);
         this.context = context;
@@ -73,6 +77,7 @@ public class ColorPickerDialog extends Dialog {
         ColorPickerView myView = new ColorPickerView(context, height, width);
         setContentView(myView);
         setTitle(title);
+        
     }
      
     private class ColorPickerView extends View {
