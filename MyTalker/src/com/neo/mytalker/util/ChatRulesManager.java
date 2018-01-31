@@ -12,7 +12,7 @@ public class ChatRulesManager extends AskAndAnswer{
 	protected String dataBaseName = "";
 
 	public ChatRulesManager(Context context, int userId) {
-		super();
+//		super();
 		init(context, userId, SQLiteManager.DB_NAME_RULE);
 	}
 	
@@ -32,10 +32,10 @@ public class ChatRulesManager extends AskAndAnswer{
 		return getAnswerByAsk(ask);
 	}
 
-//	//传入用户说的话，查询之前规则
-//	public List<String> getRuleByAsk(String ask) {
-//		return getAnswerByAsk(ask);
-//	}
+	//传入用户说的话，查询之前规则
+	public List<String> getRuleByAsk(String ask) {
+		return getAnswerByAsk(ask);
+	}
 	
 	public List<Map<String, String>>getAllRules(){
 		return getHistory(-1, (int)1e9);

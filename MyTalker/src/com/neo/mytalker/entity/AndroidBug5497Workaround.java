@@ -62,14 +62,14 @@ public class AndroidBug5497Workaround {
           frameLayoutParams.gravity=Gravity.BOTTOM;
           mChildOfContent.requestLayout();
           usableHeightPrevious = usableHeightNow;
-          Log.i("ZX",""+usableHeightSansKeyboard+" "+heightDifference+" "+frameLayoutParams.height);
+          //Log.i("ZX",""+usableHeightSansKeyboard+" "+heightDifference+" "+frameLayoutParams.height);
   		Resources resources = ac.getResources();
   		DisplayMetrics dm = resources.getDisplayMetrics();
   		float density = dm.density;
   		int width = dm.widthPixels;
   		int height = dm.heightPixels;
   		
-          Log.i("ZX","currentsize："+width+" "+height);
+         //Log.i("ZX","currentsize："+width+" "+height);
       }
   }
 

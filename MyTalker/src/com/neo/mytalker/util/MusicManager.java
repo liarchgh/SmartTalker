@@ -388,12 +388,32 @@ public static List<MusicEntity>getMusicDownloaded(){
 		return null;
 	}
 	
-	public static void deleteAllMusicDownloaded() {
-		File file = new File(musicFolder);
-		if(file.exists()) {
-			file.delete();
+	public static boolean deleteAllMusicDownloaded() {
+		if(musicFolder != null && !musicFolder.equals("")) {
+			File file = new File(musicFolder);
+			return deleteFiles(file); 
 		}
+		return true;
 	}
+	
+	private static boolean deleteFiles(File file) {
+//		File file = new File(url);
+		if(file.exists()) {
+			if(file.isDirectory()) {
+				String[] ls = file.list();
+				boolean suc = true;
+				for(int i = 0; i < ls.length; ++i) {
+					suc = suc && deleteFiles(new File(file, ls[i]));
+				}
+				return suc;
+			}
+			else {
+				return file.delete();
+			}
+		}
+		return true;
+	}
+
 
 	public static void loadMusicOnlyButton(ChatActivity ca) {
 		ca.initNotificationBar();

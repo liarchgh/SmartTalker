@@ -164,7 +164,6 @@ public class ChatBarFragment extends Fragment implements ThemeInterface {
 			// to receive from TR
 
 			mChatRecFrag.loading();
-
 			// TODO:Modify the result to update
 			new ChatWithTalker(mChatRecFrag, mChatActivity, 0, tmp).execute();
 		} else {

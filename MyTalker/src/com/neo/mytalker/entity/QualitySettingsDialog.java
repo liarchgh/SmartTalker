@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -46,6 +47,7 @@ public class QualitySettingsDialog extends Dialog {
 		private View mDecline;
 		private View mAutoHigh;
 		private View mAutoLow;
+		private TextView mToggleGyro,mToggleUnity;
 
 		public Builder(Context context, ChatActivity chatActivity) {
 			dialog = new QualitySettingsDialog(context, R.style.DialogNotDim);
@@ -57,6 +59,8 @@ public class QualitySettingsDialog extends Dialog {
 			mTopBar.setBackgroundColor(GlobalSettings.THEME_COLOR);
 			View mTopBar2 = mView.findViewById(R.id.quality_topbar2);
 			mTopBar2.setBackgroundColor(GlobalSettings.THEME_COLOR);
+			View mTopBar3 = mView.findViewById(R.id.quality_topbar3);
+			mTopBar3.setBackgroundColor(GlobalSettings.THEME_COLOR);
 			mText = (TextView) mView.findViewById(R.id.quality_now);
 			mText.setText(mQualityStrings[mChatActivity.getCurrentQualityLevel()]);
 			mDown = (ImageView) mView.findViewById(R.id.quality_down);
@@ -120,6 +124,55 @@ public class QualitySettingsDialog extends Dialog {
 				}
 			});
 			
+			mToggleGyro = (Button) mView.findViewById(R.id.quality_togglegyro);
+			mToggleGyro.setBackgroundColor(Color.WHITE);
+			if(mChatActivity.isGyroOn)
+			{
+				mToggleGyro.setText("禁用陀螺仪");
+			}else
+			{
+				mToggleGyro.setText("启用陀螺仪");
+			}
+			mToggleGyro.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					mChatActivity.ToggleGyro("");
+					if(mChatActivity.isGyroOn)
+					{
+						mToggleGyro.setText("禁用陀螺仪");
+					}else
+					{
+						mToggleGyro.setText("启用陀螺仪");
+					}
+				}
+			});
+			
+			mToggleUnity = (Button) mView.findViewById(R.id.quality_toggleunity);
+			mToggleUnity.setBackgroundColor(Color.WHITE);
+			if(mChatActivity.SIMPLE_MODE)
+			{
+				mToggleUnity.setText("启用虚拟形象");
+			}else
+			{
+				mToggleUnity.setText("禁用虚拟形象");
+			}
+			mToggleUnity.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					mChatActivity.ToggleUnity();
+					if(mChatActivity.SIMPLE_MODE)
+					{
+						mToggleUnity.setText("启用虚拟形象");
+					}else
+					{
+						mToggleUnity.setText("禁用虚拟形象");
+					}
+				}
+			});
 			
 			
 			mAccept = mView.findViewById(R.id.quality_accept);
