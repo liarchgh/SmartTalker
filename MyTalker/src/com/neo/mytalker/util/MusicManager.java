@@ -90,36 +90,37 @@ public abstract class MusicManager {
 	//播放音乐
 	public static MusicEntity musicPlay(ChatActivity at, MusicEntity music) {
 		init(at);
-Log.i("music", "name:"+music.getAlbumName());
+//Log.i("music", "name:"+music.getAlbumName());
 		//判断是否是当前正在播放的歌曲，是的话直接返回当前播放对象
 		if(music != null && musicNow != null && 
 				music.getMusicId() == musicNow.getMusicId()) {
 			return musicNow;
 		}
+
 		try {
 			//检测是否已下载，已下载的话、引用改为从下载列表里查出的对象，方便判断在列表里的位置
-			String uri = findDownloaded(at, music);
+			String uri = findInDownloaded(at, music);
 			if(uri == null || uri.equals("")) {
 				uri = GetMusicUrl.getSongUrlById(music.getMusicId());
 				musicDownload(music);
 			}
 			else {
-				music = findDownloadById(at, music.getMusicId());
+				music = findInDownloadedById(at, music.getMusicId());
 			}
 			//没有结果 直接返回 表示失败
 			if(uri == null || uri.equals("")) {
 				return null;
 			}
-			
+
 //			saveAlbumImage(music);
-	
+
 			//更新当前歌曲
 			musicNow = music;
 			MusicEntity temp = addHistory(musicNow);
 			if(temp != null) {
 				musicNow = temp;
 			}
-Log.i("music", "url:"+uri);
+//Log.i("music", "url:"+uri);
 			musicPlay(at, uri);
 			return musicNow;
 		} catch (IllegalArgumentException e) {
@@ -198,18 +199,28 @@ Log.i("music", "url:"+uri);
 	public static List<MusicEntity>getMusicHistory(){
 		return musicHistory;
 	}
-	public static List<MusicEntity>searchMusicInNetease(String key){
-		return GetMusicUrl.searchMusicByKey(key);
+	public static List<MusicEntity>searchMusicInNetease(ChatActivity ca, String key){
+		List<MusicEntity>temp = GetMusicUrl.searchMusicByKey(key);
+		if(temp == null || temp.size() <= 0) {
+			temp = findInDownloadedByName(ca, key);
+		}
+		return temp;
 	}
-public static List<MusicEntity>getMusicDownloaded(){
-		return null;
-	}
+//	public static List<MusicEntity>getMusicDownloaded(){
+//		return null;
+//	}
 	public static Bitmap getMusicImageById(long musicId) {
 		return null;
 	}
 	
-	private static String findDownloaded(ChatActivity at, MusicEntity music) {
+	public static List<MusicEntity>getAllDownloadedMusics(ChatActivity at){
 		init(at);
+		return musicDownloaded;
+	}
+
+	private static String findInDownloaded(ChatActivity at, MusicEntity music) {
+		init(at);
+		musicDownloaded = readDownloadedMusicList();
 		MusicEntity res = null;
 		String uri = musicFolder+fileFolderHolder+File.separator+music.getMusicId();
 		for(Iterator<MusicEntity>it = musicDownloaded.iterator();
@@ -227,7 +238,8 @@ public static List<MusicEntity>getMusicDownloaded(){
 		return null;
 	}
 
-	public static MusicEntity findDownloadById(ChatActivity at, long musicId) {
+	private static MusicEntity findInDownloadedById(ChatActivity at, long musicId) {
+		init(at);
 		MusicEntity res = null;
 		for(Iterator<MusicEntity>it = musicDownloaded.iterator();
 				it.hasNext();) {
@@ -237,6 +249,20 @@ public static List<MusicEntity>getMusicDownloaded(){
 			}
 		}
 		return null;
+	}
+	
+	private static List<MusicEntity> findInDownloadedByName(ChatActivity at, String musicName) {
+		init(at);
+		List<MusicEntity>ress = new ArrayList<MusicEntity>();
+		MusicEntity res = null;
+		for(Iterator<MusicEntity>it = musicDownloaded.iterator();
+				it.hasNext();) {
+			res = it.next();
+			if(res.getMusicName().equals(musicName)) {
+				ress.add(res);
+			}
+		}
+		return ress;
 	}
 	
 	private static boolean saveDownloadedMusicList(MusicEntity music) {
@@ -330,7 +356,7 @@ public static List<MusicEntity>getMusicDownloaded(){
 //			file.createNewFile();
 			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));   
 			Bitmap bm = NetUtil.doGetBitmap(music.getAlbumImageUri(), null);
-			bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);   
+			bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);
 			bos.flush();
 			bos.close();
 			return bm;
