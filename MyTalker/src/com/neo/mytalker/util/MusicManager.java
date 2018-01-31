@@ -305,39 +305,40 @@ public static List<MusicEntity>getMusicDownloaded(){
 		musicHistory.add(musicNow);
 		return null;
 	}
+
 	public static Bitmap getAlbumImage(ChatActivity context, MusicEntity music) {
-//Log.i("music", "image:"+music.getAlbumImageUri());
-		String uri = musicFolder+imageFolderHolder;
-		File file = new File(uri);
+		StringBuffer uri = new StringBuffer(musicFolder+imageFolderHolder);
+		File file = new File(uri.toString());
 		if(!file.exists()) {
 			file.mkdir();
 		}
-		uri += File.separator+music.getAlbumId();
-//Log.i("music", "image uri:"+uri);
-		if(file.exists()) {
-			return BitmapFactory.decodeFile(uri);
+		uri.append(File.separator+music.getAlbumId());
+		file = new File(uri.toString());
+		if(!file.exists()) {
+			return saveAlbumImage(music);
 		}
-//		saveAlbumImage(music);
-		return NetUtil.doGetBitmap(music.getAlbumImageUri(), null);
+		return BitmapFactory.decodeFile(uri.toString());
+//		return NetUtil.doGetBitmap(music.getAlbumImageUri(), null);
 	}
-	public static boolean saveAlbumImage(MusicEntity music) {
+	public static Bitmap saveAlbumImage(MusicEntity music) {
         try {
 			String uri = musicFolder+imageFolderHolder+File.separator+music.getAlbumId();
 			File file = new File(uri);
 			if(file.exists()) {
-				return false;
+				return null;
 			}
 //			file.createNewFile();
 			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));   
-			music.getAlbumImage().compress(Bitmap.CompressFormat.JPEG, 100, bos);   
+			Bitmap bm = NetUtil.doGetBitmap(music.getAlbumImageUri(), null);
+			bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);   
 			bos.flush();
 			bos.close();
-			return true;
+			return bm;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}   
-        return false;
+        return null;
 	}
 	public static boolean musicIsPlaying() {
 		if(musicControler != null && musicControler.isPlaying()) {
