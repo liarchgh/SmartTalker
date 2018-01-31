@@ -20,6 +20,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,6 +45,7 @@ public class ChatRecordFragment extends Fragment implements ThemeInterface {
 	private int mEarliestId = -1;
 	// 每次从数据库取出的历史记录的条数
 	private int mQuerySize = 10;
+	private boolean ifLoading = false;
 
 	public ChatRecordFragment(ChatActivity activity) {
 		mChatActivity = activity;
@@ -217,36 +219,61 @@ public class ChatRecordFragment extends Fragment implements ThemeInterface {
 	// }
 
 	public void loading() {
+		ifLoading = true;
 		AddRecord(false, ".");
 		Timer loadTimer = new Timer();
-		mChatRecordListView.setTag(loadTimer);
 		loadTimer.schedule(new TimerTask() {
+//		Thread th = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				mChatRecordListView.post(new Runnable() {
-
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						String loadText = mChatRecordData.get(mChatRecordData.size() - 1).msg + ".";
-						if (loadText.length() > 6) {
-							loadText = ".";
-						}
-						// Log.i("dynamic", loadText);
-						mChatRecordData.get(mChatRecordData.size() - 1).msg = loadText;
-						mChatRecordAdapter.notifyDataSetChanged();
+//				while(true) {
+				if(ifLoading) {
+					String loadText = mChatRecordData.get(mChatRecordData.size() - 1).msg + ".";
+					if (loadText.length() > 6) {
+						loadText = ".";
 					}
-				});
+					final String text = loadText;
+					mChatRecordListView.post(new Runnable() {
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							if(ifLoading) {
+								mChatRecordData.get(mChatRecordData.size() - 1).msg = text;
+								mChatRecordAdapter.notifyDataSetChanged();
+							}
+						}
+					});
+//					try {
+//						Thread.sleep(600);
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
+				}
 			}
 		}, 0, 600);
+		mChatRecordListView.setTag(loadTimer);
+//		mChatRecordListView.setTag(th);
 	}
-
+	
+	@SuppressWarnings("deprecation")
 	public void stopLoading() {
+//		Thread th = (Thread) mChatRecordListView.getTag();
+//		if (th != null) {
+////			th.stop();
+//			th.destroy();
+//			mChatRecordData.remove(mChatRecordData.size() - 1);
+//			mChatRecordListView.setTag(null);
+//		}
 		Timer ttm = (Timer) mChatRecordListView.getTag();
 		if (ttm != null) {
 			ttm.cancel();
+//			ttm.purge();
+			ifLoading = false;
 			mChatRecordData.remove(mChatRecordData.size() - 1);
 			mChatRecordListView.setTag(null);
 		}

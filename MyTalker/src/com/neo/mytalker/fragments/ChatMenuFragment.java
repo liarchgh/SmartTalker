@@ -66,7 +66,7 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener, T
 	MusicPlayerDialog mMusicPlayerDialog;
 	public QualitySettingsDialog mQualitySettingsDialog;
     MikuProgressDialog mMikuProgressDialog;
-	SettingDialog mSettingDialog;
+	public SettingDialog mSettingDialog;
 	SettingDialog.Builder mSettingBuilder;
 	public ChatMenuFragment(ChatActivity activity) {
 		mChatActivity = activity;
@@ -217,7 +217,7 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener, T
 		MenuFunctionItem item = mFunctionListItemList.get(current).get(position);
 		switch (position) {
 		case 0:
-			mMikuProgressDialog = new MikuProgressDialog(mContext, "正在加载中...");
+			mMikuProgressDialog = new MikuProgressDialog(mContext, "正在加载中...", R.anim.miku_frame);
 			mMikuProgressDialog.show();
 			new Thread(new Runnable() {
 
@@ -246,7 +246,7 @@ public class ChatMenuFragment extends Fragment implements OnItemClickListener, T
 			mChatActivity.Dance();
 			break;
 		case 3:
-			mMikuProgressDialog = new MikuProgressDialog(mContext, "正在加载中...");
+			mMikuProgressDialog = new MikuProgressDialog(mContext, "正在加载中...", R.anim.miku_frame);
 			mMikuProgressDialog.show();
 			new Thread(new Runnable() {
 

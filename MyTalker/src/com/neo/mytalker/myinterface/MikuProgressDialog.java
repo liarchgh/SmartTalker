@@ -16,11 +16,13 @@ public class MikuProgressDialog extends ProgressDialog{
 	private TextView mTextView;	
 	private ImageView mImageView;
 	private AnimationDrawable mAnimationDrawable;
+	private int mRid;
 	
-	public MikuProgressDialog(Context context, String content) {
+	public MikuProgressDialog(Context context, String content, int id) {
 		super(context);
 		mContext = context;
 		mLoadingTip = content;
+		mRid = id;
 		setCanceledOnTouchOutside(false);
 	}
 
@@ -41,8 +43,19 @@ public class MikuProgressDialog extends ProgressDialog{
 	
 	public void initData() {
 		mTextView.setText(mLoadingTip);
+		mImageView.setBackgroundResource(mRid);
+	//	mImageView.setImageResource(R.anim.miku_frame);
 		mAnimationDrawable = (AnimationDrawable) mImageView.getBackground();
-		mAnimationDrawable.start();
+	//	mAnimationDrawable.start();
+		mImageView.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				mAnimationDrawable.start();
+			}
+		});
+		
 	}
 	
 }

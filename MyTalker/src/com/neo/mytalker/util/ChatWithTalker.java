@@ -61,7 +61,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 			ChatRulesManager crm = new ChatRulesManager(mChatActivity, userId);
 
 			//查询规则 获取结果
-			List<String>anss = crm.getRuleByAsk(ask);
+			List<String>anss = crm.getAnswerByAskInRules(ask);
 			
 			//判断是否可以使用规则
 			if(anss != null && anss.size() > 0) {
@@ -223,7 +223,7 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 		return ChatWithTalker.ANSWER_MUSIC_ERROR;
 	}
 	
-	public static String featureMusicHistoryToString() {
+	private static String featureMusicHistoryToString() {
 //		List<String>musics = GetMusicUrl.getSongsDownloaded(musicFolderPath);
 		List<MusicEntity>musics = MusicManager.getMusicHistory();
 		StringBuffer res = new StringBuffer();
@@ -344,7 +344,8 @@ public class ChatWithTalker extends AsyncTask<Void, Integer, String>{
 	private static String ask = null;
 	private ChatRecordFragment mChatRecFrag;
 	private static ChatActivity mChatActivity = null;
-	public ChatWithTalker(ChatRecordFragment mChatRecFrag, ChatActivity mChatActivity, int userId, String ask) {
+	public ChatWithTalker(ChatRecordFragment mChatRecFrag,
+			ChatActivity mChatActivity, int userId, String ask) {
 		// TODO Auto-generated constructor stub
 		ChatWithTalker.mChatActivity = mChatActivity;
 		ChatWithTalker.userId = userId;

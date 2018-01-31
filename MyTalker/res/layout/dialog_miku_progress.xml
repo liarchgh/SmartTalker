@@ -6,9 +6,9 @@
     
     <ImageView 
         android:id="@+id/loading_img"
-        android:layout_width="150dp"
+        android:layout_width="162dp"
         android:layout_height="150dp"
-        android:background="@anim/miku_frame"/>
+        android:background="@drawable/miku1"/>
     
     <TextView 
         android:id="@+id/loading_text"

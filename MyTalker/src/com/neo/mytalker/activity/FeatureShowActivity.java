@@ -104,8 +104,8 @@ public class FeatureShowActivity extends FragmentActivity {
 	public void initViewPager() {
 //		Log.i("DHJ", String.valueOf(count));
 		mVs = new ArrayList<Fragment>();
-		mVs.add(new FeaturePageFragment("在这里你可以发送和我的对话内容", R.drawable.feat_1));
-		mVs.add(new FeaturePageFragment("点击+号打开功能面板\r\n享受更优质的功能服务", R.drawable.feat_2));
+		mVs.add(new FeaturePageFragment("在这里你既可以跟我信息聊天还可以跟我语音哟", R.drawable.feat_1));
+		mVs.add(new FeaturePageFragment("点击+号打开功能面板\r\n探索更多有趣的功能", R.drawable.feat_2));
 		mVs.add(new FeatureFinalPageFragment("让我们开始吧", this));
 		mVp = (ViewPager) findViewById(R.id.feature_show_pages);
 		mFpa = new FeaturesPagerAdapter(getSupportFragmentManager(), mVs);

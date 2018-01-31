@@ -2,14 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-	<ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:background="#000000"
-                android:contentDescription="Launchbg"
-                android:scaleType="centerInside"
-                android:src="@drawable/logo" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:background="#000000"
+        android:contentDescription="Launchbg"
+        android:scaleType="centerInside"
+        android:src="@drawable/logo" />
+
     <LinearLayout
         android:id="@+id/chat_unityview"
         android:layout_width="match_parent"
@@ -27,10 +29,7 @@
             android:id="@+id/chat_frame"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            >
-
-            
+            android:layout_weight="1" >
 
             <RelativeLayout
                 android:id="@+id/chat_recordfrag"
@@ -54,19 +53,45 @@
             android:visibility="gone" >
         </FrameLayout>
     </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/chat_cover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000" 
-        android:visibility="gone">
+        android:background="#000000"
+        android:visibility="gone" >
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/chat_loadinganim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#88888888"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/chat_loading_img"
+            android:layout_width="162dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/miku1" />
+
+        <TextView
+            android:id="@+id/chat_loading_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chat_loading_img"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/chat_splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000" 
-        >
+        android:background="#000000" >
 
         <ImageView
             android:id="@+id/chat_logo"

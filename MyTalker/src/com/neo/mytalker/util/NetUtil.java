@@ -14,10 +14,9 @@ import java.util.Map;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 public class NetUtil {
-	public static int doGetMusic(final String url, final String filePath) throws IOException {
+	public static int doGetFile(final String url, final String filePath) throws IOException {
 		//use url and parameter to get realurl
 //		new Thread(new Runnable() {
 //			
@@ -171,7 +170,7 @@ public class NetUtil {
 		return res.toString();
 	}
 
-	public static byte[] doGetByteArray(String url, Map<String, String> paras) throws IOException {
+	private static byte[] doGetByteArray(String url, Map<String, String> paras) throws IOException {
 //Log.i("music", "do get ba");
 		// use url and parameter to get realurl
 		StringBuffer realUrl = new StringBuffer(url);

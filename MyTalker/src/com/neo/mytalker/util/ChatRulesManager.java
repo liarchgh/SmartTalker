@@ -12,7 +12,7 @@ public class ChatRulesManager extends AskAndAnswer{
 	protected String dataBaseName = "";
 
 	public ChatRulesManager(Context context, int userId) {
-		super();
+//		super();
 		init(context, userId, SQLiteManager.DB_NAME_RULE);
 	}
 	
