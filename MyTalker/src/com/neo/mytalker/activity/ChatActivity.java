@@ -48,7 +48,7 @@ import android.widget.Toast;
 
 //TODO:Remove this to enable UNITY
 public class ChatActivity extends UnityPlayerActivity {
-	// public class ChatActivity extends Activity {
+//	 public class ChatActivity extends Activity {
 	public ChatRecordFragment mChatRecFrag;
 	public ChatBarFragment mChatBarFrag;
 	public ChatMenuFragment mChatMenuFragment;
@@ -123,6 +123,7 @@ public class ChatActivity extends UnityPlayerActivity {
 		AndroidBug5497Workaround.assistActivity(this);
 
 		mLoadingAnim = findViewById(R.id.chat_loadinganim);
+//		mLoadingAnim.setVisibility(View.GONE);
 		mLoadingAnim.setOnTouchListener(new OnTouchListener() {
 
 			@Override

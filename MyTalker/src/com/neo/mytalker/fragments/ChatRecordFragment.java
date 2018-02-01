@@ -198,6 +198,12 @@ public class ChatRecordFragment extends Fragment implements ThemeInterface {
 		tmp.isMe = isMine;
 		// mChatRecordData.add(tmp);
 		// mChatRecordData.add(lastPosition=mChatRecordData.size(), tmp);
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mChatRecordData.add(tmp);
 		mChatRecordAdapter.notifyDataSetChanged();
 		setListViewHeightBasedOnChildren(mChatRecordListView, isMaximized ? LIST_MAX_PART_CNT : LIST_MIN_PART_CNT);

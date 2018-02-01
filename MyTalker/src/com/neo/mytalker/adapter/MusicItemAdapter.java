@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.neo.mytalker.R;
+import com.neo.mytalker.entity.MusicEntity;
 import com.neo.mytalker.entity.MusicItemData;
+import com.neo.mytalker.util.MusicManager;
+
 import android.content.Context;
 
 import android.view.LayoutInflater;
@@ -16,10 +19,10 @@ import android.widget.TextView;
 
 public class MusicItemAdapter extends BaseAdapter {
 
-	List<MusicItemData> mMusicItemList;
+	List<MusicEntity> mMusicItemList;
 	Context mContext;
 
-	public MusicItemAdapter(List<MusicItemData> musicItemList, Context c) {
+	public MusicItemAdapter(List<MusicEntity> musicItemList, Context c) {
 		mMusicItemList = musicItemList;
 		mContext = c;
 	}
@@ -52,7 +55,7 @@ public class MusicItemAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	public void addItem(MusicItemData m) {
+	public void addItem(MusicEntity m) {
 		mMusicItemList.add(m);
 	}
 
@@ -73,12 +76,17 @@ public class MusicItemAdapter extends BaseAdapter {
 
 	private void bindViewWithData(int position, View convertView) {
 		ViewHolder vh = (ViewHolder) convertView.getTag();
-		if (mMusicItemList.get(position).isPlaying) {
+		MusicEntity me = mMusicItemList.get(position);
+		if (me.isPlaying()) {
 			vh.mIsPlaying.setVisibility(View.VISIBLE);
 		} else {
 			vh.mIsPlaying.setVisibility(View.INVISIBLE);
 		}
-		vh.mName.setText(mMusicItemList.get(position).name);
+		String ars = me.getArtistsNamesToString();
+		if(ars == null || ars.equals("")) {
+			ars = MusicManager.HINT_NO_ARTIST_INFORMATION;
+		}
+		vh.mName.setText(me.getMusicName()+"("+ars+")");
 	}
 
 	public class ViewHolder {

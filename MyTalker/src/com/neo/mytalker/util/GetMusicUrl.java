@@ -133,19 +133,19 @@ public class GetMusicUrl {
 		return songUrls;
 	}
 	
-	public static List<String>getSongsDownloaded(final String musicFolderPath){
-		List<String>musics = new ArrayList<String>();
-		File folder = new File(musicFolderPath);
-		if(folder.exists() && folder.isDirectory()) {
-			File[] files = folder.listFiles();
-			String name = null;
-			for(int i = 0; i < files.length; ++i) {
-				name = files[i].getName();
-				musics.add(name.substring(0, name.length() - 4));
-			}
-		}
-		return musics;
-	}
+//	public static List<String>getSongsDownloaded(final String musicFolderPath){
+//		List<String>musics = new ArrayList<String>();
+//		File folder = new File(musicFolderPath);
+//		if(folder.exists() && folder.isDirectory()) {
+//			File[] files = folder.listFiles();
+//			String name = null;
+//			for(int i = 0; i < files.length; ++i) {
+//				name = files[i].getName();
+//				musics.add(name.substring(0, name.length() - 4));
+//			}
+//		}
+//		return musics;
+//	}
 	
 	public static List<MusicEntity>searchMusicByKey(String key){
 //Log.i("music", "key:"+key);
@@ -168,7 +168,11 @@ public class GetMusicUrl {
 //					System.out.print(content.charAt(i));
 //				}
 //			}
-	
+			
+			if(content == null || content.equals("")) {
+				return musics;
+			}
+
 			//解析json
 			Gson resJson = new Gson();
 			Type tokens = new TypeToken<RequestBody>(){}.getType();

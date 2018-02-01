@@ -1,15 +1,12 @@
 package com.neo.mytalker.entity;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 
 import com.neo.mytalker.activity.ChatActivity;
 import com.neo.mytalker.util.MusicManager;
-import com.neo.mytalker.util.NetUtil;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.LayoutDirection;
-import android.util.Log;
 
 public class MusicEntity implements Serializable{
 	private String musicName;
@@ -132,5 +129,24 @@ public class MusicEntity implements Serializable{
 //		Bitmap bm = NetUtil.doGetBitmap(getAlbumImageUri(), null);
 //Log.i("bm", "height:"+bm.getHeight());
 		return bm;
+	}
+	
+	public boolean isPlaying() {
+		return MusicManager.isPlaying(this);
+	}
+	
+	public String getArtistsNamesToString() {
+		StringBuffer ars = new StringBuffer();
+		for(Iterator<String>ar = getArtistNames().iterator();
+				true;) {
+			ars.append(ar.next());
+			if(ar.hasNext()) {
+				ars.append(",");
+			}
+			else {
+				break;
+			}
+		}
+		return ars.toString();
 	}
 }
