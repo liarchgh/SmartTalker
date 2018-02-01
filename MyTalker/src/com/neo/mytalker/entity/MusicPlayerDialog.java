@@ -24,7 +24,7 @@ import android.widget.RelativeLayout;
 public class MusicPlayerDialog extends Dialog{
 	public MusicPlayerDialog(Context context) {
 		super(context);
-		setCanceledOnTouchOutside(true);
+		setCanceledOnTouchOutside(false);
 	}
 
 	public MusicPlayerDialog(Context context, int themeResId) {
@@ -82,7 +82,7 @@ public class MusicPlayerDialog extends Dialog{
 			        builder.setTitle(me.getMusicName()); //设置标题  
 			        builder.setMessage("专辑名："+me.getAlbumName()
 						+"\n艺术家："+me.getArtistsNamesToString()); //设置内容 
-//			        builder.setIcon(new BitmapDrawable(tempCA.getResources(), me.getAlbumImage()));//设置图标，图片id即可
+			        builder.setIcon(new BitmapDrawable(tempCA.getResources(), me.getAlbumImage()));//设置图标，图片id即可
 			        builder.setIcon(R.drawable.iclauncher);//设置图标，图片id即可  
 			        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() { //设置确定按钮  
 			            @Override  
@@ -108,6 +108,7 @@ public class MusicPlayerDialog extends Dialog{
 //			            }  
 //			        });  
 			        //参数都设置完成了，创建并显示出来  
+			        MusicPlayerDialog.Builder.this.createListDialog().dismiss();
 			        builder.create().show();  
 				}
 				
